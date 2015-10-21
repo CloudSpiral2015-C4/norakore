@@ -19,8 +19,8 @@ public class DBUtils {
 	private DB db;
 
 	//private final String host = new String("");
-	private final String host = new String("192.168.10.2");
-	private final String dbName = new String("alpaca_c0");
+	private final String host = new String("localhost");
+	private final String dbName = new String("alpaca_c4");
 
 	private DBUtils() {
 		try {
