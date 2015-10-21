@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="utf-8">
+		<title>alpaca+</title>
+		<link rel="stylesheet" href="css/default.css">
+		<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+	</head>
+
+	<body>
+		<input id="like" type="button" value="いいね">
+		<input id="message" type="text">
+		<input id="submit" type="button" value="投稿">
+		<input id="latlng" type="button" value="現在地を入力">
+
+		<div id="map" style="width:400px; height:400px"></div>
+
+		<p>総いいね回数：
+			<span id="total">0</span>
+		</p>
+
+		<div id="board"></div>
+
+		<script src="https://maps.google.com/maps/api/js?v=3&sensor=false"></script>
+		<script src="js/jquery-2.1.4.js"></script>
+		<script src="js/alpaca+.js"></script>
+	</body>
+
+</html>
