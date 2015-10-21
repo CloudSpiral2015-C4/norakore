@@ -3,7 +3,7 @@
 <project default="generate.service" basedir=".">
 
 	<!-- warファイルの設定 -->
-	<property name="service.name" value="alpaca" />
+	<property name="service.name" value="norakore" />
 	<property name="war.home" value="C:/pbl/tomcat/webapps" />
 	<property name="dest.dir" value="build" />
 	<property name="dest.dir.web" value="${dest.dir}/web" />
