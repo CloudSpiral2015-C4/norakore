@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<project default="generate.service" basedir=".">
-
+<project default="deploy" basedir=".">
 	<!-- warファイルの設定 -->
+    <property file="build.properties"/>
 	<property name="service.name" value="norakore" />
-	<property name="war.home" value="C:/pbl/tomcat/webapps" />
 	<property name="dest.dir" value="build" />
 	<property name="dest.dir.web" value="${dest.dir}/web" />
 	<property name="dest.dir.metainf" value="${dest.dir}/META-INF" />
@@ -60,4 +59,13 @@
 		<jar destfile="${service.name}.war" basedir="${dest.dir}" />
 
 	</target>
+
+    <target name="deploy" depends="generate.service">
+        <!-- clean -->
+		<delete dir="${war.home}/${service.name}" />
+		<delete file="${war.home}/${service.name}.war" />
+
+        <!-- deploy -->
+		<copy file="${service.name}.war" todir="${war.home}" />
+    </target>
 </project>
