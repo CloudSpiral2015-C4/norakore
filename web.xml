@@ -18,7 +18,7 @@
 
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>jp.kobe_u.cspiral.alpaca</param-value>
+			<param-value>jp.kobe_u.cspiral.norakore</param-value>
 		</init-param>
 	</servlet>
 
