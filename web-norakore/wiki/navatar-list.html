@@ -1,0 +1,155 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/bootstrap.js" ></script>
+	<script type='text/javascript' src="js/common.js" ></script>
+	<title>テスト</title>
+</head>
+<body>
+	<div id="iphone-wrapper">
+	<div id="wrapper">
+	<div id="user-info-header"></div>
+	<div id="main">	
+		<div id="menu-header">	
+			<div class="row">	
+				<div class="col-xs-6 text-left">	
+					<a href="index.html"><div class="btn btn-custom" data-color="blue"><p> <span class="glyphicon glyphicon-circle-arrow-left"></span>戻る</p></div></a>
+					</div>
+				<div class="col-xs-6 text-right">
+					<div class="btn btn-custom" data-color="blue"><p><span class="glyphicon glyphicon-question-sign"></span>ヘルプ</p></div>
+				</div>	
+			</div>
+		</div>	
+		<h1 class="text-center">サンプルページ</h1>
+		<h2 class="text-center">にゃばたーリスト</h2>
+		<p>にゃばたーリストのサンプルページです．<code>#navatar-list</code>の中に，<code>.navatar-thumbnail</code>を沢山入れることでにゃばたーリストを実現しています．</p>
+		<p>にゃばたーリストは横幅<code>400px</code>，にゃばたーサムネイルは<code>300px</code>で固定しています．サムネイルの大きさを可変にしてしまうと，画面の大きさによってレイアウトが安定しないので固定しています．変更する必要が出た場合は変更します．</p>
+		<h3>ソースコード</h3>
+<pre>
+<code>
+  &lt;div class="navatar-list"&gt;
+      &lt;div class="navatar-thumbnail"&gt;
+        &lt;div class="navatar-heading"&gt;
+          &lt;img src="images/navatar.png"&gt;
+          &lt;h4&gt;にゃんこたろう&lt;/h4&gt;
+        &lt;/div&gt;
+        &lt;div class="navatar-body"&gt;
+          &lt;div class="pull-left"&gt;
+            &lt;img src="images/neko-img.jpg" class="navatar-image"&gt;  
+          &lt;/div&gt;
+          &lt;div class="navatar-status"&gt;
+            &lt;ul&gt;
+              &lt;li&gt;主な生息地: &lt;span class="place"&gt;京都府&lt;/span&gt;&lt;/li&gt;
+              &lt;li&gt;最終発見報告: &lt;span class="date"&gt;2015/10/16&lt;/span&gt;&lt;/li&gt;
+              &lt;li&gt;総合評価 &lt;span class="review"&gt;☆☆☆☆☆&lt;/span&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="clearfix"&gt;&lt;/div&gt;
+        &lt;div class="navatar-footer"&gt;
+          &lt;div class="btn btn-default"&gt;詳細&lt;/div&gt;  
+          &lt;div class="btn btn-warning"&gt;迷子猫&lt;/div&gt;  
+          &lt;div class="btn btn-primary"&gt;発見&lt;/div&gt;  
+        &lt;/div&gt;
+      &lt;/div&gt;
+      
+      :
+      
+  &lt;/div&gt;
+</code>
+</pre>
+		<h3>動作例</h3>
+		<div class="navatar-list">
+			<div class="navatar-thumbnail">
+				<div class="navatar-heading">
+					<img src="images/navatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="navatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="navatar-image">	
+					</div>
+					<div class="navatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="navatar-footer">
+					<div class="btn btn-default">詳細</div>	
+					<div class="btn btn-warning">迷子猫</div>	
+					<div class="btn btn-primary">発見</div>	
+				</div>
+			</div>
+
+			<div class="navatar-thumbnail">
+				<div class="navatar-heading">
+					<img src="images/navatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="navatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="navatar-image">	
+					</div>
+					<div class="navatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="navatar-footer">
+					<div class="btn btn-default">詳細</div>	
+					<div class="btn btn-warning">迷子猫</div>	
+					<div class="btn btn-primary">発見</div>	
+				</div>
+			</div>
+			
+			<div class="navatar-thumbnail">
+				<div class="navatar-heading">
+					<img src="images/navatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="navatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="navatar-image">	
+					</div>
+					<div class="navatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="navatar-footer"> 
+					<div class="btn btn-default">詳細</div>	
+					<div class="btn btn-warning">迷子猫</div>	
+					<div class="btn btn-primary">発見</div>	
+				</div>
+			</div>
+
+		</div><!-- navatar-list -->
+	</div><!-- main -->
+
+	<div id="menu-button-footer"></div>
+	
+	</div>
+	</div>
+</body>
+<script>
+	getUserInfoHeader("ゲスト");
+	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+</script>
+</html>
