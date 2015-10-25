@@ -1,0 +1,87 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/bootstrap.js" ></script>
+	<script type='text/javascript' src="js/common.js" ></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<title>テスト</title>
+</head>
+<body>
+	<div id="iphone-wrapper">
+	<div id="wrapper">
+	<div id="user-info-header"></div>
+	<div id="main">	
+	<div id="menu-header">	
+		<div class="row">	
+			<div class="col-xs-6 text-left">	
+				<a href="index.html"><div class="btn btn-custom" data-color="blue"><p> <span class="glyphicon glyphicon-circle-arrow-left"></span>戻る</p></div></a>
+			</div>
+			<div class="col-xs-6 text-right">
+				<div class="btn btn-custom" data-color="blue"><p><span class="glyphicon glyphicon-question-sign"></span>ヘルプ</p></div>
+			</div>	
+		</div>
+	</div>	
+	<h1 class="text-center">レイアウト</h1>
+		<h2 class="text-center">見出し</h2>
+		<p>このページは野良猫これくしょんのレイアウトのサンプルページです．作成するページはこのページをひな形に作成して下さい．</p>
+		<h3>ソースコード</h3>
+<pre>
+<code>
+&lt;h1&gt;H1タグ&lt;/h1&gt;
+&lt;h2&gt;H2タグ&lt;/h2&gt;
+&lt;h3&gt;H3タグ&lt;/h3&gt;
+</code>
+</pre>
+		<h3>動作例</h3>
+<pre>
+		<h1>H1タグ</h1>
+		<h2>H2タグ</h2>
+		<h3>H3タグ</h3>
+</pre>
+
+
+		<h2 class="text-center">ヘッダーとフッダーの書き出し方</h2>
+		<p>ページ下部で以下の関数を実行することで，ヘッダーとフッダーが画面に表示されます．それぞれのコードは<code>js/common.js</code>に記述してあります．</p>
+<pre>
+<code>
+&lt;script&gt;
+    getUserInfoHeader("ゲスト");
+    getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+&lt;/script&gt;
+</code>
+</pre>
+		<p>上記の関数を呼び出すためには，ページが以下の構成に従っている必要があります．<code>#user-info-header</code>はヘッダーの書き出しがされるタグを示し，<code>#menu-button-footer</code>はフッターが書き出されるタグです．</p>
+<pre>
+<code>
+    &lt;div id="iphone-wrapper"&gt;
+    &lt;div id="wrapper"&gt;
+    &lt;div id="user-info-header"&gt;&lt;/div&gt;
+    &lt;div id="main"&gt;    
+        :
+
+    &lt;/div&gt;
+    &lt;div id="menu-button-footer"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;
+</code>
+</pre>
+		<h2 class="text-center">スマホモードについて</h2>
+		<p>現在の設定では，<code>951px</code>を超えると，画面がスマホの枠で囲まれて表示されるようになっています．PCでもスマホ画面で開発が出来ます．</p>
+	
+	</div><!-- main -->
+
+	<div id="menu-button-footer"></div>
+	
+	</div>
+	</div>
+</body>
+<script>
+	getUserInfoHeader("ゲスト");
+	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+</script>
+</html>

@@ -1,0 +1,136 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/bootstrap.js" ></script>
+	<script type='text/javascript' src="js/common.js" ></script>
+	<title>テスト</title>
+</head>
+<body>
+	<div id="iphone-wrapper">
+	<div id="wrapper">
+	<div id="user-info-header"></div>
+	<div id="main">
+		<div id="menu-header">	
+			<div class="row">	
+				<div class="col-xs-6 text-left">	
+					<a href="index.html"><div class="btn btn-custom" data-color="blue"><p> <span class="glyphicon glyphicon-circle-arrow-left"></span>戻る</p></div></a>
+				</div>
+				<div class="col-xs-6 text-right">
+					<div class="btn btn-custom" data-color="blue"><p><span class="glyphicon glyphicon-question-sign"></span>ヘルプ</p></div>
+				</div>	
+			</div>
+		</div>	
+		<h1 class="text-center">サンプルページ</h1>
+		<h2 class="text-center">フォーム部品</h2>
+		<p>フォーム部品のサンプルページです．<code>&lt;form class="form-horizontal form-custom"&gt;</code>の中に，<code>&lt;div class="form-group"&gt;</code>を入れることでフォームが作成できます．</p>
+		<p>基本的にはbootstrapのフォーム部品の作り方に準拠しています．以下のサンプルにはid属性をつけていないので，実際に使用する場合は適切指定して下さい．</p>
+		<h3>ソースコード</h3>
+<pre>
+<code>
+        &lt;form class="form-horizontal form-custom" role="form"&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label class="col-xs-12"&gt;テキスト入力&lt;/label&gt;
+                &lt;div class="col-xs-12"&gt;
+                    &lt;input type="text" class="form-control" placeholder="野良猫これくしょん"&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label class="col-xs-12"&gt;パスワード&lt;/label&gt;
+                &lt;div class="col-xs-12"&gt;
+                    &lt;input type="password" class="form-control" placeholder="パスワード"&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label class="col-xs-12"&gt;ファイル選択&lt;/label&gt;
+                &lt;div class="col-xs-12"&gt;
+                    &lt;input type="file" class="form-control"&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label class="col-xs-12"&gt;選択&lt;/label&gt;
+                &lt;div class="col-xs-12"&gt;
+                    &lt;select class="form-control"&gt;
+                        &lt;option&gt;不明&lt;/option&gt;
+                        &lt;option&gt;三毛猫&lt;/option&gt;
+                        &lt;option&gt;黒猫&lt;/option&gt;
+                        &lt;option&gt;白猫&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="form-group"&gt;
+                &lt;div class="col-xs-offset-2 col-xs-12"&gt;
+                    &lt;div class="checkbox"&gt;
+                        &lt;label&gt;&lt;input type="checkbox"&gt; 迷子猫 &lt;/label&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="form-group"&gt;
+                &lt;div class="col-xs-offset-2 col-xs-10"&gt;
+                    &lt;button type="submit" class="btn btn-custom" data-width="30"&gt;&lt;p&gt;送信&lt;/p&gt;&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/form&gt;
+</code>
+</pre>
+		<h3>動作例</h3>
+		<form class="form-horizontal form-custom" role="form">
+			<div class="form-group">
+				<label class="col-xs-12">テキスト入力</label>
+				<div class="col-xs-12">
+					<input type="text" class="form-control" placeholder="野良猫これくしょん">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12">パスワード</label>
+				<div class="col-xs-12">
+					<input type="password" class="form-control" placeholder="パスワード">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12">ファイル選択</label>
+				<div class="col-xs-12">
+					<input type="file" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12">選択</label>
+				<div class="col-xs-12">
+					<select class="form-control">
+						<option>不明</option>
+						<option>三毛猫</option>
+						<option>黒猫</option>
+						<option>白猫</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-12">
+					<div class="checkbox">
+						<label><input type="checkbox"> 迷子猫 </label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-10">
+					<button type="submit" class="btn btn-custom" data-width="30"><p>送信</p></button>
+				</div>
+			</div>
+		</form>
+
+	</div><!-- main -->
+
+	<div id="menu-button-footer"></div>
+	
+	</div>
+	</div>
+</body>
+<script>
+	getUserInfoHeader("ゲスト");
+	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+</script>
+</html>

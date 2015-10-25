@@ -1,0 +1,230 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/bootstrap.js" ></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type='text/javascript' src="js/common.js" ></script>
+	<title>テスト</title>
+</head>
+<body>
+	<div id="iphone-wrapper">
+	<div id="wrapper">
+	<div id="user-info-header"></div>
+	<div id="main">	
+		<div id="menu-header">	
+			<div class="row">	
+				<div class="col-xs-6 text-left">	
+					<div class="btn btn-custom" data-color="blue"><p> <span class="glyphicon glyphicon-circle-arrow-left"></span>戻る</p></div>
+				</div>	
+				<div class="col-xs-6 text-right">
+					<div class="btn btn-custom" data-color="blue"><p><span class="glyphicon glyphicon-question-sign"></span>ヘルプ</p></div>
+				</div>	
+			</div>
+		</div>	
+		<h1 class="text-center">野良猫これくしょん</h1>
+		<center><img src="images/no-image.png" width="70%"></center>
+		
+		<h2><p class="text-center">画像ボタン</p></h2>
+		<div class="row text-center">	
+			<div class="col-xs-6">	
+				<div class="btn btn-custom" data-color="pink" data-type="img-btn"><img src="images/top.png"></div>
+			</div>	
+			<div class="col-xs-6">
+				<div class="btn btn-custom" data-color="pink" data-type="img-btn"><img src="images/top.png"></div>
+			</div>	
+		</div>
+		
+		<h2><p class="text-center">角丸ボタン(デフォルト)</p></h2>
+		<div class="btn btn-custom"><p>data-color="none"</p></div>
+		<div class="btn btn-custom" data-color="blue"><p>data-color="blue"</p></div>
+		<div class="btn btn-custom" data-color="pink"><p>data-color="pink"</p></div>
+		<div class="btn btn-custom" data-color="yellow"><p>data-color="yellow"</p></div>
+	
+		<h2><p class="text-center">四角ボタン</p></h2>
+		<div class="btn btn-custom" data-type="square"><p>data-type="square"</p></div>
+		<div class="btn btn-custom" data-color="blue" data-type="square"><p> + data-color="blue"</p></div>
+		<div class="btn btn-custom" data-color="pink" data-type="square"><p> + data-color="pink"</p></div>
+
+		<h2><p class="text-center">ボタンの長さ変更</p></h2>
+		<h3>widthの変更</h3>
+		<div class="btn btn-custom" data-width="10"><p>10</p></div>
+		<div class="btn btn-custom" data-color="blue" data-width="20"><p>"20"</p></div>
+		<div class="btn btn-custom" data-color="pink" data-width="30"><p>"30"</p></div>
+		<div class="btn btn-custom" data-width="40"><p>"40"</p></div>
+		<div class="btn btn-custom" data-width="50"><p>data-width="50"</p></div>
+		<div class="btn btn-custom" data-color="yellow" data-width="60"><p>data-width="60"</p></div>
+		<div class="btn btn-custom" data-width="70"><p>data-width="70"</p></div>
+		<div class="btn btn-custom" data-color="pink" data-width="80"><p>data-width="80"</p></div>
+		<div class="btn btn-custom" data-color="blue" data-width="90"><p>data-width="90"</p></div>
+		<div class="btn btn-custom" data-color="blue" data-width="100"><p>data-width="100"</p></div>
+		<div class="btn btn-custom"><p>data-width="none"</p></div>
+		
+		<h3>heightの変更</h3>
+		<div class="btn btn-custom" data-height="10"><p>data-height="10"</p></div>
+		<div class="btn btn-custom" data-color="blue" data-height="20"><p>data-height="20"</p></div>
+		<div class="btn btn-custom" data-color="pink" data-height="30"><p>data-height="30"</p></div>
+		<div class="btn btn-custom" data-height="40"><p>data-height="40"</p></div>
+		<div class="btn btn-custom" data-height="50"><p>data-height="50"</p></div>
+		<div class="btn btn-custom" data-color="yellow" data-height="60"><p>data-height="60"</p></div>
+		<div class="btn btn-custom" data-height="70"><p>data-height="70"</p></div>
+		<div class="btn btn-custom" data-color="pink" data-height="80"><p>data-height="80"</p></div>
+		<div class="btn btn-custom" data-color="blue" data-height="90"><p>data-height="90"</p></div>
+		<div class="btn btn-custom" data-color="blue" data-height="100"><p>data-height="100"</p></div>
+		<div class="btn btn-custom"><p>data-height="none"</p></div>
+		
+		<h2><p class="text-center">文字の大きさ変更</p></h2>
+		<div class="btn btn-custom" font-size="1.0"><p>font-size="1.0"</p></div>
+		<div class="btn btn-custom" font-size="1.1"><p>font-size="1.1"</p></div>
+		<div class="btn btn-custom" font-size="1.2"><p>font-size="1.2"</p></div>
+		<div class="btn btn-custom" font-size="1.3"><p>font-size="1.3"</p></div>
+		<div class="btn btn-custom" font-size="1.4"><p>font-size="1.4"</p></div>
+		<div class="btn btn-custom" font-size="1.5"><p>font-size="1.5"</p></div>
+
+		<h2 class="text-center">フォーム部品</h2>
+		<form class="form-horizontal form-custom">
+			<div class="form-group">
+				<label class="col-xs-12">テキスト入力</label>
+				<div class="col-xs-12">
+					<input type="text" class="form-control" placeholder="野良猫これくしょん">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12">パスワード</label>
+				<div class="col-xs-12">
+					<input type="password" class="form-control" placeholder="パスワード">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12">ファイル選択</label>
+				<div class="col-xs-12">
+					<input type="file" class="form-control">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12">選択</label>
+				<div class="col-xs-12">
+					<select class="form-control">
+						<option>不明</option>
+						<option>三毛猫</option>
+						<option>黒猫</option>
+						<option>白猫</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-12">
+					<div class="checkbox">
+						<label><input type="checkbox"> 迷子猫 </label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-offset-2 col-xs-10">
+					<button type="submit" class="btn btn-custom" data-width="30"><p>送信</p></button>
+				</div>
+			</div>
+		</form>
+
+		<h2><p class="text-center">お知らせ</p></h2>
+		<div class="list-group scroll-list">
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+			<a class="list-group-item" href="#">お知らせ</a>
+		</div>
+
+		<h2><p class="text-center">イベント</p></h2>
+		<img src="images/banner.png" class="banner">
+		<p class="text-center"><a href="#">┗ にゃばたー確率超絶UPキャンペーン中！！┛</a></p>
+		<img src="images/banner.png" class="banner">
+		<p class="text-center"><a href="#">┗  艦○これくしょんコラボキャンペーン 2015/12/31 21:00 まで ┛</a></p>
+
+		<h2 class="text-center">Googleマップ</h2>
+		<div id="google-map-field"></div>
+		<script>
+			function mapInit() {
+				var centerPosition = new google.maps.LatLng(34.692713, 135.490472);
+				var option = {
+					zoom : 18,
+					center : centerPosition,
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				};
+				//地図本体描画
+				var googlemap = new google.maps.Map($("#google-map-field")[0], option);
+			}
+			mapInit();
+		</script>
+
+		<h2 class="text-center">にゃばたーリスト</h2>
+		<div class="navatar-list">
+			<div class="navatar-thumbnail">
+				<div class="navatar-heading">
+					<img src="images/navatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="navatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="navatar-image">	
+					</div>
+					<div class="navatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="navatar-footer">
+					<div class="btn btn-default">詳細</div>	
+					<div class="btn btn-warning">迷子猫</div>	
+					<div class="btn btn-primary">発見</div>	
+				</div>
+			</div>
+
+			<div class="navatar-thumbnail">
+				<div class="navatar-heading">
+					<img src="images/navatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="navatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="navatar-image">	
+					</div>
+					<div class="navatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="navatar-footer">
+					<div class="btn btn-default">詳細</div>	
+					<div class="btn btn-warning">迷子猫</div>	
+					<div class="btn btn-primary">発見</div>	
+				</div>
+			</div>
+		</div>
+		
+	</div><!-- main -->
+
+	<div id="menu-button-footer"></div>
+	</div>
+	</div>
+</body>
+<script>
+	getUserInfoHeader("ゲスト");
+	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+</script>
+</html>
