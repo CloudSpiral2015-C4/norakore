@@ -10,9 +10,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-// import jp.kobe_u.cspiral.alpaca.model.Comment;
-// import jp.kobe_u.cspiral.alpaca.model.Like;
-// import jp.kobe_u.cspiral.alpaca.model.Report;
+import jp.kobe_u.cspiral.norakore.model.*;
 import jp.kobe_u.cspiral.norakore.util.DBUtils;
 
 import org.bson.types.ObjectId;
@@ -24,18 +22,18 @@ import com.mongodb.DBObject;
 import com.sun.jersey.core.util.Base64;
 
 public class NorakoreController {
-	private final String LIKE_COLLECTION_NAME = "like";
-	private final String COMMENT_COLLECTION_NAME = "comment";
-	private final String PHOTO_COLLECTION_NAME = "photo";
+	// private final String LIKE_COLLECTION_NAME = "like";
+	// private final String COMMENT_COLLECTION_NAME = "comment";
+	// private final String PHOTO_COLLECTION_NAME = "photo";
 
-	private DBCollection LIKE_COLLECTION;
-	private DBCollection COMMENT_COLLECTION;
-	private DBCollection PHOTO_COLLECTION;
+	// private DBCollection LIKE_COLLECTION;
+	// private DBCollection COMMENT_COLLECTION;
+	// private DBCollection PHOTO_COLLECTION;
 
 	public NorakoreController() {
-		this.LIKE_COLLECTION = DBUtils.getInstance().getDb().getCollection(LIKE_COLLECTION_NAME);
-		this.COMMENT_COLLECTION = DBUtils.getInstance().getDb().getCollection(COMMENT_COLLECTION_NAME);
-		this.PHOTO_COLLECTION = DBUtils.getInstance().getDb().getCollection(PHOTO_COLLECTION_NAME);
+		// this.LIKE_COLLECTION = DBUtils.getInstance().getDb().getCollection(LIKE_COLLECTION_NAME);
+		// this.COMMENT_COLLECTION = DBUtils.getInstance().getDb().getCollection(COMMENT_COLLECTION_NAME);
+		// this.PHOTO_COLLECTION = DBUtils.getInstance().getDb().getCollection(PHOTO_COLLECTION_NAME);
 	}
 
 
@@ -52,6 +50,26 @@ public class NorakoreController {
 	// 	COMMENT_COLLECTION.save(comment);
 	// }
 
+
+    public Report searchNyavatar() {
+        Report result = new Report();
+        List<Nyavatar> list = new ArrayList<Nyavatar>();
+
+        // create dummy data 1
+        Nyavatar nya = new Nyavatar();
+        nya.setId("nya0001");
+        nya.setName("てすにゃー1");
+        list.add(nya);
+
+        // create dummy data 2
+        nya = new Nyavatar();
+        nya.setId("nya0002");
+        nya.setName("てすにゃー2");
+        list.add(nya);
+
+        result.setList(list);
+        return result;
+    }
 
 	// public Report getReport(int n) {
 	// 	DBObject query = new BasicDBObject();

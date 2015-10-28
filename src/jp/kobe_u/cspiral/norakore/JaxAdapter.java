@@ -1,5 +1,7 @@
 package jp.kobe_u.cspiral.norakore;
 
+import jp.kobe_u.cspiral.norakore.model.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.net.URI;
@@ -17,7 +19,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-// import jp.kobe_u.cspiral.alpaca.model.PhotoIdList;
 
 @Path("/")
 public class JaxAdapter {
@@ -30,10 +31,10 @@ public class JaxAdapter {
 	 */
 	@GET
 	@Produces({MediaType.APPLICATION_XML})
-	@Path("/like")
-	public Response like() {
-		// controller.like();
-		return Response.status(200).entity("<like>okok</like>").build();
+	@Path("/nyavatar")
+	public Response nyavatar() {
+        Report result = controller.searchNyavatar(); // TODO: queryをわたす
+		return Response.status(200).entity(result).build();
 	}
 
 	/**
