@@ -16,7 +16,7 @@ public class Report {
 		nyavatar_list = new ArrayList<Nyavatar>();
 	}
 
-	@XmlElement(name="list")
+	@XmlElement(name="nyavatar")
 	public List<Nyavatar> getList() {
 		return nyavatar_list;
 	}

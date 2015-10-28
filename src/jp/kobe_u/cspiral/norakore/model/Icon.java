@@ -9,7 +9,7 @@ public class Icon {
 
 	// default constructor for jaxb
 	public Icon() {
-        this.id = "pic0001";
+        this.id = "ico0001";
 	}
 
 	@XmlElement(name="id")
