@@ -1,0 +1,54 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/bootstrap.js" ></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type='text/javascript' src="js/common.js" ></script>
+	<title>テスト</title>
+</head>
+<body>
+	<div id="iphone-wrapper">
+	<div id="wrapper">
+	<div id="user-info-header"></div>
+	<div id="main">
+		<div id="menu-header">
+			<div class="row">
+				<div class="col-xs-6 text-left">
+					<div class="btn btn-custom" data-color="blue"><p> <span class="glyphicon glyphicon-circle-arrow-left"></span>戻る</p></div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<div class="btn btn-custom" data-color="blue"><p><span class="glyphicon glyphicon-question-sign"></span>ヘルプ</p></div>
+				</div>
+			</div>
+		</div>
+		<h1 class="text-center">お問い合わせページ</h1>
+		<form class="form-horizontal form-custom" role="form">
+            <div class="form-group">
+                <label class="col-xs-12">お問い合わせ内容</label>
+                <div class="col-xs-12">
+                    <textarea class="form-control" rows="8"></textarea>
+                </div>
+            </div>
+             <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <button type="submit" class="btn btn-custom" data-width="30"><p>送信</p></button>
+                </div>
+            </div>
+        </form>
+
+	</div><!-- main -->
+
+	<div id="menu-button-footer"></div>
+	</div>
+	</div>
+</body>
+<script>
+	getUserInfoHeader("ゲスト");
+	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+</script>
+</html>
