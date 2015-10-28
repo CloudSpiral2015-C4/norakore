@@ -30,7 +30,7 @@ public class JaxAdapter {
 	 * @return okだけ
 	 */
 	@GET
-	@Produces({MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
 	public Response nyavatar() {
         Report result = controller.searchNyavatar(); // TODO: queryをわたす
