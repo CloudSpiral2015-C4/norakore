@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -22,53 +23,41 @@ import com.mongodb.DBObject;
 import com.sun.jersey.core.util.Base64;
 
 public class NorakoreController {
-	// private final String LIKE_COLLECTION_NAME = "like";
-	// private final String COMMENT_COLLECTION_NAME = "comment";
-	// private final String PHOTO_COLLECTION_NAME = "photo";
+	private final String NyavatarColl_Name = "nyavatar";
 
-	// private DBCollection LIKE_COLLECTION;
-	// private DBCollection COMMENT_COLLECTION;
-	// private DBCollection PHOTO_COLLECTION;
+	private DBCollection NyavatarColl;
 
 	public NorakoreController() {
-		// this.LIKE_COLLECTION = DBUtils.getInstance().getDb().getCollection(LIKE_COLLECTION_NAME);
-		// this.COMMENT_COLLECTION = DBUtils.getInstance().getDb().getCollection(COMMENT_COLLECTION_NAME);
-		// this.PHOTO_COLLECTION = DBUtils.getInstance().getDb().getCollection(PHOTO_COLLECTION_NAME);
+        this.NyavatarColl = DBUtils.getInstance().getDb().getCollection(NyavatarColl_Name);
 	}
 
-
-	// public void like() {
-	// 	DBObject like = new BasicDBObject();
-	// 	like.put("date", new Date());
-	// 	LIKE_COLLECTION.save(like);
-	// }
-
-	// public void comment(String message) {
-	// 	DBObject comment = new BasicDBObject();
-	// 	comment.put("date", new Date());
-	// 	comment.put("message", message);
-	// 	COMMENT_COLLECTION.save(comment);
-	// }
-
-
-    public Report searchNyavatar() {
+    public Report searchNyavatar(double x, double y) {
+        final double search_area = 10000;
         Report result = new Report();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
 
-        // create dummy data 1
-        Nyavatar nya = new Nyavatar();
-        nya.setId("nya0001");
-        nya.setName("てすにゃー1");
-        list.add(nya);
-
-        // create dummy data 2
-        nya = new Nyavatar();
-        nya.setId("nya0002");
-        nya.setName("てすにゃー2");
-        list.add(nya);
+        DBCursor cursor = NyavatarColl.find();
+        for (DBObject nya : cursor) {
+            Location loc = new Location((DBObject)nya.get("location"));
+            double dx = loc.getX() - x;
+            double dy = loc.getY() - y;
+            if (Math.pow(dx, 2) + Math.pow(dy, 2) < Math.pow(search_area, 2)) {
+                list.add(new Nyavatar(nya));
+            }
+        }
 
         result.setList(list);
         return result;
+    }
+
+    public String registerNyavatar(NyavatarDetail nyavatar) {
+        // TODO:picture, locationの存在チェック
+        nyavatar.determineParams();
+
+        // TODO: 重複チェック；名前はともかく、pictureぐらいはチェック必要だろう
+        DBObject dbo = nyavatar.toDBObject();
+        NyavatarColl.insert(dbo);
+        return ((ObjectId)dbo.get("_id")).toString();
     }
 
 	// public Report getReport(int n) {
