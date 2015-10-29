@@ -40,6 +40,7 @@ function getMenuButtonFooter(message) {
 	footerHTML += '<div class="btn btn-custom" data-color="yellow" data-type="footer" onclick="location.href=\'upload.html\'"><img src="images/upload.png"></div>';
 	footerHTML += '<div class="btn btn-custom" data-color="yellow" data-type="footer" onclick="location.href=\'my-nyavatars.html\'"><img src="images/my-nyavatars.png"></div>';
 	footerHTML += '<div class="btn btn-custom" data-color="yellow" data-type="footer" onclick="location.href=\'scanner.html\'"><img src="images/scanner.png"></div>';
+	footerHTML += '<div class="btn btn-custom" data-color="yellow" data-type="footer" onclick="location.href=\'items.html\'"><img src="images/items.png"></div>';
 	footerHTML += '<div class="btn btn-custom" data-color="yellow" data-type="footer" onclick="location.href=\'shop.html\'"><img src="images/shop.png"></div>';
 	footerHTML += '</div>';
 	footer.innerHTML = footerHTML;
