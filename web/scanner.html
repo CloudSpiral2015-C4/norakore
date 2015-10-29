@@ -1,0 +1,117 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/bootstrap.js" ></script>
+	<script type='text/javascript' src="js/common.js" ></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<title>テスト</title>
+</head>
+<body>
+	<div id="iphone-wrapper">
+	<div id="wrapper">
+	<div id="user-info-header"></div>
+	<div id="main">	
+	<h1 class="text-center">スキャにゃー</h1>
+	<h2 class="text-center">近くのにゃばたー情報</h2>
+	<!-- 以下のにゃばたーリストは現在位置からnメートル以内のにゃばたーを表示する -->
+	<div class="nyavatar-list" style="height:200px;">
+      <div class="nyavatar-thumbnail">
+        <div class="nyavatar-heading">
+          <img src="images/nyavatar.png">
+          <h4>にゃんこたろう</h4>
+        </div>
+        <div class="nyavatar-body">
+          <div class="pull-left">
+            <img src="images/neko-img.jpg" class="nyavatar-image">  
+          </div>
+          <div class="nyavatar-status">
+            <ul>
+              <li>主な生息地: <span class="place">京都府</span></li>
+              <li>最終発見報告: <span class="date">2015/10/16</span></li>
+              <li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="nyavatar-footer">
+          <div class="btn btn-default">詳細</div>  
+          <div class="btn btn-warning">迷子猫</div>  
+          <div class="btn btn-primary">発見</div>  
+        </div>
+      </div>
+      
+      <div class="nyavatar-thumbnail">
+        <div class="nyavatar-heading">
+          <img src="images/nyavatar.png">
+          <h4>にゃんこたろう</h4>
+        </div>
+        <div class="nyavatar-body">
+          <div class="pull-left">
+            <img src="images/neko-img.jpg" class="nyavatar-image">  
+          </div>
+          <div class="nyavatar-status">
+            <ul>
+              <li>主な生息地: <span class="place">京都府</span></li>
+              <li>最終発見報告: <span class="date">2015/10/16</span></li>
+              <li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="nyavatar-footer">
+          <div class="btn btn-default">詳細</div>  
+          <div class="btn btn-warning">迷子猫</div>  
+          <div class="btn btn-primary">発見</div>  
+        </div>
+      </div>
+      
+      <div class="nyavatar-thumbnail">
+        <div class="nyavatar-heading">
+          <img src="images/nyavatar.png">
+          <h4>にゃんこたろう</h4>
+        </div>
+        <div class="nyavatar-body">
+          <div class="pull-left">
+            <img src="images/neko-img.jpg" class="nyavatar-image">  
+          </div>
+          <div class="nyavatar-status">
+            <ul>
+              <li>主な生息地: <span class="place">京都府</span></li>
+              <li>最終発見報告: <span class="date">2015/10/16</span></li>
+              <li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="nyavatar-footer">
+          <div class="btn btn-default">詳細</div>  
+          <div class="btn btn-warning">迷子猫</div>  
+          <div class="btn btn-primary">発見</div>  
+        </div>
+      </div>
+	</div><!-- nyavatar-list -->
+	
+	<p class="text-center">↓すきゃにゃーボタン↓</p>
+	<div class="row text-center">	
+		<div class="col-xs-12">
+			<div class="btn btn-custom text-left" data-color="pink" data-type="img-btn-200x200" onclick="location.href='result.html'"><img src="images/top.png"></div>
+		</div>	
+	</div>
+	
+	</div><!-- main -->
+
+	<div id="menu-button-footer"></div>
+	
+	</div>
+	</div>
+</body>
+<script>
+	getUserInfoHeader("ゲスト");
+	getMenuButtonFooter("このページはテンプレートです");
+</script>
+</html>
