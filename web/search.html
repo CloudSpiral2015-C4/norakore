@@ -7,121 +7,157 @@
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
 	<script type='text/javascript' src="js/bootstrap.js" ></script>
-	<script type='text/javascript' src="js/common.js" ></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type='text/javascript' src="js/common.js" ></script>
 	<title>テスト</title>
 </head>
 <body>
 	<div id="iphone-wrapper">
 	<div id="wrapper">
 	<div id="user-info-header"></div>
-	<div id="main">	
-	<div id="menu-header">	
-		<div class="row">	
-			<div class="col-xs-6 text-left">	
-				<a href="index.html"><div class="btn btn-custom" data-color="blue"><p> <span class="glyphicon glyphicon-circle-arrow-left"></span>戻る</p></div></a>
+	<div id="main">
+		<h1 class="text-center">猫サーチ</h1>
+		<form class="form-horizontal form-custom" role="form">
+            <div class="form-group">
+                <label class="col-xs-12">地名入力</label>
+                <div class="col-xs-12">
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+             <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <button type="submit" class="btn btn-custom" data-width="30"><p>送信</p></button>
+                </div>
+            </div>
+        </form>
+        <!-- 検索した地名の地図を表示する -->
+		<h2 class="text-center">Googleマップ</h2>
+		<div id="google-map-field"></div>
+		<script>
+			function mapInit() {
+				var centerPosition = new google.maps.LatLng(34.692713, 135.490472);
+				var option = {
+					zoom : 18,
+					center : centerPosition,
+					mapTypeId : google.maps.MapTypeId.ROADMAP
+				};
+				//地図本体描画
+			var googlemap = new google.maps.Map($("#google-map-field")[0], option);}
+			mapInit();
+		</script>
+
+	<!-- 以下のにゃばたーリストはMap中心地から半径Xkm以内に登録されているにゃばたーを表示する -->
+		<h2 class="text-center">マップ付近の　にゃばたーリスト</h2>
+		<div class="nyavatar-list">
+			<div class="nyavatar-thumbnail">
+				<div class="nyavatar-heading">
+					<img src="images/nyavatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="nyavatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="nyavatar-image">
+					</div>
+					<div class="nyavatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="nyavatar-footer">
+					<div class="btn btn-default">詳細</div>
+					<div class="btn btn-warning">迷子猫</div>
+					<div class="btn btn-primary">発見</div>
+				</div>
 			</div>
-			<div class="col-xs-6 text-right">
-				<div class="btn btn-custom" data-color="blue"><p><span class="glyphicon glyphicon-question-sign"></span>ヘルプ</p></div>
-			</div>	
+
+			<div class="nyavatar-thumbnail">
+				<div class="nyavatar-heading">
+					<img src="images/nyavatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="nyavatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="nyavatar-image">
+					</div>
+					<div class="nyavatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="nyavatar-footer">
+					<div class="btn btn-default">詳細</div>
+					<div class="btn btn-warning">迷子猫</div>
+					<div class="btn btn-primary">発見</div>
+				</div>
+			</div>
+
+			<div class="nyavatar-thumbnail">
+				<div class="nyavatar-heading">
+					<img src="images/nyavatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="nyavatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="nyavatar-image">
+					</div>
+					<div class="nyavatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="nyavatar-footer">
+					<div class="btn btn-default">詳細</div>
+					<div class="btn btn-warning">迷子猫</div>
+					<div class="btn btn-primary">発見</div>
+				</div>
+			</div>
+
+			<div class="nyavatar-thumbnail">
+				<div class="nyavatar-heading">
+					<img src="images/nyavatar.png">
+					<h4>にゃんこたろう</h4>
+				</div>
+				<div class="nyavatar-body">
+					<div class="pull-left">
+						<img src="images/neko-img.jpg" class="nyavatar-image">
+					</div>
+					<div class="nyavatar-status">
+						<ul>
+							<li>主な生息地: <span class="place">京都府</span></li>
+							<li>最終発見報告: <span class="date">2015/10/16</span></li>
+							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="nyavatar-footer">
+					<div class="btn btn-default">詳細</div>
+					<div class="btn btn-warning">迷子猫</div>
+					<div class="btn btn-primary">発見</div>
+				</div>
+			</div>
 		</div>
-	</div>	
-	<h1 class="text-center">サーチページ</h1>
-	<h2 class="text-center">近くのにゃばたー情報</h2>
-	<!-- 以下のにゃばたーリストは現在位置からnメートル以内のにゃばたーを表示する -->
-	<div class="navatar-list" style="height:200px;">
-      <div class="navatar-thumbnail">
-        <div class="navatar-heading">
-          <img src="images/navatar.png">
-          <h4>にゃんこたろう</h4>
-        </div>
-        <div class="navatar-body">
-          <div class="pull-left">
-            <img src="images/neko-img.jpg" class="navatar-image">  
-          </div>
-          <div class="navatar-status">
-            <ul>
-              <li>主な生息地: <span class="place">京都府</span></li>
-              <li>最終発見報告: <span class="date">2015/10/16</span></li>
-              <li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="navatar-footer">
-          <div class="btn btn-default">詳細</div>  
-          <div class="btn btn-warning">迷子猫</div>  
-          <div class="btn btn-primary">発見</div>  
-        </div>
-      </div>
-      
-      <div class="navatar-thumbnail">
-        <div class="navatar-heading">
-          <img src="images/navatar.png">
-          <h4>にゃんこたろう</h4>
-        </div>
-        <div class="navatar-body">
-          <div class="pull-left">
-            <img src="images/neko-img.jpg" class="navatar-image">  
-          </div>
-          <div class="navatar-status">
-            <ul>
-              <li>主な生息地: <span class="place">京都府</span></li>
-              <li>最終発見報告: <span class="date">2015/10/16</span></li>
-              <li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="navatar-footer">
-          <div class="btn btn-default">詳細</div>  
-          <div class="btn btn-warning">迷子猫</div>  
-          <div class="btn btn-primary">発見</div>  
-        </div>
-      </div>
-      
-      <div class="navatar-thumbnail">
-        <div class="navatar-heading">
-          <img src="images/navatar.png">
-          <h4>にゃんこたろう</h4>
-        </div>
-        <div class="navatar-body">
-          <div class="pull-left">
-            <img src="images/neko-img.jpg" class="navatar-image">  
-          </div>
-          <div class="navatar-status">
-            <ul>
-              <li>主な生息地: <span class="place">京都府</span></li>
-              <li>最終発見報告: <span class="date">2015/10/16</span></li>
-              <li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-            </ul>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="navatar-footer">
-          <div class="btn btn-default">詳細</div>  
-          <div class="btn btn-warning">迷子猫</div>  
-          <div class="btn btn-primary">発見</div>  
-        </div>
-      </div>
-	</div><!-- navatar-list -->
-	
-	<p class="text-center">↓すきゃにゃーボタン↓</p>
-	<div class="row text-center">	
-		<div class="col-xs-12">
-			<div class="btn btn-custom text-left" data-color="pink" data-type="img-btn-200x200"><img src="images/top.png"></div>
-		</div>	
-	</div>
-	
+
 	</div><!-- main -->
 
 	<div id="menu-button-footer"></div>
-	
 	</div>
 	</div>
 </body>
 <script>
 	getUserInfoHeader("ゲスト");
-	getMenuButtonFooter("このページはテンプレートです");
+	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
 </script>
 </html>
