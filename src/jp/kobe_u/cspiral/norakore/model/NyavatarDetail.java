@@ -3,19 +3,19 @@ package jp.kobe_u.cspiral.norakore.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Calendar;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBList;
-import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="nyavatar")
-public class Nyavatar {
+@XmlRootElement(name="nyavatar_detail")
+public class NyavatarDetail {
     private String id;
     private String name;
     private String picture;
@@ -24,9 +24,10 @@ public class Nyavatar {
     private double like;
     private Date last_date;
     private Location location;
+    private List<String> like_user;
 
 	// default constructor for jaxb
-	public Nyavatar() {
+	public NyavatarDetail() {
         this.name = "";
         this.id = "";
         this.picture = "";
@@ -35,19 +36,49 @@ public class Nyavatar {
         this.like = 0;
         this.last_date = new Date();
         this.location = new Location();
+        this.like_user = new ArrayList<String>();
 	}
 
-    public Nyavatar(DBObject dbo) {
-        this.id = ((ObjectId)dbo.get("_id")).toString();
-        this.name = (String)dbo.get("name");
-        this.picture = (String)dbo.get("picture");
-        this.icon = (String)dbo.get("icon");
-        this.type = (String)dbo.get("type");
-        this.like = (double)dbo.get("like");
-        this.last_date = (Date)dbo.get("last_date");
-        this.location = new Location((DBObject)dbo.get("location"));
+    // アップロード時など，欠落しているパラメータを決定する
+    public void determineParams() {
+        Calendar cal = Calendar.getInstance();
+        this.last_date = cal.getTime();
+
+        if (this.name.equals("")) {
+            // ランダム？
+            this.name = "猫";
+        }
+
+        if (this.type.equals("")) {
+            // pictureから何猫で決定
+            this.type = "type";
+        }
+
+        if (this.icon.equals("")) {
+            // typeから決定するかpictureから類似度するかで決定
+            this.icon = "icon_id";
+        }
     }
 
+    public DBObject toDBObject() {
+        DBObject dbo = new BasicDBObject();
+        dbo.put("name", this.name);
+        dbo.put("picture", this.picture);
+        dbo.put("icon", this.icon);
+        dbo.put("type", this.type);
+        dbo.put("like", this.like);
+        dbo.put("last_date", this.last_date);
+        dbo.put("location", this.location.toDBObject());
+        BasicDBList list = new BasicDBList();
+        for (String user: this.like_user) {
+            list.add(user);
+        }
+        dbo.put("like_user", this.like_user);
+
+        return dbo;
+    }
+
+    // getter / setter ---------------------------------------------------------
 	@XmlElement(name="id")
 	public String getId() {
 		return id;
@@ -80,6 +111,10 @@ public class Nyavatar {
 	public Location getLocation() {
 		return location;
 	}
+	@XmlElement(name="like_user")
+	public String[] getLikeUser() {
+		return like_user.toArray(new String[like_user.size()]);
+	}
 
     public void setId(String value) {
         this.id = value != null ? value : "";
@@ -105,4 +140,8 @@ public class Nyavatar {
     public void setLocation(Location value) {
         this.location = value;
     }
+    public void setLikeUser(List<String> value) {
+        this.like_user = value;
+    }
+
 }
