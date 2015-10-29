@@ -8,14 +8,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import javax.ws.rs.DefaultValue;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -25,16 +18,26 @@ public class JaxAdapter {
 
 	private final NorakoreController controller = new NorakoreController();
 
-	/**
-	 * いいねを投稿する
-	 * @return okだけ
-	 */
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
-	public Response nyavatar() {
-        Report result = controller.searchNyavatar(); // TODO: queryをわたす
+	public Response nyavatar(@QueryParam("x") double x, @QueryParam("y") double y) {
+        // TODO: paramはLocationにすべきか？jsonだとPOSTでしか入力できない
+        Report result = controller.searchNyavatar(x, y);
 		return Response.status(200).entity(result).build();
+	}
+
+    // にゃばたー登録
+    // パラメータは{name, picture, location}が必須，typeはどっちでもよい
+	@POST @Consumes("application/json")
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/register")
+	public Response register(NyavatarDetail nyavatar) {
+        if (nyavatar == null) {
+            return Response.status(400).entity("parameter 'nyavatar' is required.").build();
+        }
+        String res = controller.registerNyavatar(nyavatar);
+		return Response.status(200).entity(res).build();
 	}
 
 	/**
