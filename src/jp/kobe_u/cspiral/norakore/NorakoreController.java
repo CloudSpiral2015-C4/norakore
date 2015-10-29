@@ -24,11 +24,17 @@ import com.sun.jersey.core.util.Base64;
 
 public class NorakoreController {
 	private final String NyavatarColl_Name = "nyavatar";
+	private final String PictureColl_Name = "picture";
+	private final String IconColl_Name = "icon";
 
 	private DBCollection NyavatarColl;
+	private DBCollection PictureColl;
+	private DBCollection IconColl;
 
 	public NorakoreController() {
         this.NyavatarColl = DBUtils.getInstance().getDb().getCollection(NyavatarColl_Name);
+        this.PictureColl = DBUtils.getInstance().getDb().getCollection(PictureColl_Name);
+        this.IconColl = DBUtils.getInstance().getDb().getCollection(IconColl_Name);
 	}
 
     public Report searchNyavatar(double x, double y) {
@@ -57,74 +63,45 @@ public class NorakoreController {
         // TODO: 重複チェック；名前はともかく、pictureぐらいはチェック必要だろう
         DBObject dbo = nyavatar.toDBObject();
         NyavatarColl.insert(dbo);
-        return ((ObjectId)dbo.get("_id")).toString();
+        return dbo.get("_id").toString();
     }
 
-	// public Report getReport(int n) {
-	// 	DBObject query = new BasicDBObject();
+	public String saveImage(String data, String res) {
+		DBObject dbo = new BasicDBObject("src", data);
+        if (res.equals("picture")){
+            PictureColl.save(dbo);
+        }else if (res.equals("icon")){
+            IconColl.save(dbo);
+        }else return "";
+		String id = dbo.get("_id").toString();
+		return id;
+	}
 
-	// 	Report report = new Report();
-	// 	List<Like> likes = new ArrayList<Like>();
-	// 	List<Comment> comments = new ArrayList<Comment>();
+	public ByteArrayOutputStream getImage(String id, String res) {
+		DBObject query = new BasicDBObject("_id", new ObjectId(id));
+        String type;
+        DBObject o;
+        if (res.equals("picture")){
+            o = PictureColl.findOne(query);
+            type = "jpg";
+        }else if (res.equals("icon")){
+            o = IconColl.findOne(query);
+            type = "png";
+        }else return null;
+		if (o == null) return null;
 
-	// 	DBCursor cursor = LIKE_COLLECTION.find(query);
-
-	// 	// for (DBObject like : cursor) {
-	// 		// likes.add(new Like((Date)like.get("date")));
-	// 	// }
-
-	// 	report.setTotalLike(cursor.count());
-	// 	DBObject sort = new BasicDBObject("_id", -1);
-	// 	cursor = COMMENT_COLLECTION.find(query).sort(sort).limit(n);
-	// 	for (DBObject comment : cursor) {
-	// 		comments.add(new Comment(
-	// 				(Date)comment.get("date"), (String)comment.get("message")));
-	// 	}
-
-	// 	report.setLikes(likes);
-	// 	report.setComments(comments);
-	// 	return report;
-	// }
-
-
-	// public String savePhoto(String photoData) {
-	// 	DBObject dbo = new BasicDBObject("src", photoData);
-	// 	PHOTO_COLLECTION.save(dbo);
-	// 	String id = dbo.get("_id").toString();
-	// 	return id;
-	// }
-
-
-	// public ByteArrayOutputStream getPhoto(String id) {
-	// 	DBObject query = new BasicDBObject("_id", new ObjectId(id));
-	// 	DBObject o = PHOTO_COLLECTION.findOne(query);
-	// 	if (o == null) {
-	// 		return null;
-	// 	}
-	// 	String src = (String)o.get("src");
-	// 	src = src.split(",")[1];
-	// 	byte[] bytes = Base64.decode(src);
-	// 	try {
-	// 		BufferedImage bImage = ImageIO.read(new ByteArrayInputStream(bytes));
-	// 		ByteArrayOutputStream baos = new ByteArrayOutputStream();;
-	// 		ImageIO.write(bImage, "png", baos);
-	// 		return baos;
-	// 	} catch (IOException e) {
-	// 		// TODO 自動生成された catch ブロック
-	// 		e.printStackTrace();
-	// 	}
-	// 	 return null;
-	// }
-
-
-	// public List<String> getPhotoList(int n) {
-	// 	List<String> list = new ArrayList<>();
-	// 	DBObject orderBy = new BasicDBObject("$natural", -1);
-	// 	DBCursor cursor = PHOTO_COLLECTION.find().sort(orderBy).limit(n);
-	// 	for (DBObject o : cursor) {
-	// 		list.add(o.get("_id").toString());
-	// 	}
-	// 	return list;
-	// }
-
+		String src = (String)o.get("src");
+		src = src.split(",")[1];
+		byte[] bytes = Base64.decode(src);
+		try {
+			BufferedImage bImage = ImageIO.read(new ByteArrayInputStream(bytes));
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(bImage, type, baos);
+			return baos;
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		 return null;
+	}
 }

@@ -36,92 +36,51 @@ public class JaxAdapter {
         if (nyavatar == null) {
             return Response.status(400).entity("parameter 'nyavatar' is required.").build();
         }
-        String res = controller.registerNyavatar(nyavatar);
-		return Response.status(200).entity(res).build();
+        String nya_id = controller.registerNyavatar(nyavatar);
+		return Response.status(200).entity("{\"nyavatar\":\"" + nya_id + "\"}").build();
 	}
 
-	/**
-	 * コメントする
-	 * @param message コメント本文
-	 * @return
-	 */
-	// @GET
-	// @Produces({MediaType.APPLICATION_XML})
-	// @Path("/comment")
-	// public Response comment(@QueryParam("msg") final String message) {
-	// 	if ("".equals(message)) {
-	// 		return Response.status(403).entity("<comment>error</comment>").build();
-	// 	}
-	// 	controller.comment(message);
-	// 	return Response.status(200).entity("<comment>ok</comment>").build();
-	// }
+    // 写真をアップロードする
+    // アップロードするのみ．類似チェックなどは別APIで．
+    @POST @Consumes("image/jepg")
+	@Produces({MediaType.APPLICATION_JSON})
+    @Path("/picture")
+    public Response uploadPictre(@FormParam("src") String data) {
+        String id = controller.saveImage(data, "picture");
+        return Response.status(200).entity("{\"picture\":\"" + id + "\"}").build();
+    }
 
-	/**
-	 * コメント一覧といいね回数を取得
-	 * @param n コメント数（デフォルトは20）
-	 * @return
-	 */
-	// @GET
-	// @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	// @Path("/report")
-	// public Response getReport(
-	// 		@DefaultValue("20") @QueryParam("n") final int n) {
-	// 	if (n < 0) {
-	// 		return Response.status(403).entity("<comment>error</comment>").build();
-	// 	}
-	// 	return Response.status(200).entity(controller.getReport(n)).build();
-	// }
+    @POST @Consumes("image/png")
+	@Produces({MediaType.APPLICATION_JSON})
+    @Path("/icon")
+    public Response uploadIcon(@FormParam("src") String data) {
+        String id = controller.saveImage(data, "icon");
+        return Response.status(200).entity("{\"icon\":\"" + id + "\"}").build();
+    }
 
-	/**
-	 * 写真をアップロードする
-	 * POSTメソッドなのでブラウザのURL入力バーから直接呼べないことに注意
-	 * @param photoData 写真データ（MIMEでシリアライズされた画像データ）
-	 * @return 画像ID
-	 */
-	// @POST
-	// @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	// @Path("/photo")
-	// public Response uploadPhoto(
-	// 		@FormParam("src") String photoData
-	// 		) {
-	// 	String photoId = controller.savePhoto(photoData);
-	// 	return Response.status(200).entity("<photo_id>" + photoId + "</photo_id>").build();
-	// }
+	@GET
+	@Produces("image/jepg")
+	@Path("/picture/{id}.jpg")
+	public Response picture(@PathParam("id") String id) {
+		ByteArrayOutputStream baos = controller.getImage(id, "picture");
+		if (baos == null) {
+			return Response.status(404).entity("photo not found.").build();
+		}
+		byte[] data = baos.toByteArray();
+		return Response.ok(new ByteArrayInputStream(data)).build();
+	}
 
-	/**
-	 * 撮影した画像ファイルを返す
-	 * @param 写真のid
-	 * @return png画像
-	 */
-	// @GET
-	// @Produces("image/png")
-	// @Path("/photo/{id}.png")
-	// public Response getPhoto(
-	// 		@PathParam("id") String id) {
-	// 	ByteArrayOutputStream baos = controller.getPhoto(id);
-	// 	if (baos == null) {
-	// 		return Response.status(403).entity("<error>photo not found</error>").build();
-	// 	}
-	// 	byte[] photoData = baos.toByteArray();
-	// 	return Response.ok(new ByteArrayInputStream(photoData)).build();
-	// }
-
-
-	/**
-	 * 撮影した写真のIDのリストを返す
-	 * @param n (写真の枚数，デフォルトは40）
-	 * @return 写真IDリスト
-	 */
-	// @GET
-	// @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-	// @Path("/photo/list")
-	// public Response getPhotoList(
-	// 		@DefaultValue("40") @QueryParam("n") final int n
-	// 		) {
-	// 	List<String> list = controller.getPhotoList(n);
-	// 	PhotoIdList pil = new PhotoIdList(list);
-	// 	return Response.ok(pil).build();
-	// }
+	@GET
+	@Produces("image/png")
+	@Path("/icon/{id}.png")
+	public Response icon(@PathParam("id") String id) {
+		ByteArrayOutputStream baos = controller.getImage(id, "icon");
+		if (baos == null) {
+			return Response.status(404).entity("icon not found.").build();
+		}
+		byte[] data = baos.toByteArray();
+		return Response.ok(new ByteArrayInputStream(data)).build();
+	}
 
 	/**
 	 * ./api/ へのアクセスを ./api/application.wadl（APIの仕様書） にリダイレクトする
