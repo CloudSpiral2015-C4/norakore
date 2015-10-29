@@ -1,5 +1,10 @@
 package jp.kobe_u.cspiral.norakore.model;
 
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,10 +16,18 @@ public class User {
 
 	// default constructor for jaxb
 	public User() {
-        this.name = "None";
-        this.id = "usr0001";
+        this.name = "";
+        this.id = "";
         this.password = "";
 	}
+
+    public DBObject toDBObject() {
+        DBObject dbo = new BasicDBObject();
+        dbo.put("name", this.name);
+        dbo.put("password", this.password);
+
+        return dbo;
+    }
 
 	@XmlElement(name="id")
 	public String getId() {
