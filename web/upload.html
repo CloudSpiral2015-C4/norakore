@@ -15,11 +15,11 @@
 	<div id="iphone-wrapper">
 	<div id="wrapper">
 	<div id="user-info-header"></div>
-	<div id="main">	
+	<div id="main">
 	<h1 class="text-center">アップロード</h1>
 	<h2 class="text-center">入力フォーム</h2>
 	<p>にゃばたーアップロードの入力項目の説明を書く．</p>
-	
+
 	 <form class="form-horizontal form-custom"> <!-- onsubmit="upload()" method="post" -->
             <div class="form-group">
                 <label class="col-xs-12" for="name">名前</label>
@@ -91,7 +91,7 @@ function upload() {
                 console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
             }
         );
-    }
+   };
     reader.readAsText(file);
 }
 
@@ -103,11 +103,11 @@ $('.form-horizontal').submit(function(e) {
 });
 
 </script>
-	
+
 	</div><!-- main -->
 
 	<div id="menu-button-footer"></div>
-	
+
 	</div>
 	</div>
 </body>
