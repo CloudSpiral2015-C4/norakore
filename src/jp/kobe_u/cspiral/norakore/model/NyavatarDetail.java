@@ -25,7 +25,7 @@ public class NyavatarDetail {
     private String advertisingID;
     private String lostCatID;
     private Date date;
-    private List<String> likeUsers; // no setter, has addUser
+    private List<String> likeUserList; // no setter, has addUser
     private String say;
     private Boolean isLiked; // no setter
 
@@ -40,7 +40,7 @@ public class NyavatarDetail {
         this.advertisingID = "nullID";
         this.lostCatID = "nullID";
         this.date = new Date();
-        this.likeUsers = new ArrayList<String>();
+        this.likeUserList = new ArrayList<String>();
         this.say = "nullSay";
 	}
 
@@ -55,12 +55,12 @@ public class NyavatarDetail {
         }
 
         if (this.type.equals("")) {
-            // pictureから何猫で決定
+            // TODO: pictureから何猫で決定
             this.type = "type";
         }
 
         if (this.iconID.equals("")) {
-            // typeから決定するかpictureから類似度するかで決定
+            // TODO: typeから決定するかpictureから類似度するかで決定
             this.iconID = "icon_id";
         }
 
@@ -80,10 +80,10 @@ public class NyavatarDetail {
         dbo.put("date", this.date);
         dbo.put("say", this.say);
         BasicDBList list = new BasicDBList();
-        for (String user: this.likeUsers) {
+        for (String user: this.likeUserList) {
             list.add(user);
         }
-        dbo.put("likeUsers", this.likeUsers); // TODO: 必要？
+        dbo.put("likeUserList", this.likeUserList); // TODO: 必要？
 
         return dbo;
     }
@@ -119,7 +119,7 @@ public class NyavatarDetail {
 	}
 	@XmlElement(name="like")
 	public int getLike() { // no param
-		return likeUsers.size();
+		return likeUserList.size();
 	}
 	@XmlElement(name="isLiked")
 	public Boolean getIsLiked() { // no param
@@ -148,10 +148,10 @@ public class NyavatarDetail {
         this.location = value;
     }
     public void setLikeUsers(List<String> value) {
-        this.likeUsers = value;
+        this.likeUserList = value;
     }
 
     public void addLikeUser(String UserID) {
-        this.likeUsers.add(UserID);
+        this.likeUserList.add(UserID);
     }
 }
