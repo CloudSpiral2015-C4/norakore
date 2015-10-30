@@ -50,7 +50,7 @@ function getMenuButtonFooter(message) {
 // 参考： https://syncer.jp/javascript-reverse-reference/output-local-image
 // [#form]が変更された時にイベントを実行する
 //document.getElementById( "picture" ).onchange = function()
-function encodeBase64(file) 
+function encodeBase64(file)
 {
 	var fileList , file , fr , result ;
 	fileList = this.files ;
@@ -73,4 +73,51 @@ function encodeBase64(file)
 		}
         fr.readAsDataURL(file);
 	}
+}
+
+function Base64_From_StringOfBinaryData(binary){
+	var dic = [
+		'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P',
+		'Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f',
+		'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v',
+		'w','x','y','z','0','1','2','3','4','5','6','7','8','9','+','/'
+	];
+	var base64 = "";
+	var num = binary.length;
+	var n = 0;
+	var b = 0;
+
+	var i = 0;
+	while(i < num){
+		b = binary.charCodeAt(i);
+		if(b > 0xff) return null;
+		base64 += dic[(b >> 2)];
+		n = (b & 0x03) << 4;
+		i ++;
+		if(i >= num) break;
+
+		b = binary.charCodeAt(i);
+		if(b > 0xff) return null;
+		base64 += dic[n | (b >> 4)];
+		n = (b & 0x0f) << 2;
+		i ++;
+		if(i >= num) break;
+
+		b = binary.charCodeAt(i);
+		if(b > 0xff) return null;
+		base64 += dic[n | (b >> 6)];
+		base64 += dic[(b & 0x3f)];
+		i ++;
+	}
+
+	var m = num % 3;
+	if(m){
+		base64 += dic[n];
+	}
+	if(m == 1){
+		base64 += "==";
+	}else if(m == 2){
+		base64 += "=";
+	}
+	return base64;
 }
