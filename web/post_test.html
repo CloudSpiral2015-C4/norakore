@@ -1,0 +1,69 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Json Test</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            $("#sendPost").click(function () {
+                var url = $("#url").val();
+                var postdata = $("#postdata").val();
+
+                $.ajax({
+                    type: 'post',
+                    url: url,
+                    data: $.parseJSON(postdata),
+                    success: function (response) {
+
+                        $("#return").val("送信成功 : =" + JSON.stringify(response));
+
+                    },
+
+                    error: function (errorMsg) {
+                        $("#return").val("失敗！\n" + errorMsg[0]);
+                    }
+
+                });
+
+                console.log(url);
+
+            });
+
+            
+        });
+    </script>
+</head>
+
+<body>
+
+    <!-- main page -->
+    <section id="main" data-role="page">
+        <!-- header -->
+        <header data-role="header">
+            <h1>HTTP POST　てすと用ページ</h1>
+        </header>
+
+        <!-- content -->
+        <article id="content_home" data-role="content">
+            <h1>URL</h1>
+            <textarea id="url">http://ec2-54-92-99-23.ap-northeast-1.compute.amazonaws.com/norakore/api/</textarea>
+            <br />
+            <h1>POSTデータ</h1>
+            <textarea id="postdata">{hoge: "", fuga: ""}</textarea>
+            <br />
+            <textarea id="return">返り値がここに表示されます。</textarea>
+            <br />
+            <input id="sendPost" type="button" value="POST送信" />
+        </article>
+
+    </section>
+
+</body>
+</html>
