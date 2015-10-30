@@ -16,6 +16,7 @@ import jp.kobe_u.cspiral.norakore.util.DBUtils;
 
 import org.bson.types.ObjectId;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -24,15 +25,18 @@ import com.sun.jersey.core.util.Base64;
 
 public class NorakoreController {
 	private final String NyavatarColl_Name = "nyavatar";
+	private final String UserColl_Name = "user";
 	private final String PictureColl_Name = "picture";
 	private final String IconColl_Name = "icon";
 
 	private DBCollection NyavatarColl;
+	private DBCollection UserColl;
 	private DBCollection PictureColl;
 	private DBCollection IconColl;
 
 	public NorakoreController() {
         this.NyavatarColl = DBUtils.getInstance().getDb().getCollection(NyavatarColl_Name);
+        this.UserColl = DBUtils.getInstance().getDb().getCollection(UserColl_Name);
         this.PictureColl = DBUtils.getInstance().getDb().getCollection(PictureColl_Name);
         this.IconColl = DBUtils.getInstance().getDb().getCollection(IconColl_Name);
 	}
@@ -44,14 +48,9 @@ public class NorakoreController {
 
         DBCursor cursor = NyavatarColl.find();
         for (DBObject nya : cursor) {
-            // Location loc = new Location((DBObject)nya.get("location"));
-            // double dx = loc.getLon() - x;
-            // double dy = loc.getLat() - y;
-            // if (Math.pow(dx, 2) + Math.pow(dy, 2) < Math.pow(search_area, 2)) {
-                list.add(new Nyavatar(nya));
-            // }
+            // TODO: mongoのクエリ書く, 四角形範囲クエリにする
+            list.add(new Nyavatar(nya));
         }
-        // TODO: 四角形範囲クエリにする
 
         result.setList(list);
         return result;
@@ -71,15 +70,27 @@ public class NorakoreController {
         loc.setLat(lat);
         nya.setLocation(loc);
 
-        System.out.println(userID + name + type + picture);
-
         nya.determineParams(userID); // 欠落パラメータ補完
 
         // TODO: 重複チェック；名前はともかく、pictureぐらいはチェック必要だろう
         DBObject dbo = nya.toDBObject();
-        System.out.println(dbo.toString());
         NyavatarColl.insert(dbo);
-        return dbo.get("_id").toString();
+        String nya_id = dbo.get("_id").toString();
+
+        // 登録するユーザを取得
+        // TODO:
+        // DBObject query = new BasicDBObject("_id", new ObjectId(userID));
+        DBObject query = new BasicDBObject("_id", userID);
+        DBObject userdbo = UserColl.findOne(query);
+        if (userdbo == null) return null;
+        // ユーザのにゃばたーリストに登録したにゃばたーを追加する
+        BasicDBList list = (BasicDBList)userdbo.get("nyavatarList");
+        list.add(nya_id);
+        // 更新したにゃばたーリストをユーザに適応する
+        userdbo.put("nyavatarList", list);
+        UserColl.update(query, userdbo);
+
+        return nya_id;
     }
 
 	public String saveImage(String data, String res) {
