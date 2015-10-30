@@ -63,34 +63,34 @@ function upload() {
         var name = $('#name').val();
         var type = $('#type').val();
         var picture_binary = evt.target.result;
-        var picture = Base64_From_StringOfBinaryData(picture_binary);
+        //var picture = Base64_From_StringOfBinaryData(picture_binary);
         var userID = $('#userID').val();
-        var lat = "";
-        var lon = "";
+        //var lat = "";
+        //var lon = "";
         navigator.geolocation.getCurrentPosition(function(pos) {
-                lat = pos.coords.latitude;
-                lon = pos.coords.longitude;
+                //lat = pos.coords.latitude;
+                //lon = pos.coords.longitude;
+                $.ajax({
+                    type: 'POST',
+                    url: '../api/register',
+                    data: {
+                        name: name,
+                        userID: userID,
+                        //picture: Base64_From_StringOfBinaryData(picture_binary),
+                        picture: evt.target.result,
+                        type: type,
+                        lat: pos.coords.latitude,
+                        lon: pos.coords.longitude
+                    },
+                    success: function(xml) {
+                        console.log(xml);
+                    }
+                });
             },
             function(e){
                 console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
             }
         );
-        console.log(name + " " + type + " " + lat + " : " + lon);
-        $.ajax({
-            type: 'POST',
-            url: '../api/register',
-            data: {
-                name: name,
-                userID: userID,
-                picture: picture,
-                type: type,
-                lat: lat,
-                lon: lon
-            },
-            success: function(xml) {
-                console.log(xml);
-            }
-        });
     }
     reader.readAsText(file);
 }
