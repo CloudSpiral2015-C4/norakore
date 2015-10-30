@@ -14,35 +14,40 @@ import com.mongodb.BasicDBList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="nyavatar_detail")
+@XmlRootElement(name="NyavatarDetail")
 public class NyavatarDetail {
-    private String id;
+    private String nyavatarID;
     private String name;
-    private String picture;
-    private String icon;
+    private String pictureID;
+    private String iconID;
     private String type;
-    private double like;
-    private Date last_date;
     private Location location;
-    private List<String> like_user;
+    private String advertisingID;
+    private String lostCatID;
+    private Date date;
+    private List<String> likeUsers; // no setter, has addUser
+    private String say;
+    private Boolean isLiked; // no setter
 
 	// default constructor for jaxb
 	public NyavatarDetail() {
-        this.name = "";
-        this.id = "";
-        this.picture = "";
-        this.icon = "";
-        this.type = "";
-        this.like = 0;
-        this.last_date = new Date();
+        this.nyavatarID = "nullID";
+        this.name = "nullName";
+        this.pictureID = "nullID";
+        this.iconID = "nullID";
+        this.type = "nullType";
         this.location = new Location();
-        this.like_user = new ArrayList<String>();
+        this.advertisingID = "nullID";
+        this.lostCatID = "nullID";
+        this.date = new Date();
+        this.likeUsers = new ArrayList<String>();
+        this.say = "nullSay";
 	}
 
     // アップロード時など，欠落しているパラメータを決定する
-    public void determineParams() {
+    public void determineParams(String UserID) {
         Calendar cal = Calendar.getInstance();
-        this.last_date = cal.getTime();
+        this.date = cal.getTime();
 
         if (this.name.equals("")) {
             // ランダム？
@@ -54,94 +59,99 @@ public class NyavatarDetail {
             this.type = "type";
         }
 
-        if (this.icon.equals("")) {
+        if (this.iconID.equals("")) {
             // typeから決定するかpictureから類似度するかで決定
-            this.icon = "icon_id";
+            this.iconID = "icon_id";
         }
+
+        // TODO: useridからisLikeをセット
+        this.isLiked = false;
     }
 
     public DBObject toDBObject() {
         DBObject dbo = new BasicDBObject();
         dbo.put("name", this.name);
-        dbo.put("picture", this.picture);
-        dbo.put("icon", this.icon);
+        dbo.put("pictureID", this.pictureID);
+        dbo.put("iconID", this.iconID);
         dbo.put("type", this.type);
-        dbo.put("like", this.like);
-        dbo.put("last_date", this.last_date);
         dbo.put("location", this.location.toDBObject());
+        dbo.put("advertisingID", this.advertisingID);
+        dbo.put("lostCatID", this.lostCatID);
+        dbo.put("date", this.date);
+        dbo.put("say", this.say);
         BasicDBList list = new BasicDBList();
-        for (String user: this.like_user) {
+        for (String user: this.likeUsers) {
             list.add(user);
         }
-        dbo.put("like_user", this.like_user);
+        dbo.put("likeUsers", this.likeUsers); // TODO: 必要？
 
         return dbo;
     }
 
     // getter / setter ---------------------------------------------------------
-	@XmlElement(name="id")
-	public String getId() {
-		return id;
+	@XmlElement(name="nyavatarID")
+	public String getNyavatarID() {
+		return nyavatarID;
 	}
 	@XmlElement(name="name")
 	public String getName() {
 		return name;
 	}
-	@XmlElement(name="picture")
-	public String getPicture() {
-		return picture;
+	@XmlElement(name="pictureID")
+	public String getPictureID() {
+		return pictureID;
 	}
-	@XmlElement(name="icon")
-	public String getIcon() {
-		return icon;
+	@XmlElement(name="iconID")
+	public String getIconID() {
+		return iconID;
 	}
 	@XmlElement(name="type")
 	public String getType() {
 		return type;
 	}
-	@XmlElement(name="like")
-	public double getLike() {
-		return like;
-	}
-	@XmlElement(name="last_date")
-	public Date getLastDate() {
-		return last_date;
+	@XmlElement(name="date")
+	public Date getDate() {
+		return date;
 	}
 	@XmlElement(name="location")
 	public Location getLocation() {
 		return location;
 	}
-	@XmlElement(name="like_user")
-	public String[] getLikeUser() {
-		return like_user.toArray(new String[like_user.size()]);
+	@XmlElement(name="like")
+	public int getLike() { // no param
+		return likeUsers.size();
+	}
+	@XmlElement(name="isLiked")
+	public Boolean getIsLiked() { // no param
+		return isLiked;
 	}
 
-    public void setId(String value) {
-        this.id = value != null ? value : "";
+    public void setNyavatarID(String value) {
+        this.nyavatarID = value != null ? value : "";
     }
     public void setName(String value) {
         this.name = value != null ? value : "";
     }
-    public void setPicture(String value) {
-        this.picture = value != null ? value : "";
+    public void setPictureID(String value) {
+        this.pictureID = value != null ? value : "";
     }
-    public void setIcon(String value) {
-        this.icon = value != null ? value : "";
+    public void setIconID(String value) {
+        this.iconID = value != null ? value : "";
     }
     public void setType(String value) {
         this.type = value != null ? value : "";
     }
-    public void setLike(double value) {
-        this.like = value;
-    }
-    public void setLastDate(Date value) {
-        this.last_date = value;
+    public void setDate(Date value) {
+        this.date = value;
     }
     public void setLocation(Location value) {
         this.location = value;
     }
-    public void setLikeUser(List<String> value) {
-        this.like_user = value;
+    public void setLikeUsers(List<String> value) {
+        this.likeUsers = value;
     }
 
+    public void addLikeUser(String UserID) {
+        this.likeUsers.add(UserID);
+    }
 }

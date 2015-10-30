@@ -23,21 +23,28 @@ public class JaxAdapter {
 	@Path("/nyavatar")
 	public Response nyavatar(@QueryParam("x") double x, @QueryParam("y") double y) {
         // TODO: paramはLocationにすべきか？jsonだとPOSTでしか入力できない
-        Report result = controller.searchNyavatar(x, y);
+        NyavatarList result = controller.searchNyavatar(x, y);
 		return Response.status(200).entity(result).build();
 	}
 
     // にゃばたー登録
     // パラメータは{name, picture, location}が必須，typeはどっちでもよい
-	@POST @Consumes("application/json")
+	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/register")
-	public Response register(NyavatarDetail nyavatar) {
-        if (nyavatar == null) {
-            return Response.status(400).entity("parameter 'nyavatar' is required.").build();
-        }
-        String nya_id = controller.registerNyavatar(nyavatar);
-		return Response.status(200).entity("{\"nyavatar\":\"" + nya_id + "\"}").build();
+	public Response register(
+            @FormParam("userID") String userID,
+            @FormParam("name") String name,
+            @FormParam("type") String type,
+            @FormParam("picture") String picture, // base64
+            @FormParam("lon") double lon,
+            @FormParam("lat") double lat) {
+        String nya_id = controller.registerNyavatar(userID, name, type, picture, lon, lat);
+
+        RegisterResult result = new RegisterResult();
+        result.setNyavatarID(nya_id);
+        result.setBonitos(10); // TODO: 値をちゃんとやる
+		return Response.status(200).entity(result).build();
 	}
 
     // 写真をアップロードする
