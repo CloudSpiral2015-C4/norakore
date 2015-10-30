@@ -57,6 +57,16 @@ public class NorakoreController {
         return result;
     }
 
+    public NyavatarDetail getNyavatarDetail(String nyavatarID, String userID){
+    	NyavatarDetail result = new NyavatarDetail();
+
+    	DBObject query = new BasicDBObject("_id",new ObjectId(nyavatarID));
+    	DBObject queryResult = NyavatarColl.findOne(query);
+
+    	// TODO: likeUsersの中にuserIDが含まれるかのチェック⇒ふくまれていいたら、isLiked=true
+    	return result;
+    }
+
     public String registerNyavatar(String userID, String name, String type,
             String picture, double lon, double lat) {
         NyavatarDetail nya = new NyavatarDetail();
