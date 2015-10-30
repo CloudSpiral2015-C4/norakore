@@ -18,11 +18,36 @@ public class JaxAdapter {
 
 	private final NorakoreController controller = new NorakoreController();
 
+	// にゃばたー（簡易）のリストを取得
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
 	public Response nyavatar(@QueryParam("lon") double lon, @QueryParam("lat") double lat) {
         NyavatarList result = controller.searchNyavatar(lon, lat);
+		return Response.status(200).entity(result).build();
+	}
+
+	// ユーザの保有するにゃばたー（簡易）のリストの取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/mynyavatar")
+	public Response mynyavatar(@QueryParam("userID") String userID) {
+        NyavatarList result;
+        try {
+            result = controller.getUsersNyavatar(userID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+		return Response.status(200).entity(result).build();
+	}
+
+	// にゃばたー（詳細）取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/nyavatardetail")
+	public Response nyavatardetail(@QueryParam("nyavatarID") String nyavatarID, @QueryParam("userID") String userID) {
+        NyavatarDetail result = controller.getNyavatarDetail(nyavatarID, userID);
 		return Response.status(200).entity(result).build();
 	}
 
@@ -38,8 +63,13 @@ public class JaxAdapter {
             @FormParam("picture") String picture, // base64
             @FormParam("lon") double lon,
             @FormParam("lat") double lat) {
-        String nya_id = controller.registerNyavatar(userID, name, type, picture, lon, lat);
-
+        String nya_id;
+        try {
+            nya_id = controller.registerNyavatar(userID, name, type, picture, lon, lat);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
         RegisterResult result = new RegisterResult();
         result.setNyavatarID(nya_id);
         result.setBonitos(10); // TODO: 値をちゃんとやる
