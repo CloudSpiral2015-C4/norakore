@@ -145,8 +145,7 @@ public class NorakoreController {
 
         // 登録するユーザを取得
         // TODO: error handling
-        // DBObject query = new BasicDBObject("_id", new ObjectId(userID));
-        DBObject query = new BasicDBObject("_id", userID);
+        DBObject query = new BasicDBObject("_id", new ObjectId(userID));
         DBObject userdbo = UserColl.findOne(query);
         if (userdbo == null) return null;
         // ユーザのにゃばたーリストに登録したにゃばたーを追加する
