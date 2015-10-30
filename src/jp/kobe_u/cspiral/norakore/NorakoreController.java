@@ -63,6 +63,16 @@ public class NorakoreController {
     	DBObject queryResult = NyavatarColl.findOne(query);
 
     	// TODO: likeUsersの中にuserIDが含まれるかのチェック⇒ふくまれていいたら、isLiked=true
+    	result.setNyavatarID(queryResult.get("_id").toString());
+    	result.setName((String)queryResult.get("name"));
+    	result.setType((String)queryResult.get("type"));
+    	result.setPictureID((String)queryResult.get("pictureID"));
+    	result.setIconID((String)queryResult.get("iconID"));
+    	result.setDate((Date)queryResult.get("date"));
+    	result.setLocation(new Location((DBObject)queryResult.get("location")));
+    	// TODO: LostCatIDにネコサーチAPIを投げて類似猫があれば、LostCatsこれくしょんに追加してそのIDを追加
+    	// TODO: 広告文章をsayに追加する話は無視
+
     	return result;
     }
 
