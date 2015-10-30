@@ -20,7 +20,7 @@
 	<h2 class="text-center">入力フォーム</h2>
 	<p>にゃばたーアップロードの入力項目の説明を書く．</p>
 	
-	 <form class="form-horizontal form-custom" role="form" method="post">
+	 <form class="form-horizontal form-custom"> <!-- onsubmit="upload()" method="post" -->
             <div class="form-group">
                 <label class="col-xs-12" for="name">名前</label>
                 <div class="col-xs-12">
@@ -31,10 +31,10 @@
                 <label class="col-xs-12" for="type">種類</label>
                 <div class="col-xs-12">
                     <select class="form-control" id="type" name="type">
-                        <option value="0">不明</option>
-                        <option value="1">三毛猫</option>
-                        <option value="2">黒猫</option>
-                        <option value="3">白猫</option>
+                        <option value="不明">不明</option>
+                        <option value="三毛猫">三毛猫</option>
+                        <option value="黒猫">黒猫</option>
+                        <option value="白猫">白猫</option>
                     </select>
                 </div>
             </div>
@@ -55,38 +55,53 @@
         </form>
 
 <script>
-$('#submit').click(function() {
-    var name = $('#name').val();
-    var type = $('#type').val();
-    var picture = encodeBase64($('#picture')[0].file[0]);
-    var userId = $('#userId').val();
-    var lat = "";
-    var lon = "";
-    navigator.geolocation.getCurrentPosition(function(pos) {
-            lat = pos.coords.latitude;
-            lon = pos.coords.longitude;
-        },
-        function(e){
-            console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
-        }
-    );
-    $.ajax({
-        type: 'POST',
-        url: '../api/register',
-        data: {
-            name: name,
-            userId: userId,
-            picture: picture,
-            type: type,
-            lat: lat,
-            lon: lon
-        },
-        success: function(xml) {
-            console.log(xml);
-        }
-    });
 
+function upload() {
+    var file = $('#picture')[0].files[0];
+    var reader = new FileReader();
+    reader.onload = function(evt) {
+        var name = $('#name').val();
+        var type = $('#type').val();
+        var picture_binary = evt.target.result;
+        var picture = Base64_From_StringOfBinaryData(picture_binary);
+        var userId = $('#userId').val();
+        var lat = "";
+        var lon = "";
+        navigator.geolocation.getCurrentPosition(function(pos) {
+                lat = pos.coords.latitude;
+                lon = pos.coords.longitude;
+            },
+            function(e){
+                console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
+            }
+        );
+        console.log(name + " " + type + " " + lat + " : " + lon);
+        $.ajax({
+            type: 'POST',
+            url: '../api/register',
+            data: {
+                name: name,
+                userId: userId,
+                picture: picture,
+                type: type,
+                lat: lat,
+                lon: lon
+            },
+            success: function(xml) {
+                console.log(xml);
+            }
+        });
+    }
+    reader.readAsText(file);
+}
+
+// 自動POSTをしないために必要
+$('.form-horizontal').submit(function(e) {
+    e.preventDefault();
+    upload();
+    return false;
 });
+
 </script>
 	
 	</div><!-- main -->
