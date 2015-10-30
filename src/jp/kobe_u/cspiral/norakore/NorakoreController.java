@@ -37,19 +37,19 @@ public class NorakoreController {
         this.IconColl = DBUtils.getInstance().getDb().getCollection(IconColl_Name);
 	}
 
-    public NyavatarList searchNyavatar(double x, double y) {
+    public NyavatarList searchNyavatar(double lon, double lat) {
         final double search_area = 10000;
         NyavatarList result = new NyavatarList();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
 
         DBCursor cursor = NyavatarColl.find();
         for (DBObject nya : cursor) {
-            Location loc = new Location((DBObject)nya.get("location"));
-            double dx = loc.getLon() - x;
-            double dy = loc.getLat() - y;
-            if (Math.pow(dx, 2) + Math.pow(dy, 2) < Math.pow(search_area, 2)) {
-//                list.add(new Nyavatar(nya));
-            }
+            // Location loc = new Location((DBObject)nya.get("location"));
+            // double dx = loc.getLon() - x;
+            // double dy = loc.getLat() - y;
+            // if (Math.pow(dx, 2) + Math.pow(dy, 2) < Math.pow(search_area, 2)) {
+                list.add(new Nyavatar(nya));
+            // }
         }
         // TODO: 四角形範囲クエリにする
 
@@ -71,10 +71,13 @@ public class NorakoreController {
         loc.setLat(lat);
         nya.setLocation(loc);
 
+        System.out.println(userID + name + type + picture);
+
         nya.determineParams(userID); // 欠落パラメータ補完
 
         // TODO: 重複チェック；名前はともかく、pictureぐらいはチェック必要だろう
         DBObject dbo = nya.toDBObject();
+        System.out.println(dbo.toString());
         NyavatarColl.insert(dbo);
         return dbo.get("_id").toString();
     }
