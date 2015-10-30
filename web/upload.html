@@ -20,7 +20,7 @@
 	<h2 class="text-center">入力フォーム</h2>
 	<p>にゃばたーアップロードの入力項目の説明を書く．</p>
 	
-	 <form class="form-horizontal form-custom" role="form">
+	 <form class="form-horizontal form-custom" role="form" method="post">
             <div class="form-group">
                 <label class="col-xs-12" for="name">名前</label>
                 <div class="col-xs-12">
@@ -56,15 +56,15 @@
 
 <script>
 $('#submit').click(function() {
-    var name = $('name').val();
-    var type = $('type').val();
-    var picture = encodeBase64($('picture')[0].file[0]);
-    var userId = $('userId').val();
+    var name = $('#name').val();
+    var type = $('#type').val();
+    var picture = encodeBase64($('#picture')[0].file[0]);
+    var userId = $('#userId').val();
     var lat = "";
-    var lng = "";
+    var lon = "";
     navigator.geolocation.getCurrentPosition(function(pos) {
             lat = pos.coords.latitude;
-            lng = pos.coords.longitude;
+            lon = pos.coords.longitude;
         },
         function(e){
             console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
@@ -79,7 +79,7 @@ $('#submit').click(function() {
             picture: picture,
             type: type,
             lat: lat,
-            lng: lng
+            lon: lon
         },
         success: function(xml) {
             console.log(xml);
