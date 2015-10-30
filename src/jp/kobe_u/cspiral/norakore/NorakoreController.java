@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
@@ -57,6 +58,35 @@ public class NorakoreController {
         return result;
     }
 
+    public NyavatarList getUsersNyavatar(String userID) throws Exception {
+        NyavatarList result = new NyavatarList();
+        try {
+            // retrieve the specified user's DBObject
+            DBObject query = new BasicDBObject("_id", new ObjectId(userID));
+            DBObject userdbo = UserColl.findOne(query);
+            if (userdbo == null) throw new Exception("Specified user is not found.");
+
+            // get user's nyavatar list
+            BasicDBList id_list = (BasicDBList)userdbo.get("nyavatarList");
+            if (id_list == null) throw new Exception("user's user is not found.");
+
+            // generate nyavatar list from id list
+            List<Nyavatar> ny_list = new ArrayList<Nyavatar>();
+            for(Object id: id_list) {
+                ObjectId oid = new ObjectId((String)id);
+                DBObject ny_dbo = NyavatarColl.findOne(new BasicDBObject("_id", oid));
+                if (ny_dbo == null) throw new Exception("There is lost-nyavatar on db.");
+                ny_list.add(new Nyavatar(ny_dbo));
+            }
+
+            // generate result object
+            result.setList(ny_list);
+        } catch (IllegalArgumentException e) {
+            throw new Exception(MessageFormat.format("Invalid userID, userID={0}", userID));
+        }
+        return result;
+    }
+
     public NyavatarDetail getNyavatarDetail(String nyavatarID, String userID){
     	NyavatarDetail result = new NyavatarDetail();
 
@@ -78,13 +108,17 @@ public class NorakoreController {
     }
 
     public String registerNyavatar(String userID, String name, String type,
-            String picture, double lon, double lat) {
+            String picture, double lon, double lat) throws Exception {
         NyavatarDetail nya = new NyavatarDetail();
         nya.setName(name);
         nya.setType(type);
 
+        if (picture == null || picture.length() == 0) throw new Exception(
+                "Param:picture is not specified.");
         String picid = saveImage(picture, "picture");
+        if (picid == "") throw new Exception("saveImage failed.");
         nya.setPictureID(picid);
+
         String iconid = "nullID";
         Random rnd = new Random();
         int ran = rnd.nextInt(2);
@@ -110,7 +144,7 @@ public class NorakoreController {
         String nya_id = dbo.get("_id").toString();
 
         // 登録するユーザを取得
-        // TODO:
+        // TODO: error handling
         // DBObject query = new BasicDBObject("_id", new ObjectId(userID));
         DBObject query = new BasicDBObject("_id", userID);
         DBObject userdbo = UserColl.findOne(query);
