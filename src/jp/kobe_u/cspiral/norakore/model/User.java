@@ -52,27 +52,31 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	@XmlElement(name="nyavatarList")
 	public List<String> getNyavatarList(){
 		return nyavatarList;
 	}
+	@XmlElement(name="itemList")
 	public List<String> getItemList(){
 		return itemList;
 	}
+	@XmlElement(name="bonitos")
 	public Integer getBonitos(){
 		return bonitos;
 	}
+	//@XmlElement(name="userType") API公開はしない
 	public String getUserType() {
 		return userType;
 	}
 
     public void setId(String value) {
-        this.id = value;
+        this.id = value != null ? value : "";
     }
     public void setName(String value) {
-        this.name = value;
+        this.name = value != null ? value : "";
     }
     public void setPassword(String value) {
-        this.password = value;
+        this.password = value != null ? value : "";
     }
     public void setNyavatarList(List<String> value){
 		this.nyavatarList = value;
@@ -84,6 +88,6 @@ public class User {
 		this.bonitos = value;
 	}
 	public void setUserType(String value) {
-		this.userType = value;
+		this.userType = value != null ? value : "";
 	}
 }
