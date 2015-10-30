@@ -42,6 +42,7 @@ public class NyavatarDetail {
         this.date = new Date();
         this.likeUserList = new ArrayList<String>();
         this.say = "nullSay";
+        this.isLiked = false;
 	}
 
     // アップロード時など，欠落しているパラメータを決定する
