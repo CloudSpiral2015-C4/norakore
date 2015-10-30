@@ -113,13 +113,12 @@ public class NorakoreController {
         nya.setName(name);
         nya.setType(type);
 
-        // if (picture == null || picture.length() == 0) throw new Exception(
-        //         "Param:picture is not specified.");
-        // String picid = saveImage(picture, "picture");
-        // if (picid == "") == 0) throw new Exception("saveImage failed.");
-
+        if (picture == null || picture.length() == 0) throw new Exception(
+                "Param:picture is not specified.");
         String picid = saveImage(picture, "picture");
+        if (picid == "") throw new Exception("saveImage failed.");
         nya.setPictureID(picid);
+
         String iconid = "nullID";
         Random rnd = new Random();
         int ran = rnd.nextInt(2);
@@ -145,8 +144,7 @@ public class NorakoreController {
         String nya_id = dbo.get("_id").toString();
 
         // 登録するユーザを取得
-        // TODO:
-
+        // TODO: error handling
         // DBObject query = new BasicDBObject("_id", new ObjectId(userID));
         DBObject query = new BasicDBObject("_id", userID);
         DBObject userdbo = UserColl.findOne(query);
