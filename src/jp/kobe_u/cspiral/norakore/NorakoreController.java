@@ -72,7 +72,7 @@ public class NorakoreController {
     	result.setLocation(new Location((DBObject)queryResult.get("location")));
     	// TODO: LostCatIDにネコサーチAPIを投げて類似猫があれば、LostCatsこれくしょんに追加してそのIDを追加
     	// TODO: 広告文章をsayに追加する話は無視
-
+    	result.setSay((String)queryResult.get("say"));
     	return result;
     }
 
@@ -89,6 +89,7 @@ public class NorakoreController {
         loc.setLon(lon);
         loc.setLat(lat);
         nya.setLocation(loc);
+        nya.setSay("お腹すいたにゃぁ～");
 
         nya.determineParams(userID); // 欠落パラメータ補完
 
