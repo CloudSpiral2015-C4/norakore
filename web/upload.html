@@ -76,7 +76,8 @@ function upload() {
                     data: {
                         name: name,
                         userID: userID,
-                        picture: Base64_From_StringOfBinaryData(picture_binary),
+                        //picture: Base64_From_StringOfBinaryData(picture_binary),
+                        picture: evt.target.result,
                         type: type,
                         lat: pos.coords.latitude,
                         lon: pos.coords.longitude
