@@ -37,31 +37,44 @@ public class NorakoreController {
         this.IconColl = DBUtils.getInstance().getDb().getCollection(IconColl_Name);
 	}
 
-    public Report searchNyavatar(double x, double y) {
+    public NyavatarList searchNyavatar(double x, double y) {
         final double search_area = 10000;
-        Report result = new Report();
+        NyavatarList result = new NyavatarList();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
 
         DBCursor cursor = NyavatarColl.find();
         for (DBObject nya : cursor) {
             Location loc = new Location((DBObject)nya.get("location"));
-            double dx = loc.getX() - x;
-            double dy = loc.getY() - y;
+            double dx = loc.getLon() - x;
+            double dy = loc.getLat() - y;
             if (Math.pow(dx, 2) + Math.pow(dy, 2) < Math.pow(search_area, 2)) {
-                list.add(new Nyavatar(nya));
+//                list.add(new Nyavatar(nya));
             }
         }
+        // TODO: 四角形範囲クエリにする
 
         result.setList(list);
         return result;
     }
 
-    public String registerNyavatar(NyavatarDetail nyavatar) {
-        // TODO:picture, locationの存在チェック
-        nyavatar.determineParams();
+    public String registerNyavatar(String userID, String name, String type,
+            String picture, double lon, double lat) {
+        NyavatarDetail nya = new NyavatarDetail();
+        nya.setName(name);
+        nya.setType(type);
+
+        String picid = saveImage(picture, "picture");
+        nya.setPictureID(picid);
+
+        Location loc = new Location();
+        loc.setLon(lon);
+        loc.setLat(lat);
+        nya.setLocation(loc);
+
+        nya.determineParams(userID); // 欠落パラメータ補完
 
         // TODO: 重複チェック；名前はともかく、pictureぐらいはチェック必要だろう
-        DBObject dbo = nyavatar.toDBObject();
+        DBObject dbo = nya.toDBObject();
         NyavatarColl.insert(dbo);
         return dbo.get("_id").toString();
     }
