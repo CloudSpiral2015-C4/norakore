@@ -38,14 +38,14 @@ public class Nyavatar {
 	}
 
     public Nyavatar(DBObject dbo) {
-        this.nyavatarID = (String)dbo.get("nyavatarID");
-        this.name = (String)dbo.get("name");
+        this.nyavatarID = dbo.get("_id").toString();
+    	this.name = (String)dbo.get("name");
         this.pictureID = (String)dbo.get("pictureID");
         this.iconID = (String)dbo.get("iconID");
         this.date = (Date)dbo.get("date");
         this.location = new Location((DBObject)dbo.get("location"));
 
-        BasicDBList liker = (BasicDBList)dbo.get("likeUsers");
+        BasicDBList liker = (BasicDBList)dbo.get("likeUserList");
         this.like = liker.size();
 
         this.lostCatID = (String)dbo.get("lostCatID");
