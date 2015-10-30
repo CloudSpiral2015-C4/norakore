@@ -10,41 +10,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="location")
 public class Location {
-    private double x;
-    private double y;
+    private double lon;
+    private double lat;
 
 	// default constructor for jaxb
 	public Location() {
-        this.x = 0;
-        this.y = 0;
+        this.lon = 0;
+        this.lat = 0;
 	}
 
     public Location(DBObject dbo) {
-        this.x = (double)dbo.get("x");
-        this.y = (double)dbo.get("y");
+        this.lon = (double)dbo.get("lon");
+        this.lat = (double)dbo.get("lat");
     }
 
     public DBObject toDBObject() {
         DBObject dbo = new BasicDBObject();
-        dbo.put("x", this.x);
-        dbo.put("y", this.y);
+        dbo.put("lon", this.lon);
+        dbo.put("lat", this.lat);
 
         return dbo;
     }
 
-	@XmlElement(name="x")
-	public double getX() {
-		return x;
+	@XmlElement(name="lon")
+	public double getLon() {
+		return lon;
 	}
-	@XmlElement(name="y")
-	public double getY() {
-		return y;
+	@XmlElement(name="lat")
+	public double getLat() {
+		return lat;
 	}
 
-    public void setX(double value) {
-        this.x = value;
+    public void setLon(double value) {
+        this.lon = value;
     }
-    public void setY(double value) {
-        this.y = value;
+    public void setLat(double value) {
+        this.lat = value;
     }
 }
