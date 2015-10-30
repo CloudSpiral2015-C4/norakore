@@ -15,11 +15,11 @@
 	<div id="iphone-wrapper">
 	<div id="wrapper">
 	<div id="user-info-header"></div>
-	<div id="main">	
+	<div id="main">
 	<h1 class="text-center">アップロード</h1>
 	<h2 class="text-center">入力フォーム</h2>
 	<p>にゃばたーアップロードの入力項目の説明を書く．</p>
-	
+
 	 <form class="form-horizontal form-custom"> <!-- onsubmit="upload()" method="post" -->
             <div class="form-group">
                 <label class="col-xs-12" for="name">名前</label>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="hidden" class="form-control" id="userID" name="userID" value="testUser">
+                <input type="hidden" class="form-control" id="userID" name="userID" value="000000000000000000000000">
             </div>
             <div class="form-group">
                 <div class="col-xs-offset-2 col-xs-10">
@@ -63,35 +63,35 @@ function upload() {
         var name = $('#name').val();
         var type = $('#type').val();
         var picture_binary = evt.target.result;
-        var picture = Base64_From_StringOfBinaryData(picture_binary);
+        //var picture = Base64_From_StringOfBinaryData(picture_binary);
         var userID = $('#userID').val();
-        var lat = "";
-        var lon = "";
+        //var lat = "";
+        //var lon = "";
         navigator.geolocation.getCurrentPosition(function(pos) {
-                lat = pos.coords.latitude;
-                lon = pos.coords.longitude;
+                //lat = pos.coords.latitude;
+                //lon = pos.coords.longitude;
+                $.ajax({
+                    type: 'POST',
+                    url: '../api/register',
+                    data: {
+                        name: name,
+                        userID: userID,
+                        //picture: Base64_From_StringOfBinaryData(picture_binary),
+                        picture: evt.target.result,
+                        type: type,
+                        lat: pos.coords.latitude,
+                        lon: pos.coords.longitude
+                    },
+                    success: function(xml) {
+                        console.log(xml);
+                    }
+                });
             },
             function(e){
                 console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
             }
         );
-        console.log(name + " " + type + " " + lat + " : " + lon);
-        $.ajax({
-            type: 'POST',
-            url: '../api/register',
-            data: {
-                name: name,
-                userID: userID,
-                picture: picture,
-                type: type,
-                lat: lat,
-                lon: lon
-            },
-            success: function(xml) {
-                console.log(xml);
-            }
-        });
-    }
+   };
     reader.readAsText(file);
 }
 
@@ -103,11 +103,11 @@ $('.form-horizontal').submit(function(e) {
 });
 
 </script>
-	
+
 	</div><!-- main -->
 
 	<div id="menu-button-footer"></div>
-	
+
 	</div>
 	</div>
 </body>
