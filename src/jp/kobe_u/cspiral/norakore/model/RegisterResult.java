@@ -18,7 +18,7 @@ public class RegisterResult {
         this.bonitos = 0;
 	}
 
-	@XmlElement(name="nyavataID")
+	@XmlElement(name="nyavatarID")
 	public String getNyavataID() {
 		return nyavatarID;
 	}
