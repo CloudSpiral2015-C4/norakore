@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -119,6 +120,16 @@ public class NorakoreController {
 
         String picid = saveImage(picture, "picture");
         nya.setPictureID(picid);
+        String iconid = "nullID";
+        Random rnd = new Random();
+        int ran = rnd.nextInt(2);
+        switch(ran){
+        case 0:
+        	iconid = "563374c731b1b0e407093a9f";
+        case 1:
+        	iconid = "563374d831b1b0e408093a9f";
+        }
+        nya.setIconID(iconid);
 
         Location loc = new Location();
         loc.setLon(lon);
