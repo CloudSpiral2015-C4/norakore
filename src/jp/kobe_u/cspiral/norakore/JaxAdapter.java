@@ -21,9 +21,8 @@ public class JaxAdapter {
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
-	public Response nyavatar(@QueryParam("x") double x, @QueryParam("y") double y) {
-        // TODO: paramはLocationにすべきか？jsonだとPOSTでしか入力できない
-        NyavatarList result = controller.searchNyavatar(x, y);
+	public Response nyavatar(@QueryParam("lon") double lon, @QueryParam("lat") double lat) {
+        NyavatarList result = controller.searchNyavatar(lon, lat);
 		return Response.status(200).entity(result).build();
 	}
 

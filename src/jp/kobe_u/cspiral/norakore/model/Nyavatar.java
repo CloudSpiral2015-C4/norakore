@@ -20,13 +20,10 @@ public class Nyavatar {
     private String name;
     private String pictureID;
     private String iconID;
-    private String type;
-    private Location location;
-    private String advertisingID;
-    private String lostCatID;
     private Date date;
-    private List<String> likeUsers;
-    private String say;
+    private Location location;
+    private int like;
+    private String lostCatID;
 
 	// default constructor for jaxb
 	public Nyavatar() {
@@ -34,54 +31,24 @@ public class Nyavatar {
         this.name = "nullName";
         this.pictureID = "nullID";
         this.iconID = "nullID";
-        this.type = "nullType";
-        this.location = new Location();
-        this.advertisingID = "nullID";
-        this.lostCatID = "nullID";
         this.date = new Date();
-        this.likeUsers = new ArrayList<String>();
-        this.say = "nullSay";
+        this.location = new Location();
+        this.like = 0;
+        this.lostCatID = "nullID";
 	}
 
-    // アップロード時など，欠落しているパラメータを決定する
-    public void determineParams() {
-        Calendar cal = Calendar.getInstance();
-        this.date = cal.getTime();
+    public Nyavatar(DBObject dbo) {
+        this.nyavatarID = (String)dbo.get("nyavatarID");
+        this.name = (String)dbo.get("name");
+        this.pictureID = (String)dbo.get("pictureID");
+        this.iconID = (String)dbo.get("iconID");
+        this.date = (Date)dbo.get("date");
+        this.location = new Location((DBObject)dbo.get("location"));
 
-        if (this.name.equals("")) {
-            // ランダム？
-            this.name = "猫";
-        }
+        BasicDBList liker = (BasicDBList)dbo.get("likeUsers");
+        this.like = liker.size();
 
-        if (this.type.equals("")) {
-            // pictureから何猫で決定
-            this.type = "type";
-        }
-
-        if (this.iconID.equals("")) {
-            // typeから決定するかpictureから類似度するかで決定
-            this.iconID = "icon_id";
-        }
-    }
-
-    public DBObject toDBObject() {
-        DBObject dbo = new BasicDBObject();
-        dbo.put("name", this.name);
-        dbo.put("pictureID", this.pictureID);
-        dbo.put("iconID", this.iconID);
-        dbo.put("type", this.type);
-        dbo.put("location", this.location.toDBObject());
-        dbo.put("advertisingID", this.advertisingID);
-        dbo.put("lostCatID", this.lostCatID);
-        dbo.put("date", this.date);
-        dbo.put("say", this.say);
-        BasicDBList list = new BasicDBList();
-        for (String user: this.likeUsers) {
-            list.add(user);
-        }
-        dbo.put("likeUsers", this.likeUsers);
-
-        return dbo;
+        this.lostCatID = (String)dbo.get("lostCatID");
     }
 
     // getter / setter ---------------------------------------------------------
@@ -101,10 +68,6 @@ public class Nyavatar {
 	public String getIconID() {
 		return iconID;
 	}
-	@XmlElement(name="type")
-	public String getType() {
-		return type;
-	}
 	@XmlElement(name="date")
 	public Date getDate() {
 		return date;
@@ -113,9 +76,13 @@ public class Nyavatar {
 	public Location getLocation() {
 		return location;
 	}
-	@XmlElement(name="likeUsers")
-	public String[] getLikeUsers() {
-		return likeUsers.toArray(new String[likeUsers.size()]);
+	@XmlElement(name="like")
+	public int getLike() {
+		return like;
+	}
+	@XmlElement(name="lostCatID")
+	public String getLostCatID() {
+		return lostCatID;
 	}
 
     public void setNyavatarID(String value) {
@@ -130,16 +97,16 @@ public class Nyavatar {
     public void setIconID(String value) {
         this.iconID = value != null ? value : "";
     }
-    public void setType(String value) {
-        this.type = value != null ? value : "";
-    }
     public void setDate(Date value) {
         this.date = value;
     }
     public void setLocation(Location value) {
         this.location = value;
     }
-    public void setLikeUser(List<String> value) {
-        this.likeUsers = value;
+    public void setLike(int value) {
+        this.like = value;
+    }
+    public void setLostCatID(String value) {
+        this.lostCatID = value != null ? value : "";
     }
 }
