@@ -125,6 +125,14 @@ public class NyavatarDetail {
 	public Boolean getIsLiked() { // no param
 		return isLiked;
 	}
+	@XmlElement(name="say")
+	public String getSay() { // no param
+		return say;
+	}
+	@XmlElement(name="lostCatID")
+	public String getLostCatID() { // no param
+		return lostCatID;
+	}
 
     public void setNyavatarID(String value) {
         this.nyavatarID = value != null ? value : "";
@@ -153,5 +161,13 @@ public class NyavatarDetail {
 
     public void addLikeUser(String UserID) {
         this.likeUserList.add(UserID);
+    }
+
+    public void setSay(String value) {
+        this.say = value != null ? value : "";
+    }
+
+    public void setLostCatID(String value) {
+        this.lostCatID = value != null ? value : "";
     }
 }
