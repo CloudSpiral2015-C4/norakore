@@ -7,18 +7,19 @@
  * #user-info-header が必要
  * @param {string} username ログインユーザの名前
  */
-function getUserInfoHeader(username) {
+function getUserInfoHeader(username, bonitos) {
 	var header = document.getElementById('user-info-header');
 	var headerHTML = '';
 	headerHTML += '<div class="row text-center">';
-	headerHTML += '    <div class="col-xs-4">';
-	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.2" onclick="location.href=\'index.html\'"><p>トップ</p></div>';
+	headerHTML += '    <div class="col-xs-3">';
+	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.0" onclick="location.href=\'index.html\'"><p>トップ</p></div>';
 	headerHTML += '    </div>';
-	headerHTML += '    <div class="col-xs-4">';
+	headerHTML += '    <div class="col-xs-6">';
 	headerHTML += '        <p id="username">' + username + '</p>';
+    headerHTML += '        <p id="bonitos">かつお' + bonitos + '個</p>';
 	headerHTML += '    </div>';
-	headerHTML += '    <div class="col-xs-4">';
-	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.1" onclick="location.href=\'#\'"><p>ログアウト</p></div>';
+	headerHTML += '    <div class="col-xs-3">';
+	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="0.6" onclick="location.href=\'#\'"><p>ログアウト</p></div>';
 	headerHTML += '    </div>';
 	headerHTML += '</div>';
 	header.innerHTML = headerHTML;
@@ -45,6 +46,43 @@ function getMenuButtonFooter(message) {
 	footerHTML += '</div>';
 	footer.innerHTML = footerHTML;
 	return;
+}
+
+/* にゃばたーサムネイルを作成する関数
+ * 画面に出力するサムネイルを作成します．必要なデータはソースを参照して下さい．
+ * @param {nyavatar} data 表示すべきにゃばたーのデータが入ったJSON
+ */
+function getNyavatarThumbnail(data) {
+	var nyavatarThumbnail = "";
+    nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
+    nyavatarThumbnail += '    <div class="nyavatar-heading">';
+    nyavatarThumbnail += '        <img src="' + data.icon + '">';
+    nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="nyavatar-body">';
+    nyavatarThumbnail += '        <div class="pull-left">';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" class="nyavatar-image">';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '        <div class="nyavatar-status">';
+    nyavatarThumbnail += '            <ul>';
+    nyavatarThumbnail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
+    nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
+    nyavatarThumbnail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
+    nyavatarThumbnail += '            </ul>';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="clearfix"></div>';
+    nyavatarThumbnail += '    <div class="nyavatar-footer">';
+    nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'#\'">詳細</div>';
+    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '</div>';
+    return nyavatarThumbnail;
+}
+
+// にゃばたーの最終発見日時を変更する
+function findcheck() {
+	// 後で実装する
 }
 
 // 参考： https://syncer.jp/javascript-reverse-reference/output-local-image
@@ -121,3 +159,21 @@ function Base64_From_StringOfBinaryData(binary){
 	}
 	return base64;
 }
+
+console.log('common.js : 基本UIの書き出し終了');
+var initialize = function() 
+{
+    $.ajax({
+        type: 'GET',
+        url: '../api/user',
+        data: {
+            userID : 'testUser',
+        }
+    })
+    .done(function(data) {
+        getUserInfoHeader(data.name, data.bonitos);
+        getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+    });
+    return;
+};
+window.addEventListener('load',initialize,false);

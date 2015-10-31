@@ -50,10 +50,9 @@
 							center : center,
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
+
 						//地図本体描画
 						map = new google.maps.Map($("#google-map-field")[0], option);
-						// （おまけ） 地図上にマーカーを落とす
-						new google.maps.Marker({position : center, map : map});
 
     					$.ajax({
         					type: 'GET',
@@ -64,38 +63,45 @@
             				}
             			})
         				.done(function(data) {
-            				console.log(data);
+                            var nyavatarList = data.list;
+        					for(var i = 0; i < nyavatarList.length; ++i) {
+                                //地図上にマーカーを落とす
+        						var marker = new google.maps.Marker({
+        							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
+        							map:map
+        						});
+        					}
         				});
        				},
         			function(e){
             			console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
         			}
-    			);}
+    			);
+            }
 			mapInit();
 
-			function listup() {
+			function showNyavatarList() {
 			   	var address = $('#address').val();
-			   	console.log(address);
 			   	var lat = "";
 				var lon = "";
 				var center;
+                geocoder = new google.maps.Geocoder();
 			    // geocode (住所から緯度経度を取得)
     			geocoder.geocode( { address: address, language: 'ja'}, function(results, status)
     			{
     				if(status==google.maps.GeocoderStatus.OK){
+                        // Googleマップの現在位置更新
     					center = results[0].geometry.location;
             			lat = center.lat();
             			lon = center.lng();
-            			console.log(lat);
-						var option2 = {
+						var option = {
 							zoom : 13,
 							center : center,
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
-						map.setOptions(option2);
-	 					// マーカー
-						new google.maps.Marker({position : center, map : map});
+						map.setOptions(option);
 
+                        // 以下にゃばたーリストの取得
 		    			$.ajax({
     		    			type: 'GET',
         					url: '../api/nyavatar',
@@ -105,10 +111,24 @@
             				}
             			})
         				.done(function(data) {
-            				console.log(data);
+            				nyavatarList = data.list;
+                            console.log(data.list);
+                            $('.nyavatar-list').empty();
+                            for(var i = 0; i < nyavatarList.length; ++i) {
+                                var json = {
+                                    icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
+                                    name : nyavatarList[i].name,
+                                    date : nyavatarList[i].date.split('T')[0],
+                                    like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+                                    location : '日本',
+                                    picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+                                };
+                                var nyavatarThumbnail = getNyavatarThumbnail(json);
+                                $('.nyavatar-list').append(nyavatarThumbnail);
+                            }
         				});
         			}else{
-            			console.log("ERROR: geocoder.geolocation()");
+            			console.log("ERROR: geocoder.geolocation(位置が選択されていません)");
         			}
       			 },
         			function(e){
@@ -119,114 +139,14 @@
 			// 自動POSTをしないために必要
 			$('.form-horizontal').submit(function(e) {
     			e.preventDefault();
-   				listup();
+   				showNyavatarList();
     			return false;
 			});
 		</script>
 
 	<!-- 以下のにゃばたーリストはMap中心地から半径Xkm以内に登録されているにゃばたーを表示する -->
 		<h2 class="text-center">マップ付近の　にゃばたーリスト</h2>
-		<div class="nyavatar-list">
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-		</div>
+		<div class="nyavatar-list"></div>
 
 
 	</div><!-- main -->
@@ -235,8 +155,4 @@
 	</div>
 	</div>
 </body>
-<script>
-	getUserInfoHeader("ゲスト");
-	getMenuButtonFooter("ここにはページの説明を書いて下さい．");
-</script>
 </html>
