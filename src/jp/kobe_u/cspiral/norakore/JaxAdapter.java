@@ -63,16 +63,17 @@ public class JaxAdapter {
             @FormParam("picture") String picture, // base64
             @FormParam("lon") double lon,
             @FormParam("lat") double lat) {
-        String nya_id;
+        //String nya_id;
+        RegisterResult result = new RegisterResult();
         try {
-            nya_id = controller.registerNyavatar(userID, name, type, picture, lon, lat);
+            result = controller.registerNyavatar(userID, name, type, picture, lon, lat);
         } catch (Exception e) {
             ErrorResult err = new ErrorResult(e.getMessage());
             return Response.status(400).entity(err).build();
         }
-        RegisterResult result = new RegisterResult();
-        result.setNyavatarID(nya_id);
-        result.setBonitos(10); // TODO: 値をちゃんとやる
+
+        //result.setNyavatarID(nya_id);
+        //result.setBonitos(10); // TODO: 値をちゃんとやる
 		return Response.status(200).entity(result).build();
 	}
 

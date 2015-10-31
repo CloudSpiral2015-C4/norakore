@@ -108,7 +108,7 @@ public class NorakoreController {
     	return result;
     }
 
-    public String registerNyavatar(String userID, String name, String type,
+    public RegisterResult registerNyavatar(String userID, String name, String type,
             String picture, double lon, double lat) throws Exception {
         NyavatarDetail nya = new NyavatarDetail();
         nya.setName(name);
@@ -161,7 +161,11 @@ public class NorakoreController {
         userdbo.put("bonitos", bonitos);
         UserColl.update(query, userdbo);
 
-        return nya_id;
+        RegisterResult result = new RegisterResult();
+        result.setNyavatarID(nya_id);
+        result.setBonitos(bonitos.intValue());
+
+        return result;
     }
 
 	public String saveImage(String data, String res) {
