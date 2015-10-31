@@ -35,7 +35,7 @@
 		<div id="google-map-field"></div>
 
 		<script>
-			var geocoder, map,marker_list;
+			var geocoder, map;
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -80,9 +80,6 @@
 			mapInit();
 
 			function listup() {
-				marker_list.forEach(function(marker, index) {
-					marker.setMap(null);
-				});
 			   	var address = $('#address').val();
 			   	var lat = "";
 				var lon = "";
