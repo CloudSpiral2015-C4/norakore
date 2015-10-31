@@ -105,6 +105,12 @@
             				}
             			})
         				.done(function(data) {
+        					$.each(data, function(index,elem){
+        						var maker = new google.maps.Maker({
+        							position:new google.maps.LatLng(elem.location.lat,elem.location.lon),
+        							map:map
+        						});
+        					});
             				console.log(data);
         				});
         			}else{
