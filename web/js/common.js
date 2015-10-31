@@ -7,18 +7,19 @@
  * #user-info-header が必要
  * @param {string} username ログインユーザの名前
  */
-function getUserInfoHeader(username) {
+function getUserInfoHeader(username, bonitos) {
 	var header = document.getElementById('user-info-header');
 	var headerHTML = '';
 	headerHTML += '<div class="row text-center">';
-	headerHTML += '    <div class="col-xs-4">';
-	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.2" onclick="location.href=\'index.html\'"><p>トップ</p></div>';
+	headerHTML += '    <div class="col-xs-3">';
+	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.0" onclick="location.href=\'index.html\'"><p>トップ</p></div>';
 	headerHTML += '    </div>';
-	headerHTML += '    <div class="col-xs-4">';
+	headerHTML += '    <div class="col-xs-6">';
 	headerHTML += '        <p id="username">' + username + '</p>';
+    headerHTML += '        <p id="bonitos">かつお' + bonitos + '個</p>';
 	headerHTML += '    </div>';
-	headerHTML += '    <div class="col-xs-4">';
-	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.1" onclick="location.href=\'#\'"><p>ログアウト</p></div>';
+	headerHTML += '    <div class="col-xs-3">';
+	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="0.6" onclick="location.href=\'#\'"><p>ログアウト</p></div>';
 	headerHTML += '    </div>';
 	headerHTML += '</div>';
 	header.innerHTML = headerHTML;
