@@ -122,7 +122,7 @@ public class NorakoreController {
         if (like_list.contains(userID)) throw new Exception("user already like the nyavatar.");
         like_list.add(userID);
         userdbo.put("likeUserList", like_list);
-        UserColl.update(query, userdbo);
+        NyavatarColl.update(query, userdbo);
 
     	return like_list.size();
     }
