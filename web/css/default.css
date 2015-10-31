@@ -179,7 +179,9 @@ h3:before {
 .nyavatar-body {}
 .nyavatar-image {
 	float: left;
+	overflow: hidden;
 	width: 80px;
+	height: 80px;
 	margin: 5px;
 	margin-left: 0px;
 	margin-top: 10px;

@@ -47,6 +47,43 @@ function getMenuButtonFooter(message) {
 	return;
 }
 
+/* にゃばたーサムネイルを作成する関数
+ * 画面に出力するサムネイルを作成します．必要なデータはソースを参照して下さい．
+ * @param {nyavatar} data 表示すべきにゃばたーのデータが入ったJSON
+ */
+function getNyavatarThumbnail(data) {
+	var nyavatarThumbnail = "";
+    nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
+    nyavatarThumbnail += '    <div class="nyavatar-heading">';
+    nyavatarThumbnail += '        <img src="' + data.icon + '">';
+    nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="nyavatar-body">';
+    nyavatarThumbnail += '        <div class="pull-left">';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" class="nyavatar-image">';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '        <div class="nyavatar-status">';
+    nyavatarThumbnail += '            <ul>';
+    nyavatarThumbnail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
+    nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
+    nyavatarThumbnail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
+    nyavatarThumbnail += '            </ul>';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="clearfix"></div>';
+    nyavatarThumbnail += '    <div class="nyavatar-footer">';
+    nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'#\'">詳細</div>';
+    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '</div>';
+    return nyavatarThumbnail;
+}
+
+// にゃばたーの最終発見日時を変更する
+function findcheck() {
+	// 後で実装する
+}
+
 // 参考： https://syncer.jp/javascript-reverse-reference/output-local-image
 // [#form]が変更された時にイベントを実行する
 //document.getElementById( "picture" ).onchange = function()
