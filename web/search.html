@@ -84,6 +84,7 @@
 			   	var lat = "";
 				var lon = "";
 				var center;
+                geocoder = new google.maps.Geocoder();
 			    // geocode (住所から緯度経度を取得)
     			geocoder.geocode( { address: address, language: 'ja'}, function(results, status)
     			{
