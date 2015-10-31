@@ -62,7 +62,8 @@ public class NorakoreController {
         NyavatarList result = new NyavatarList();
         try {
             // retrieve the specified user's DBObject
-            DBObject query = new BasicDBObject("_id", new ObjectId(userID));
+            //DBObject query = new BasicDBObject("_id", new ObjectId(userID));
+        	DBObject query = new BasicDBObject("_id", userID);
             DBObject userdbo = UserColl.findOne(query);
             if (userdbo == null) throw new Exception("Specified user is not found.");
 
