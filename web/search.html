@@ -113,21 +113,11 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             for(var i = 0; i < nyavatarList.length; ++i) {
-                                $.ajax({
-                                    type: 'GET',
-                                    url: '../api/picture/' + nyavatarList[i].pictureID + '.jpg',
-                                    data: {
-
-                                    }
-                                })
-                                .done(function(data){
-                                    console.log(data);
-                                });
                                 var icon = "images/nyavatar.png";
                                 var name = nyavatarList[i].name;
                                 var date = nyavatarList[i].date.split('T')[0];
                                 var like = nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length;
-                                var picture = "images/neko-img.jpg";
+                                var picture = '../api/picture/' + nyavatarList[i].pictureID + '.jpg';
                                 var nyavatarThumbnail = "";
                                 nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
                                 nyavatarThumbnail += '    <div class="nyavatar-heading">';
