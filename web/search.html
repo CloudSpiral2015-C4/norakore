@@ -124,7 +124,9 @@
                                     console.log(data);
                                 });
                                 var icon = "images/nyavatar.png";
-                                var name = "にゃんこたろう";
+                                var name = nyavatarList[i].name;
+                                var date = nyavatarList[i].date;
+                                var like = nyavatarList[i].likeUserList.length;
                                 var picture = "images/neko-img.png";
                                 var nyavatarThumbnail = "";
                                 nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
@@ -138,9 +140,9 @@
                                 nyavatarThumbnail += '        </div>';
                                 nyavatarThumbnail += '        <div class="nyavatar-status">';
                                 nyavatarThumbnail += '            <ul>';
-                                nyavatarThumbnail += '                <li>主な生息地: <span class="place">京都府</span></li>';
-                                nyavatarThumbnail += '                <li>最終発見報告: <span class="date">2015/10/16</span></li>';
-                                nyavatarThumbnail += '                <li>総合評価 <span class="review">☆☆☆☆☆</span></li>';
+                                nyavatarThumbnail += '                <li>主な生息地: <span class="place">不明</span></li>';
+                                nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + date + '</span></li>';
+                                nyavatarThumbnail += '                <li>いいね <span class="review">' + like + '</span></li>';
                                 nyavatarThumbnail += '            </ul>';
                                 nyavatarThumbnail += '        </div>';
                                 nyavatarThumbnail += '    </div>';
