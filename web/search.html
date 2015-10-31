@@ -70,7 +70,7 @@
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
-        					};
+        					}
         				});
        				},
         			function(e){
@@ -112,7 +112,37 @@
             				}
             			})
         				.done(function(data) {
-            				console.log(data);
+            				nyavatarList = data.list;
+                            for(var i = 0; i < nyavatarList.length; ++i) {
+                                var icon = "images/nyavatar.png";
+                                var name = "にゃんこたろう";
+                                var picture = "";
+                                var nyavatarThumbnail = "";
+                                nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
+                                nyavatarThumbnail += '    <div class="nyavatar-heading">';
+                                nyavatarThumbnail += '        <img src="' + icon + '">';
+                                nyavatarThumbnail += '        <h4>' + name + '</h4>';
+                                nyavatarThumbnail += '    </div>';
+                                nyavatarThumbnail += '    <div class="nyavatar-body">';
+                                nyavatarThumbnail += '        <div class="pull-left">';
+                                nyavatarThumbnail += '            <img src="' + picture + '" class="nyavatar-image">';
+                                nyavatarThumbnail += '        </div>';
+                                nyavatarThumbnail += '        <div class="nyavatar-status">';
+                                nyavatarThumbnail += '            <ul>';
+                                nyavatarThumbnail += '                <li>主な生息地: <span class="place">京都府</span></li>';
+                                nyavatarThumbnail += '                <li>最終発見報告: <span class="date">2015/10/16</span></li>';
+                                nyavatarThumbnail += '                <li>総合評価 <span class="review">☆☆☆☆☆</span></li>';
+                                nyavatarThumbnail += '            </ul>';
+                                nyavatarThumbnail += '        </div>';
+                                nyavatarThumbnail += '    </div>';
+                                nyavatarThumbnail += '    <div class="clearfix"></div>';
+                                nyavatarThumbnail += '    <div class="nyavatar-footer">';
+                                nyavatarThumbnail += '        <div class="btn btn-default">詳細</div>';
+                                nyavatarThumbnail += '        <div class="btn btn-primary">発見</div>';
+                                nyavatarThumbnail += '    </div>';
+                                nyavatarThumbnail += '</div>';
+                                $('.nyavatar-list').append(nyavatarThumbnail);
+                            }
         				});
         			}else{
             			console.log("ERROR: geocoder.geolocation()");
