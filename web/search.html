@@ -113,7 +113,7 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             for(var i = 0; i < nyavatarList.length; ++i) {
-                                var icon = "images/nyavatar.png";
+                                var icon = '../api/icon/' + nyavatarList[i].iconID + '.jpg';
                                 var name = nyavatarList[i].name;
                                 var date = nyavatarList[i].date.split('T')[0];
                                 var like = nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length;
