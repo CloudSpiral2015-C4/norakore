@@ -7,12 +7,58 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
+
+import jp.kobe_u.cspiral.norakore.util.DBUtils;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="user")
 public class User {
+    // static member -----------------------------------------------------------
+	private static DBCollection dbColl;
+    static {
+        dbColl = DBUtils.getInstance().getDb().getCollection("user");
+    }
+
+    // 指定されたidのユーザのDBObjectを取得
+    public static DBObject getDBObject(String id) throws Exception{
+        DBObject query = new BasicDBObject("_id", id);
+        DBObject user = dbColl.findOne(query);
+        if (user == null) throw new Exception(MessageFormat.format(
+                "Specified user is not found. id={0}", id));
+        return user;
+    }
+
+    // 指定ユーザのにゃばたーリストを取得
+    public static DBList getNyavatarList(DBObject user) throws Exception {
+        BasicDBList list = (BasicDBList)userdbo.get("nyavatarList");
+        if (list == null) throw new Exception("user's nyavatarList is not found.");
+        return list;
+    }
+
+    public static DBList addNyavatar(DBObject user, String nyavatarID) throws Exception {
+        DBList list = User.getNyavatarList(user);
+        list.add(nyavatarID);
+        return list;
+    }
+
+    public static int addBonitos(DBObject user, int new_bonitos) throws Exception {
+        Object bo = user.get("bonitos");
+        if (bo == null) throw new Exception("user's bonitos doesn't exist on DB.");
+        int bonitos = Integer.valueOf(bo) + 10;
+        user.put("bonitos", bonitos);
+        return bonitos;
+    }
+
+    // ユーザを更新
+    public static void updateUser(DBObject user) {
+        String id = (String)user.get("_id");
+        dbColl.update(new BasicDBObject("_id", id), user);
+    }
+
+    // instance member ---------------------------------------------------------
     private String id;
     private String name;
     private String password;
