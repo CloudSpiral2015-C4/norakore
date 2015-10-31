@@ -62,14 +62,14 @@ public class NorakoreController {
         NyavatarList result = new NyavatarList();
         try {
             // retrieve the specified user's DBObject
-            //DBObject query = new BasicDBObject("_id", new ObjectId(userID));
+            // DBObject query = new BasicDBObject("_id", new ObjectId(userID));
         	DBObject query = new BasicDBObject("_id", userID);
             DBObject userdbo = UserColl.findOne(query);
             if (userdbo == null) throw new Exception("Specified user is not found.");
 
             // get user's nyavatar list
             BasicDBList id_list = (BasicDBList)userdbo.get("nyavatarList");
-            if (id_list == null) throw new Exception("user's user is not found.");
+            if (id_list == null) throw new Exception("user's nyavatarList is not found.");
 
             // generate nyavatar list from id list
             List<Nyavatar> ny_list = new ArrayList<Nyavatar>();
@@ -146,13 +146,13 @@ public class NorakoreController {
         String nya_id = dbo.get("_id").toString();
 
         // 登録するユーザを取得
-        // TODO: error handling
         //DBObject query = new BasicDBObject("_id", new ObjectId(userID));
         DBObject query = new BasicDBObject("_id", userID);
         DBObject userdbo = UserColl.findOne(query);
-        if (userdbo == null) return null;
+        if (userdbo == null) throw new Exception("Specified user is not found.");
         // ユーザのにゃばたーリストに登録したにゃばたーを追加する
         BasicDBList list = (BasicDBList)userdbo.get("nyavatarList");
+        if (list == null) throw new Exception("user's nyavatarList is not found.");
         list.add(nya_id);
         // 更新したにゃばたーリストをユーザに適応する
         userdbo.put("nyavatarList", list);
