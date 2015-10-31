@@ -115,7 +115,7 @@
                             for(var i = 0; i < nyavatarList.length; ++i) {
                                 $.ajax({
                                     type: 'GET',
-                                    url: '../api/pic/{' + nyavatarList[i].pictureID + '}.jpg',
+                                    url: '../api/picture/' + nyavatarList[i].pictureID + '.jpg',
                                     data: {
 
                                     }
@@ -127,7 +127,7 @@
                                 var name = nyavatarList[i].name;
                                 var date = nyavatarList[i].date.split('T')[0];
                                 var like = nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length;
-                                var picture = "images/neko-img.png";
+                                var picture = "images/neko-img.jpg";
                                 var nyavatarThumbnail = "";
                                 nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
                                 nyavatarThumbnail += '    <div class="nyavatar-heading">';
