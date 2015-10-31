@@ -125,8 +125,8 @@
                                 });
                                 var icon = "images/nyavatar.png";
                                 var name = nyavatarList[i].name;
-                                var date = nyavatarList[i].date;
-                                var like = nyavatarList[i].likeUserList;
+                                var date = nyavatarList[i].date.split('T')[0];
+                                var like = nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length;
                                 var picture = "images/neko-img.png";
                                 var nyavatarThumbnail = "";
                                 nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
