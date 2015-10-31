@@ -113,13 +113,6 @@
             				}
             			})
         				.done(function(data) {
-        					$.each(data, function(index,elem){
-        						var marker = new google.maps.Marker({
-        							position:new google.maps.LatLng(elem.location.lat,elem.location.lon),
-        							map:map
-        						});
-        						marker_list.push(marker);
-        					});
             				console.log(data);
                             for(var i = 0; i < data.length; ++i) {
                                 console.log(i + ": " + data[i]);
