@@ -123,12 +123,15 @@ public class NorakoreController {
         // iconIDを２つのうちどちらかランダムに。アイコン画像が増えたら、適宜対応
         String iconid = "nullID";
         Random rnd = new Random();
-        int ran = rnd.nextInt(2);
+        int ran = rnd.nextInt(3);
         switch(ran){
         case 0:
-        	iconid = "563374c731b1b0e407093a9f";
         case 1:
+        	iconid = "563374c731b1b0e407093a9f";
+        	break;
+        case 2:
         	iconid = "563374d831b1b0e408093a9f";
+        	break;
         }
         nya.setIconID(iconid);
 
@@ -178,6 +181,7 @@ public class NorakoreController {
     	result.setName((String)queryResult.get("name"));
     	result.setBonitos(((Double)queryResult.get("bonitos")).intValue());
 
+    	// TODO: 重複無しに変える処理が必要（アイテム実装後）
     	BasicDBList list = (BasicDBList)queryResult.get("itemList");
     	List<String> itemList = new ArrayList<String>();
     	for(Object el: list) {
@@ -185,6 +189,7 @@ public class NorakoreController {
     	}
     	result.setItemIDList(itemList);
 
+    	// nyavatarIDListを使ってiconIDListを作成
     	BasicDBList nyavatarlist = (BasicDBList)queryResult.get("nyavatarList");
     	List<String> iconList = new ArrayList<String>();
     	for(Object el: nyavatarlist) {
