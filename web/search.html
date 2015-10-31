@@ -50,10 +50,9 @@
 							center : center,
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
+
 						//地図本体描画
 						map = new google.maps.Map($("#google-map-field")[0], option);
-						//地図上にマーカーを落とす
-						//new google.maps.Marker({position : center, map : map});
 
     					$.ajax({
         					type: 'GET',
@@ -66,6 +65,7 @@
         				.done(function(data) {
                             var nyavatarList = data.list;
         					for(var i = 0; i < nyavatarList.length; ++i) {
+                                //地図上にマーカーを落とす
         						var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
@@ -79,7 +79,7 @@
     			);}
 			mapInit();
 
-			function listup() {
+			function showNyavatarList() {
 			   	var address = $('#address').val();
 			   	var lat = "";
 				var lon = "";
@@ -89,6 +89,7 @@
     			geocoder.geocode( { address: address, language: 'ja'}, function(results, status)
     			{
     				if(status==google.maps.GeocoderStatus.OK){
+                        // Googleマップの現在位置更新
     					center = results[0].geometry.location;
             			lat = center.lat();
             			lon = center.lng();
@@ -98,9 +99,8 @@
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
 						map.setOptions(option);
-	 					// マーカー
-						//new google.maps.Marker({position : center, map : map});
 
+                        // 以下にゃばたーリストの取得
 		    			$.ajax({
     		    			type: 'GET',
         					url: '../api/nyavatar',
@@ -137,7 +137,7 @@
 			// 自動POSTをしないために必要
 			$('.form-horizontal').submit(function(e) {
     			e.preventDefault();
-   				listup();
+   				showNyavatarList();
     			return false;
 			});
 		</script>
