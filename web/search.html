@@ -121,6 +121,9 @@
         						marker_list.push(marker);
         					});
             				console.log(data);
+                            for(var i = 0; i < data.length; ++i) {
+                                console.log(i + ": " + data[i]);
+                            }
         				});
         			}else{
             			console.log("ERROR: geocoder.geolocation()");
