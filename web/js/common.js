@@ -159,3 +159,21 @@ function Base64_From_StringOfBinaryData(binary){
 	}
 	return base64;
 }
+
+console.log('common.js : 基本UIの書き出し終了');
+var initialize = function() 
+{
+    $.ajax({
+        type: 'GET',
+        url: '../api/user',
+        data: {
+            userID : 'testUser',
+        }
+    })
+    .done(function(data) {
+        getUserInfoHeader(data.name, data.bonitos);
+        getMenuButtonFooter("ここにはページの説明を書いて下さい．");
+    });
+    return;
+};
+window.addEventListener('load',initialize,false);

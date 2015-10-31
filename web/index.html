@@ -27,16 +27,6 @@
 	</div>
 </body>
 <script>
-	$.ajax({
-        type: 'GET',
-        url: '../api/user',
-        data: {
-        	userID : 'testUser',
-        }
-    })
-    .done(function(data) {
-    	getUserInfoHeader(data.name, data.bonitos);
-		getMenuButtonFooter("ここにはページの説明を書いて下さい．");
-    });
+	
 </script>
 </html>
