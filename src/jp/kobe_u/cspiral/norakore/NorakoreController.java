@@ -120,6 +120,7 @@ public class NorakoreController {
         if (picid == "") throw new Exception("saveImage failed.");
         nya.setPictureID(picid);
 
+        // iconIDを２つのうちどちらかランダムに。アイコン画像が増えたら、適宜対応
         String iconid = "nullID";
         Random rnd = new Random();
         int ran = rnd.nextInt(2);
@@ -155,6 +156,9 @@ public class NorakoreController {
         list.add(nya_id);
         // 更新したにゃばたーリストをユーザに適応する
         userdbo.put("nyavatarList", list);
+        // 所持かつお数を追加（今は固定10かつお）
+        Double bonitos = (Double)userdbo.get("bonitos") + 10;
+        userdbo.put("bonitos", bonitos);
         UserColl.update(query, userdbo);
 
         return nya_id;
