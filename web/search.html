@@ -66,6 +66,7 @@
         				.done(function(data) {
             				console.log(data);
         					$.each(data, function(index,elem){
+                                console.log(elem);
         						var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(elem.location.lat,elem.location.lon),
         							map:map
