@@ -76,6 +76,7 @@ function getNyavatarThumbnail(data) {
     nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
+    return nyavatarThumbnail;
 }
 
 // にゃばたーの最終発見日時を変更する
