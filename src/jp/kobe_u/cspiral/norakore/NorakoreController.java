@@ -108,6 +108,25 @@ public class NorakoreController {
     	return result;
     }
 
+    public int likeNyavatar(String nyavatarID, String userID) throws Exception{
+        DBObject query = new BasicDBObject("_id", new ObjectId(nyavatarID));
+        DBObject userdbo = NyavatarColl.findOne(query);
+        if (userdbo == null) throw new Exception(MessageFormat.format(
+                "Specified nyavatar is not found. id={0}", nyavatarID));
+
+        // get nyavatar's likeUser list
+        BasicDBList like_list = (BasicDBList)userdbo.get("likeUserList");
+        if (like_list == null) throw new Exception("The nyavatar has no likeUserList.");
+
+        // add user to the list
+        if (like_list.contains(userID)) throw new Exception("user already like the nyavatar.");
+        like_list.add(userID);
+        userdbo.put("likeUserList", like_list);
+        UserColl.update(query, userdbo);
+
+    	return like_list.size();
+    }
+
     public RegisterResult registerNyavatar(String userID, String name, String type,
             String picture, double lon, double lat) throws Exception {
         NyavatarDetail nya = new NyavatarDetail();
