@@ -18,27 +18,75 @@ public class JaxAdapter {
 
 	private final NorakoreController controller = new NorakoreController();
 
+	// にゃばたー（簡易）のリストを取得
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
-	public Response nyavatar(@QueryParam("x") double x, @QueryParam("y") double y) {
-        // TODO: paramはLocationにすべきか？jsonだとPOSTでしか入力できない
-        Report result = controller.searchNyavatar(x, y);
+	public Response nyavatar(@QueryParam("lon") double lon, @QueryParam("lat") double lat) {
+        NyavatarList result = controller.searchNyavatar(lon, lat);
+		return Response.status(200).entity(result).build();
+	}
+
+	// ユーザの保有するにゃばたー（簡易）のリストの取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/mynyavatar")
+	public Response mynyavatar(@QueryParam("userID") String userID) {
+        NyavatarList result;
+        try {
+            result = controller.getUsersNyavatar(userID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+		return Response.status(200).entity(result).build();
+	}
+
+	// にゃばたー（詳細）取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/nyavatardetail")
+	public Response nyavatardetail(@QueryParam("nyavatarID") String nyavatarID, @QueryParam("userID") String userID) {
+        NyavatarDetail result = controller.getNyavatarDetail(nyavatarID, userID);
+		return Response.status(200).entity(result).build();
+	}
+	
+	// ユーザ情報取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/user")
+	public Response user(@QueryParam("userID") String userID) {
+		UserResult result = controller.getUserInfo(userID);
 		return Response.status(200).entity(result).build();
 	}
 
     // にゃばたー登録
     // パラメータは{name, picture, location}が必須，typeはどっちでもよい
-	@POST @Consumes("application/json")
+	@POST
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/register")
-	public Response register(NyavatarDetail nyavatar) {
-        if (nyavatar == null) {
-            return Response.status(400).entity("parameter 'nyavatar' is required.").build();
+	public Response register(
+            @FormParam("userID") String userID,
+            @FormParam("name") String name,
+            @FormParam("type") String type,
+            @FormParam("picture") String picture, // base64
+            @FormParam("lon") double lon,
+            @FormParam("lat") double lat) {
+        //String nya_id;
+        RegisterResult result = new RegisterResult();
+        try {
+            result = controller.registerNyavatar(userID, name, type, picture, lon, lat);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
         }
-        String nya_id = controller.registerNyavatar(nyavatar);
-		return Response.status(200).entity("{\"nyavatar\":\"" + nya_id + "\"}").build();
+
+        //result.setNyavatarID(nya_id);
+        //result.setBonitos(10); // TODO: 値をちゃんとやる
+		return Response.status(200).entity(result).build();
 	}
+	
+	
 
     // 写真をアップロードする
     // アップロードするのみ．類似チェックなどは別APIで．
