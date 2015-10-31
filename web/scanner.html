@@ -46,6 +46,7 @@
           }
         })
         .done(function(data) {
+          $('.nyavatar-list').empty();
           var nyavatarList = data.list;
           for(var i = 0; i < nyavatarList.length; ++i) {
             var json = {

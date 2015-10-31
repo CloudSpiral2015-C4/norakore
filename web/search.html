@@ -113,6 +113,7 @@
         				.done(function(data) {
             				nyavatarList = data.list;
                             console.log(data.list);
+                            $('.nyavatar-list').empty();
                             for(var i = 0; i < nyavatarList.length; ++i) {
                                 var json = {
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
