@@ -50,6 +50,15 @@ public class JaxAdapter {
         NyavatarDetail result = controller.getNyavatarDetail(nyavatarID, userID);
 		return Response.status(200).entity(result).build();
 	}
+	
+	// ユーザ情報取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/user")
+	public Response user(@QueryParam("userID") String userID) {
+		UserResult result = controller.getUserInfo(userID);
+		return Response.status(200).entity(result).build();
+	}
 
     // にゃばたー登録
     // パラメータは{name, picture, location}が必須，typeはどっちでもよい
@@ -76,6 +85,8 @@ public class JaxAdapter {
         //result.setBonitos(10); // TODO: 値をちゃんとやる
 		return Response.status(200).entity(result).build();
 	}
+	
+	
 
     // 写真をアップロードする
     // アップロードするのみ．類似チェックなどは別APIで．

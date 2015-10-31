@@ -168,6 +168,35 @@ public class NorakoreController {
         return result;
     }
 
+    public UserResult getUserInfo(String userID){
+    	UserResult result = new UserResult();
+
+    	DBObject query = new BasicDBObject("_id",userID);
+    	DBObject queryResult = UserColl.findOne(query);
+
+    	result.setUserID((String)queryResult.get("_id"));
+    	result.setName((String)queryResult.get("name"));
+    	result.setBonitos(((Double)queryResult.get("bonitos")).intValue());
+
+    	BasicDBList list = (BasicDBList)queryResult.get("itemList");
+    	List<String> itemList = new ArrayList<String>();
+    	for(Object el: list) {
+    	     itemList.add((String) el);
+    	}
+    	result.setItemIDList(itemList);
+
+    	BasicDBList nyavatarlist = (BasicDBList)queryResult.get("nyavatarList");
+    	List<String> iconList = new ArrayList<String>();
+    	for(Object el: nyavatarlist) {
+    		DBObject querynya = new BasicDBObject("_id",new ObjectId((String)el));
+    		DBObject querynyaResult = NyavatarColl.findOne(querynya);
+    		iconList.add((String)querynyaResult.get("iconID"));
+    	}
+    	result.setIconIDList(iconList);
+
+    	return result;
+    }
+
 	public String saveImage(String data, String res) {
 		DBObject dbo = new BasicDBObject("src", data);
         if (res.equals("picture")){
