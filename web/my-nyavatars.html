@@ -20,107 +20,36 @@
 
 	<!-- 以下のにゃばたーリストは自分が獲得したにゃばたーを表示する -->
 		<h2 class="text-center">自分が集めた<br>にゃばたーリスト</h2>
-		<div class="nyavatar-list">
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
+		<div class="nyavatar-list"></div>
 
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-		</div>
+		<script>
+		function showMyNyavatarList() {
+		    $.ajax({
+    			type: 'GET',
+        		url: '../api/mynyavatar',
+        		data: {
+            		userID: 'testUser'
+            	}
+            })
+        	.done(function(data) {
+            	nyavatarList = data.list;
+                console.log(data.list);
+                for(var i = 0; i < nyavatarList.length; ++i) {
+                var json = {
+                    icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
+                    name : nyavatarList[i].name,
+                    date : nyavatarList[i].date.split('T')[0],
+                    like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+                    location : '日本',
+                    picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+                };
+                var nyavatarThumbnail = getNyavatarThumbnail(json);
+            	    $('.nyavatar-list').append(nyavatarThumbnail);
+                }
+        	});
+		}
+		showMyNyavatarList();
+		</script>
 
 	</div><!-- main -->
 
