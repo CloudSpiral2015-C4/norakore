@@ -99,7 +99,10 @@ h3:before {
 	margin-top: 15px;
 }
 #username {
-	margin-top: 20px;
+	margin: 10px;
+}
+#bonitos {
+	margin: 10px;
 }
 
 .progress {
@@ -409,6 +412,11 @@ h3:before {
 .btn-custom[data-height="100"] { height: 100%; }
 
 /* 文字の大きさに関する設定 */
+.btn-custom[font-size="0.6"] p {
+	font-weight: 900;
+	font-size: 0.6em;
+	height: 13px;
+}
 .btn-custom[font-size="1.0"] p {
 	font-weight: 900;
 	font-size: 1.0em;
