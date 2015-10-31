@@ -67,7 +67,7 @@
             				console.log(data);
         					$.each(data, function(index,elem){
         						var marker = new google.maps.Marker({
-        							position : new google.maps.LatLng(elem.getLocation().getLat(),elem.getLocation().getLon()),
+        							position : new google.maps.LatLng(elem.location.lat(),elem.location.lon),
         							map:map
         						});
         						marker_list.push(marker);
