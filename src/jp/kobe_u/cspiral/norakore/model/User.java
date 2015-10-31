@@ -40,7 +40,7 @@ public class User {
         return dbo;
     }
 
-	@XmlElement(name="id")
+	@XmlElement(name="userID")
 	public String getId() {
 		return id;
 	}
@@ -52,19 +52,15 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-	@XmlElement(name="nyavatarList")
 	public List<String> getNyavatarList(){
 		return nyavatarList;
 	}
-	@XmlElement(name="itemList")
 	public List<String> getItemList(){
 		return itemList;
 	}
-	@XmlElement(name="bonitos")
 	public Integer getBonitos(){
 		return bonitos;
 	}
-	//@XmlElement(name="userType") API公開はしない
 	public String getUserType() {
 		return userType;
 	}
