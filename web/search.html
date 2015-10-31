@@ -17,7 +17,7 @@
 	<div id="user-info-header"></div>
 	<div id="main">
 		<h1 class="text-center">猫サーチ</h1>
-		<form class="form-horizontal form-custom" role="form">
+		<form class="form-horizontal form-custom"  role="form">
             <div class="form-group">
                 <label class="col-xs-12">地名入力</label>
                 <div class="col-xs-12">
@@ -46,7 +46,7 @@
             			lon = pos.coords.longitude;
             			center = new google.maps.LatLng(lat,lon);
 						var option = {
-							zoom : 18,
+							zoom : 13,
 							center : center,
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
@@ -73,7 +73,7 @@
     			);}
 			mapInit();
 
-			$('.form-horizontal').submit(function() {
+			function listup() {
 			   	var address = $('address').val();
 			   	var lat = "";
 				var lon = "";
@@ -85,9 +85,9 @@
     					center = results[0].geometry.location;
             			lat = center.lat();
             			lon = center.lng();
-						console.log(lat);
+            			console.log(lat);
 						var option2 = {
-							zoom : 18,
+							zoom : 13,
 							center : center,
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
@@ -106,11 +106,20 @@
         				.done(function(data) {
             				console.log(data);
         				});
+        			}else{
+            			console.log("ERROR: geocoder.geolocation()" + e);
         			}
       			 },
         			function(e){
-            			console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
+            			console.log("ERROR: geocoder.geolocation()" + e);
         			});
+				}
+
+			// 自動POSTをしないために必要
+			$('.form-horizontal').submit(function(e) {
+    			e.preventDefault();
+   				listup();
+    			return false;
 			});
 		</script>
 
