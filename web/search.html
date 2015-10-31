@@ -35,7 +35,7 @@
 		<div id="google-map-field"></div>
 
 		<script>
-			var geocoder, map;
+			var geocoder, map,marker_list;
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -52,8 +52,8 @@
 						};
 						//地図本体描画
 						map = new google.maps.Map($("#google-map-field")[0], option);
-						// （おまけ） 地図上にマーカーを落とす
-						new google.maps.Marker({position : center, map : map});
+						//地図上にマーカーを落とす
+						//new google.maps.Marker({position : center, map : map});
 
     					$.ajax({
         					type: 'GET',
@@ -64,6 +64,13 @@
             				}
             			})
         				.done(function(data) {
+        					$.each(data, function(index,elem){
+        						var marker = new google.maps.Marker({
+        							position : new google.maps.LatLng(elem.location.lat,elem.location.lon),
+        							map:map
+        						});
+        						marker_list.push(marker);
+        					});
             				console.log(data);
         				});
        				},
@@ -74,8 +81,10 @@
 			mapInit();
 
 			function listup() {
+				marker_list.forEach(function(marker, index) {
+					marker.setMap(null);
+				});
 			   	var address = $('#address').val();
-			   	console.log(address);
 			   	var lat = "";
 				var lon = "";
 				var center;
@@ -86,15 +95,14 @@
     					center = results[0].geometry.location;
             			lat = center.lat();
             			lon = center.lng();
-            			console.log(lat);
-						var option2 = {
+						var option = {
 							zoom : 13,
 							center : center,
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
-						map.setOptions(option2);
+						map.setOptions(option);
 	 					// マーカー
-						new google.maps.Marker({position : center, map : map});
+						//new google.maps.Marker({position : center, map : map});
 
 		    			$.ajax({
     		    			type: 'GET',
@@ -106,10 +114,11 @@
             			})
         				.done(function(data) {
         					$.each(data, function(index,elem){
-        						var maker = new google.maps.Maker({
+        						var marker = new google.maps.Marker({
         							position:new google.maps.LatLng(elem.location.lat,elem.location.lon),
         							map:map
         						});
+        						marker_list.push(marker);
         					});
             				console.log(data);
         				});
