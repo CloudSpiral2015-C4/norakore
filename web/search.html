@@ -113,35 +113,15 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             for(var i = 0; i < nyavatarList.length; ++i) {
-                                var icon = '../api/icon/' + nyavatarList[i].iconID + '.png';
-                                var name = nyavatarList[i].name;
-                                var date = nyavatarList[i].date.split('T')[0];
-                                var like = nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length;
-                                var picture = '../api/picture/' + nyavatarList[i].pictureID + '.jpg';
-                                var nyavatarThumbnail = "";
-                                nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
-                                nyavatarThumbnail += '    <div class="nyavatar-heading">';
-                                nyavatarThumbnail += '        <img src="' + icon + '">';
-                                nyavatarThumbnail += '        <h4>' + name + '</h4>';
-                                nyavatarThumbnail += '    </div>';
-                                nyavatarThumbnail += '    <div class="nyavatar-body">';
-                                nyavatarThumbnail += '        <div class="pull-left">';
-                                nyavatarThumbnail += '            <img src="' + picture + '" class="nyavatar-image">';
-                                nyavatarThumbnail += '        </div>';
-                                nyavatarThumbnail += '        <div class="nyavatar-status">';
-                                nyavatarThumbnail += '            <ul>';
-                                nyavatarThumbnail += '                <li>主な生息地: <span class="place">不明</span></li>';
-                                nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + date + '</span></li>';
-                                nyavatarThumbnail += '                <li>いいね: <span class="review">' + like + '回</span></li>';
-                                nyavatarThumbnail += '            </ul>';
-                                nyavatarThumbnail += '        </div>';
-                                nyavatarThumbnail += '    </div>';
-                                nyavatarThumbnail += '    <div class="clearfix"></div>';
-                                nyavatarThumbnail += '    <div class="nyavatar-footer">';
-                                nyavatarThumbnail += '        <div class="btn btn-default">詳細</div>';
-                                nyavatarThumbnail += '        <div class="btn btn-primary">発見</div>';
-                                nyavatarThumbnail += '    </div>';
-                                nyavatarThumbnail += '</div>';
+                                var json = {
+                                    icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
+                                    name : nyavatarList[i].name,
+                                    date : nyavatarList[i].date.split('T')[0],
+                                    like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+                                    location : '日本',
+                                    picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+                                };
+                                var nyavatarThumbnail = getNyavatarThumbnail(json);
                                 $('.nyavatar-list').append(nyavatarThumbnail);
                             }
         				});
