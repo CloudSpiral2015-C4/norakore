@@ -115,7 +115,7 @@
                             for(var i = 0; i < nyavatarList.length; ++i) {
                                 $.ajax({
                                     type: 'GET',
-                                    url: '../api/pic/' + nyavatarList[i].pictureID + '.jpg',
+                                    url: '../api/pic/{' + nyavatarList[i].pictureID + '}.jpg',
                                     data: {
 
                                     }
@@ -142,7 +142,7 @@
                                 nyavatarThumbnail += '            <ul>';
                                 nyavatarThumbnail += '                <li>主な生息地: <span class="place">不明</span></li>';
                                 nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + date + '</span></li>';
-                                nyavatarThumbnail += '                <li>いいね <span class="review">' + like + '</span></li>';
+                                nyavatarThumbnail += '                <li>いいね: <span class="review">' + like + '回</span></li>';
                                 nyavatarThumbnail += '            </ul>';
                                 nyavatarThumbnail += '        </div>';
                                 nyavatarThumbnail += '    </div>';
