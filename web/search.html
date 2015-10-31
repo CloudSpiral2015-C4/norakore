@@ -65,9 +65,9 @@
             			})
         				.done(function(data) {
                             var nyavatarList = data.list;
-        					for(var i = 0; i < nyvatarList.length; ++i) {
+        					for(var i = 0; i < nyavatarList.length; ++i) {
         						var marker = new google.maps.Marker({
-        							position : new google.maps.LatLng(nyvatarList[i].location.lat,nyvatarList[i].location.lon),
+        							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
         						marker_list.push(marker);
