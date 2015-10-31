@@ -1,5 +1,8 @@
 package jp.kobe_u.cspiral.norakore.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -13,12 +16,20 @@ public class User {
     private String id;
     private String name;
     private String password;
+    private List<String> nyavatarList;
+    private List<String> itemList;
+    private Integer bonitos;
+    private String userType;
 
 	// default constructor for jaxb
 	public User() {
         this.name = "";
         this.id = "";
         this.password = "";
+        this.nyavatarList = new ArrayList<String>();
+        this.itemList = new ArrayList<String>();
+        this.bonitos = 0;
+        this.userType = "user";
 	}
 
     public DBObject toDBObject() {
@@ -29,7 +40,7 @@ public class User {
         return dbo;
     }
 
-	@XmlElement(name="id")
+	@XmlElement(name="userID")
 	public String getId() {
 		return id;
 	}
@@ -41,14 +52,38 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+	public List<String> getNyavatarList(){
+		return nyavatarList;
+	}
+	public List<String> getItemList(){
+		return itemList;
+	}
+	public Integer getBonitos(){
+		return bonitos;
+	}
+	public String getUserType() {
+		return userType;
+	}
 
     public void setId(String value) {
-        this.id = value;
+        this.id = value != null ? value : "";
     }
     public void setName(String value) {
-        this.name = value;
+        this.name = value != null ? value : "";
     }
     public void setPassword(String value) {
-        this.password = value;
+        this.password = value != null ? value : "";
     }
+    public void setNyavatarList(List<String> value){
+		this.nyavatarList = value;
+	}
+    public void setitemList(List<String> value){
+		this.itemList = value;
+	}
+	public void setBonitos(Integer value){
+		this.bonitos = value;
+	}
+	public void setUserType(String value) {
+		this.userType = value != null ? value : "";
+	}
 }

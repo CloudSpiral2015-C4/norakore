@@ -17,11 +17,11 @@
 	<div id="user-info-header"></div>
 	<div id="main">
 		<h1 class="text-center">猫サーチ</h1>
-		<form class="form-horizontal form-custom" role="form">
+		<form class="form-horizontal form-custom"  role="form">
             <div class="form-group">
                 <label class="col-xs-12">地名入力</label>
                 <div class="col-xs-12">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="address" name="address">
                 </div>
             </div>
              <div class="form-group">
@@ -33,17 +33,95 @@
         <!-- 検索した地名の地図を表示する -->
 		<h2 class="text-center">Googleマップ</h2>
 		<div id="google-map-field"></div>
+
 		<script>
+			var geocoder, map;
 			function mapInit() {
-				var centerPosition = new google.maps.LatLng(34.692713, 135.490472);
-				var option = {
-					zoom : 18,
-					center : centerPosition,
-					mapTypeId : google.maps.MapTypeId.ROADMAP
-				};
-				//地図本体描画
-			var googlemap = new google.maps.Map($("#google-map-field")[0], option);}
+				geocoder = new google.maps.Geocoder();
+				var lat = "";
+				var lon = "";
+				var center;
+    			navigator.geolocation.getCurrentPosition(function(pos) {
+            			lat = pos.coords.latitude;
+            			lon = pos.coords.longitude;
+            			center = new google.maps.LatLng(lat,lon);
+						var option = {
+							zoom : 13,
+							center : center,
+							mapTypeId : google.maps.MapTypeId.ROADMAP
+						};
+						//地図本体描画
+						map = new google.maps.Map($("#google-map-field")[0], option);
+						// （おまけ） 地図上にマーカーを落とす
+						new google.maps.Marker({position : center, map : map});
+
+    					$.ajax({
+        					type: 'GET',
+        					url: '../api/nyavatar',
+        					data: {
+            					lat: lat,
+            					lon: lon
+            				}
+            			})
+        				.done(function(data) {
+            				console.log(data);
+        				});
+       				},
+        			function(e){
+            			console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
+        			}
+    			);}
 			mapInit();
+
+			function listup() {
+			   	var address = $('#address').val();
+			   	console.log(address);
+			   	var lat = "";
+				var lon = "";
+				var center;
+			    // geocode (住所から緯度経度を取得)
+    			geocoder.geocode( { address: address, language: 'ja'}, function(results, status)
+    			{
+    				if(status==google.maps.GeocoderStatus.OK){
+    					center = results[0].geometry.location;
+            			lat = center.lat();
+            			lon = center.lng();
+            			console.log(lat);
+						var option2 = {
+							zoom : 13,
+							center : center,
+							mapTypeId : google.maps.MapTypeId.ROADMAP
+						};
+						map.setOptions(option2);
+	 					// マーカー
+						new google.maps.Marker({position : center, map : map});
+
+		    			$.ajax({
+    		    			type: 'GET',
+        					url: '../api/nyavatar',
+        					data: {
+            					lat: lat,
+            					lon: lon
+            				}
+            			})
+        				.done(function(data) {
+            				console.log(data);
+        				});
+        			}else{
+            			console.log("ERROR: geocoder.geolocation()");
+        			}
+      			 },
+        			function(e){
+            			console.log("ERROR: geocoder.geolocation()" + e);
+        			});
+				}
+
+			// 自動POSTをしないために必要
+			$('.form-horizontal').submit(function(e) {
+    			e.preventDefault();
+   				listup();
+    			return false;
+			});
 		</script>
 
 	<!-- 以下のにゃばたーリストはMap中心地から半径Xkm以内に登録されているにゃばたーを表示する -->
@@ -149,6 +227,7 @@
 				</div>
 			</div>
 		</div>
+
 
 	</div><!-- main -->
 

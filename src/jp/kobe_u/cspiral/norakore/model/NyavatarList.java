@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="report")
-public class Report {
+public class NyavatarList {
 	private List<Nyavatar> nyavatar_list;
 
 	// default constructor for jaxb
-	public Report() {
+	public NyavatarList() {
 		nyavatar_list = new ArrayList<Nyavatar>();
 	}
 

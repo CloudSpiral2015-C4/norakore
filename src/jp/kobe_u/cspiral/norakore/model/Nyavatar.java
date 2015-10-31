@@ -3,106 +3,110 @@ package jp.kobe_u.cspiral.norakore.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Calendar;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.BasicDBList;
-import org.bson.types.ObjectId;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="nyavatar")
 public class Nyavatar {
-    private String id;
+    private String nyavatarID;
     private String name;
-    private String picture;
-    private String icon;
-    private String type;
-    private double like;
-    private Date last_date;
+    private String pictureID;
+    private String iconID;
+    private Date date;
     private Location location;
+    private int like;
+    private String lostCatID;
 
 	// default constructor for jaxb
 	public Nyavatar() {
-        this.name = "";
-        this.id = "";
-        this.picture = "";
-        this.icon = "";
-        this.type = "";
-        this.like = 0;
-        this.last_date = new Date();
+        this.nyavatarID = "nullID";
+        this.name = "nullName";
+        this.pictureID = "nullID";
+        this.iconID = "nullID";
+        this.date = new Date();
         this.location = new Location();
+        this.like = 0;
+        this.lostCatID = "nullID";
 	}
 
     public Nyavatar(DBObject dbo) {
-        this.id = ((ObjectId)dbo.get("_id")).toString();
-        this.name = (String)dbo.get("name");
-        this.picture = (String)dbo.get("picture");
-        this.icon = (String)dbo.get("icon");
-        this.type = (String)dbo.get("type");
-        this.like = (double)dbo.get("like");
-        this.last_date = (Date)dbo.get("last_date");
+        this.nyavatarID = dbo.get("_id").toString();
+    	this.name = (String)dbo.get("name");
+        this.pictureID = (String)dbo.get("pictureID");
+        this.iconID = (String)dbo.get("iconID");
+        this.date = (Date)dbo.get("date");
         this.location = new Location((DBObject)dbo.get("location"));
+
+        BasicDBList liker = (BasicDBList)dbo.get("likeUserList");
+        this.like = liker.size();
+
+        this.lostCatID = (String)dbo.get("lostCatID");
     }
 
-	@XmlElement(name="id")
-	public String getId() {
-		return id;
+    // getter / setter ---------------------------------------------------------
+	@XmlElement(name="nyavatarID")
+	public String getNyavatarID() {
+		return nyavatarID;
 	}
 	@XmlElement(name="name")
 	public String getName() {
 		return name;
 	}
-	@XmlElement(name="picture")
-	public String getPicture() {
-		return picture;
+	@XmlElement(name="pictureID")
+	public String getPictureID() {
+		return pictureID;
 	}
-	@XmlElement(name="icon")
-	public String getIcon() {
-		return icon;
+	@XmlElement(name="iconID")
+	public String getIconID() {
+		return iconID;
 	}
-	@XmlElement(name="type")
-	public String getType() {
-		return type;
-	}
-	@XmlElement(name="like")
-	public double getLike() {
-		return like;
-	}
-	@XmlElement(name="last_date")
-	public Date getLastDate() {
-		return last_date;
+	@XmlElement(name="date")
+	public Date getDate() {
+		return date;
 	}
 	@XmlElement(name="location")
 	public Location getLocation() {
 		return location;
 	}
+	@XmlElement(name="like")
+	public int getLike() {
+		return like;
+	}
+	@XmlElement(name="lostCatID")
+	public String getLostCatID() {
+		return lostCatID;
+	}
 
-    public void setId(String value) {
-        this.id = value != null ? value : "";
+    public void setNyavatarID(String value) {
+        this.nyavatarID = value != null ? value : "";
     }
     public void setName(String value) {
         this.name = value != null ? value : "";
     }
-    public void setPicture(String value) {
-        this.picture = value != null ? value : "";
+    public void setPictureID(String value) {
+        this.pictureID = value != null ? value : "";
     }
-    public void setIcon(String value) {
-        this.icon = value != null ? value : "";
+    public void setIconID(String value) {
+        this.iconID = value != null ? value : "";
     }
-    public void setType(String value) {
-        this.type = value != null ? value : "";
-    }
-    public void setLike(double value) {
-        this.like = value;
-    }
-    public void setLastDate(Date value) {
-        this.last_date = value;
+    public void setDate(Date value) {
+        this.date = value;
     }
     public void setLocation(Location value) {
         this.location = value;
+    }
+    public void setLike(int value) {
+        this.like = value;
+    }
+    public void setLostCatID(String value) {
+        this.lostCatID = value != null ? value : "";
     }
 }
