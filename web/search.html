@@ -79,7 +79,7 @@
 				var lon = "";
 				var center;
 			    // geocode (住所から緯度経度を取得)
-    			geocoder.geocode( { 'address': address, 'language': 'ja'}, function(results, status)
+    			geocoder.geocode( { address: address, language: 'ja'}, function(results, status)
     			{
     				if(status==google.maps.GeocoderStatus.OK){
     					center = results[0].geometry.location;
@@ -107,7 +107,7 @@
             				console.log(data);
         				});
         			}else{
-            			console.log("ERROR: geocoder.geolocation()" + e);
+            			console.log("ERROR: geocoder.geolocation()");
         			}
       			 },
         			function(e){
