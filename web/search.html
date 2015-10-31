@@ -65,14 +65,14 @@
             			})
         				.done(function(data) {
             				console.log(data);
-        					$.each(data, function(index,elem){
-                                console.log(elem);
+        					for(var i = 0; i < data.length; ++i) {
+                                console.log(data[i]);
         						var marker = new google.maps.Marker({
-        							position : new google.maps.LatLng(elem.location.lat,elem.location.lon),
+        							position : new google.maps.LatLng(data[i].location.lat,data[i].location.lon),
         							map:map
         						});
         						marker_list.push(marker);
-        					});
+        					};
         				});
        				},
         			function(e){
