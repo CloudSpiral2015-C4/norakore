@@ -64,14 +64,14 @@
             				}
             			})
         				.done(function(data) {
+            				console.log(data);
         					$.each(data, function(index,elem){
         						var marker = new google.maps.Marker({
-        							position : new google.maps.LatLng(elem.location.lat,elem.location.lon),
+        							position : new google.maps.LatLng(elem.getLocation().getLat(),elem.getLocation().getLon()),
         							map:map
         						});
         						marker_list.push(marker);
         					});
-            				console.log(data);
         				});
        				},
         			function(e){
@@ -115,7 +115,7 @@
         				.done(function(data) {
         					$.each(data, function(index,elem){
         						var marker = new google.maps.Marker({
-        							position:new google.maps.LatLng(elem.location.lat,elem.location.lon),
+        							position:new google.maps.LatLng(elem.getLocation().getLat(),elem.getLocation().getLon()),
         							map:map
         						});
         						marker_list.push(marker);
