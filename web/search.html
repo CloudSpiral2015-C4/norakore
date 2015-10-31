@@ -113,6 +113,16 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             for(var i = 0; i < nyavatarList.length; ++i) {
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '../api/pic/' + nyavatarList[i].pictureID + '.jpg',
+                                    data: {
+
+                                    }
+                                })
+                                .done(dunction(data){
+                                    console.log(data);
+                                });
                                 var icon = "images/nyavatar.png";
                                 var name = "にゃんこたろう";
                                 var picture = "images/neko-image.png";
@@ -162,33 +172,7 @@
 
 	<!-- 以下のにゃばたーリストはMap中心地から半径Xkm以内に登録されているにゃばたーを表示する -->
 		<h2 class="text-center">マップ付近の　にゃばたーリスト</h2>
-		<div class="nyavatar-list">
-			<div class="nyavatar-thumbnail">
-				<div class="nyavatar-heading">
-					<img src="images/nyavatar.png">
-					<h4>にゃんこたろう</h4>
-				</div>
-				<div class="nyavatar-body">
-					<div class="pull-left">
-						<img src="images/neko-img.jpg" class="nyavatar-image">
-					</div>
-					<div class="nyavatar-status">
-						<ul>
-							<li>主な生息地: <span class="place">京都府</span></li>
-							<li>最終発見報告: <span class="date">2015/10/16</span></li>
-							<li>総合評価 <span class="review">☆☆☆☆☆</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="clearfix"></div>
-				<div class="nyavatar-footer">
-					<div class="btn btn-default">詳細</div>
-					<div class="btn btn-warning">迷子猫</div>
-					<div class="btn btn-primary">発見</div>
-				</div>
-			</div>
-
-		</div>
+		<div class="nyavatar-list"></div>
 
 
 	</div><!-- main -->
