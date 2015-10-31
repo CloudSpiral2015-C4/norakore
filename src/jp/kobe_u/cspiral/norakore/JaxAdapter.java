@@ -51,6 +51,22 @@ public class JaxAdapter {
 		return Response.status(200).entity(result).build();
 	}
 	
+	// にゃばたーに「いいね」を付加
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/like")
+	public Response likeNyavatar(@QueryParam("nyavatarID") String nyavatarID, @QueryParam("userID") String userID) {
+        int result = -1;
+        try {
+            result = controller.likeNyavatar(nyavatarID, userID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+        String res_json = "{\"like\":" + result + "}";
+		return Response.status(200).entity(res_json).build();
+	}
+
 	// ユーザ情報取得
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
