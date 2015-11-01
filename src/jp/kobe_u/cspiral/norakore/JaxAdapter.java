@@ -23,7 +23,13 @@ public class JaxAdapter {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
 	public Response nyavatar(@QueryParam("lon") double lon, @QueryParam("lat") double lat) {
-        NyavatarList result = controller.searchNyavatar(lon, lat);
+        NyavatarList result = new NyavatarList();
+		try {
+			result = controller.searchNyavatar(lon, lat);
+		} catch (Exception e) {
+			ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+		}
 		return Response.status(200).entity(result).build();
 	}
 
@@ -50,7 +56,7 @@ public class JaxAdapter {
         NyavatarDetail result = controller.getNyavatarDetail(nyavatarID, userID);
 		return Response.status(200).entity(result).build();
 	}
-	
+
 	// にゃばたーに「いいね」を付加
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -72,7 +78,14 @@ public class JaxAdapter {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/user")
 	public Response user(@QueryParam("userID") String userID) {
-		UserResult result = controller.getUserInfo(userID);
+		UserResult result = new UserResult();
+		try {
+			result = controller.getUserInfo(userID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
 		return Response.status(200).entity(result).build();
 	}
 
@@ -101,8 +114,60 @@ public class JaxAdapter {
         //result.setBonitos(10); // TODO: 値をちゃんとやる
 		return Response.status(200).entity(result).build();
 	}
-	
-	
+
+	// スキャにゃー実行
+    // パラメータは{userID, lon, lat}が必須，itemIDはどっちでもよい
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/scanya")
+	public Response scanya(
+            @FormParam("userID") String userID,
+            @FormParam("lon") double lon,
+            @FormParam("lat") double lat,
+            @FormParam("itemID") String itemID){
+        //String nya_id;
+        RegisterResult result = new RegisterResult();
+        try {
+            result = controller.Scanya(userID, lon, lat, itemID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
+		return Response.status(200).entity(result).build();
+	}
+
+	// スキャにゃー実行
+    // パラメータは{userID, lon, lat}が必須，itemIDはどっちでもよい
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/registeruser")
+	public Response registeruser(
+            @FormParam("userID") String userID,
+            @FormParam("name") String name,
+            @FormParam("pass") String pass,
+            @FormParam("verificationPass") String verificationPass){
+
+        UserResult result = new UserResult();
+        String resultID = "";
+        try {
+            resultID = controller.registerUser(userID, name, pass, verificationPass);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
+        // api/user と同じ
+        try {
+			result = controller.getUserInfo(resultID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
+		return Response.status(200).entity(result).build();
+	}
+
 
     // 写真をアップロードする
     // アップロードするのみ．類似チェックなどは別APIで．

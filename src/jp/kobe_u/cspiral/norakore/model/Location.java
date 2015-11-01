@@ -18,6 +18,10 @@ public class Location {
         this.lon = 0;
         this.lat = 0;
 	}
+	public Location(double lon, double lat) {
+        this.lon = lon;
+        this.lat = lat;
+	}
 
     public Location(DBObject dbo) {
         this.lon = (double)dbo.get("lon");

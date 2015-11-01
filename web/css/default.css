@@ -211,6 +211,7 @@ h3:before {
 	width: 100%;
 }
 .nyavatar-detail {
+	position: relative;
 	border: 2px solid #777;
 	background: #eee;
 	border-radius: 8px;
@@ -254,6 +255,17 @@ h3:before {
 }
 .nyavatar-detail-footer {
 	text-align: center;
+}
+.new-icon {
+	position: absolute;  
+    left: -10px;
+    top: -35px;
+    padding-top: 52px;
+    width: 59px;
+    height: 0;
+    background: url('images/icon-new.png') no-repeat;
+    background-size: cover;
+    overflow: hidden
 }
 
 /* アイテム */

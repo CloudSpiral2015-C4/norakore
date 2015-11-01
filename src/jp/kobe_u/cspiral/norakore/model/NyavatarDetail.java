@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.BasicDBList;
+import com.mongodb.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -67,6 +63,12 @@ public class NyavatarDetail {
 
         // TODO: useridからisLikeをセット
         this.isLiked = false;
+        for (String user: this.likeUserList) {
+            if(user.equals(UserID)){
+            	this.isLiked = true;
+            }
+        }
+
     }
 
     public DBObject toDBObject() {
