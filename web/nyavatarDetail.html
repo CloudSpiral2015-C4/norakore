@@ -9,6 +9,7 @@
 	<script type='text/javascript' src="js/bootstrap.js" ></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type='text/javascript' src="js/common.js" ></script>
+    <script type='text/javascript' src="js/jquery.balloon.js" ></script>
     <script type='text/javascript' src="js/prototype.js" ></script>
 	<title>テスト</title>
 </head>
@@ -21,7 +22,7 @@
 
 	<!-- 以下のにゃばたーリストは自分が獲得したにゃばたーを表示する -->
 		<h2 class="text-center">にゃばたー詳細情報</h2>
-		<div class="nyavatar-list"></div>
+		<div class="nyavatar-detail-area"></div>
 
 		<script>
 
@@ -48,10 +49,14 @@
                     picture : '../api/picture/' + data.pictureID + '.jpg'
                 };
                 var nyavatarDetail = getNyavatarDetail(json);
-                jQuery('.nyavatar-list').append(nyavatarDetail);
+                jQuery('.nyavatar-detail-area').append(nyavatarDetail);
         	});
 		}
 		showNyavatarDetail();
+
+        jQuery(function() {
+            jQuery('.nyavatar-detail-image').balloon();
+        });
 		</script>
 
 	</div><!-- main -->

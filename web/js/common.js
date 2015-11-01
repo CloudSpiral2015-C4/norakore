@@ -85,31 +85,29 @@ function getNyavatarThumbnail(data) {
  * @param {nyavatarDetail} data 表示すべきにゃばたー詳細情報のデータが入ったJSON
  */
 function getNyavatarDetail(data) {
-    var nyavatarThumbnail = "";
-    nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
-    nyavatarThumbnail += '    <div class="nyavatar-heading">';
-    nyavatarThumbnail += '        <img src="' + data.icon + '">';
-    nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
-    nyavatarThumbnail += '    </div>';
-    nyavatarThumbnail += '    <div class="nyavatar-body pull-left">';
-    nyavatarThumbnail += '        <div>';
-    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 270px; margin: 0 auto;">';
-    nyavatarThumbnail += '        </div>';
-    nyavatarThumbnail += '        <div class="nyavatar-status">';
-    nyavatarThumbnail += '            <ul>';
-    nyavatarThumbnail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
-    nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
-    nyavatarThumbnail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
-    nyavatarThumbnail += '            </ul>';
-    nyavatarThumbnail += '        </div>';
-    nyavatarThumbnail += '    </div>';
-    nyavatarThumbnail += '    <div class="clearfix"></div>';
-    nyavatarThumbnail += '    <div class="nyavatar-footer text-center">';
-    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like()">いいね</div>';
-    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
-    nyavatarThumbnail += '    </div>';
-    nyavatarThumbnail += '</div>';
-    return nyavatarThumbnail;
+    var nyavatarDetail = "";
+    nyavatarDetail += '<div class="nyavatar-detail">';
+    nyavatarDetail += '    <div class="nyavatar-detail-heading">';
+    nyavatarDetail += '        <img src="' + data.icon + '">';
+    nyavatarDetail += '        <h4>' + data.name + '</h4>';
+    nyavatarDetail += '    </div>';
+    nyavatarDetail += '    <div class="nyavatar-detail-body">';
+    nyavatarDetail += '        <img class="nyavatar-detail-image" src="' + data.picture + '" title="' + data.say + '">';
+    nyavatarDetail += '        <div class="nyavatar-detail-status">';
+    nyavatarDetail += '            <ul>';
+    nyavatarDetail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
+    nyavatarDetail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
+    nyavatarDetail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
+    nyavatarDetail += '            </ul>';
+    nyavatarDetail += '        </div>';
+    nyavatarDetail += '    </div>';
+    nyavatarDetail += '    <div class="clearfix"></div>';
+    nyavatarDetail += '    <div class="nyavatar-detail-footer text-center">';
+    nyavatarDetail += '        <div class="btn btn-warning" onclick="like()">いいね</div>';
+    nyavatarDetail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    nyavatarDetail += '    </div>';
+    nyavatarDetail += '</div>';
+    return nyavatarDetail;
 }
 
 // いいね
