@@ -67,6 +67,12 @@ public class NyavatarDetail {
 
         // TODO: useridからisLikeをセット
         this.isLiked = false;
+        for (String user: this.likeUserList) {
+            if(user.equals(UserID)){
+            	this.isLiked = true;
+            }
+        }
+
     }
 
     public DBObject toDBObject() {

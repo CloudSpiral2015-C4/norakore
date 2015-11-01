@@ -106,6 +106,13 @@ public class NorakoreController {
     	// TODO: LostCatIDにネコサーチAPIを投げて類似猫があれば、LostCatsこれくしょんに追加してそのIDを追加
     	// TODO: 広告文章をsayに追加する話は無視
     	result.setSay((String)queryResult.get("say"));
+    	BasicDBList likeUserList = (BasicDBList)queryResult.get("likeUserList");
+    	for (Object likeUserID: likeUserList){
+    		result.addLikeUser((String)likeUserID);
+    	}
+
+    	result.determineParams(userID); // 欠落パラメータ補完
+
     	return result;
     }
 
