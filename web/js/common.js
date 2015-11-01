@@ -91,9 +91,9 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '        <img src="' + data.icon + '">';
     nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
     nyavatarThumbnail += '    </div>';
-    nyavatarThumbnail += '    <div class="nyavatar-body">';
+    nyavatarThumbnail += '    <div class="nyavatar-body pull-left">';
     nyavatarThumbnail += '        <div>';
-    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 200px; margin: 0 auto;">';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 280px; margin: 0 auto;">';
     nyavatarThumbnail += '        </div>';
     nyavatarThumbnail += '        <div class="nyavatar-status">';
     nyavatarThumbnail += '            <ul>';
