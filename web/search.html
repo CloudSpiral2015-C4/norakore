@@ -114,6 +114,10 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             $('.nyavatar-list').empty();
+                            if(nyavatarList.length < 1) {
+                                $('.nyavatar-list').append('<div class="text-center"><img src="images/unnyown.png" class="unnyown"></div>');
+                                return;
+                            }
                             for(var i = 0; i < nyavatarList.length; ++i) {
                                 var json = {
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',

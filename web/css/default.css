@@ -267,6 +267,10 @@ h3:before {
     background-size: cover;
     overflow: hidden
 }
+.unnyown {
+	border: 1px solid #333;
+	border-radius: 30px;
+}
 
 /* アイテム */
 .item-list {
