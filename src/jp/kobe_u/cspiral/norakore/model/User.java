@@ -1,12 +1,10 @@
 package jp.kobe_u.cspiral.norakore.model;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
+import com.mongodb.*;
 import org.bson.types.ObjectId;
 
 import jp.kobe_u.cspiral.norakore.util.DBUtils;
@@ -32,14 +30,14 @@ public class User {
     }
 
     // 指定ユーザのにゃばたーリストを取得
-    public static DBList getNyavatarList(DBObject user) throws Exception {
-        BasicDBList list = (BasicDBList)userdbo.get("nyavatarList");
+    public static BasicDBList getNyavatarList(DBObject user) throws Exception {
+        BasicDBList list = (BasicDBList)user.get("nyavatarList");
         if (list == null) throw new Exception("user's nyavatarList is not found.");
         return list;
     }
 
-    public static DBList addNyavatar(DBObject user, String nyavatarID) throws Exception {
-        DBList list = User.getNyavatarList(user);
+    public static BasicDBList addNyavatar(DBObject user, String nyavatarID) throws Exception {
+        BasicDBList list = User.getNyavatarList(user);
         list.add(nyavatarID);
         return list;
     }
@@ -47,7 +45,7 @@ public class User {
     public static int addBonitos(DBObject user, int new_bonitos) throws Exception {
         Object bo = user.get("bonitos");
         if (bo == null) throw new Exception("user's bonitos doesn't exist on DB.");
-        int bonitos = Integer.valueOf(bo) + 10;
+        int bonitos = (Integer)bo + 10;
         user.put("bonitos", bonitos);
         return bonitos;
     }

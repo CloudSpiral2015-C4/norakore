@@ -68,9 +68,9 @@ public class NorakoreController {
         List<Nyavatar> ny_list = new ArrayList<Nyavatar>();
         for(Object id: id_list) {
             try {
-                ny_list.add(Nyavatar.generateNyavatar((String)id);
+                ny_list.add(Nyavatar.generateNyavatar((String)id));
             } catch(Exception e) {
-                throw new Exception(MessageFormat.format("User has lost nyavatar. id={0}", (String)id);
+                throw new Exception(MessageFormat.format("User has lost nyavatar. id={0}", (String)id));
             }
         }
 
@@ -152,9 +152,9 @@ public class NorakoreController {
         NyavatarColl.insert(dbo);
         String nya_id = dbo.get("_id").toString();
 
-        // 登録するユーザを取得
+        // 登録するユーザににゃばたーとかつおを付与
         DBObject user = User.getDBObject(userID);
-        DBList list = User.addNyavatar(user, nya_id);
+        BasicDBList list = User.addNyavatar(user, nya_id);
         int bonitos = User.addBonitos(user, 10);
         User.updateUser(user);
 
@@ -165,18 +165,17 @@ public class NorakoreController {
         return result;
     }
 
-    public UserResult getUserInfo(String userID){
+    public UserResult getUserInfo(String userID) throws Exception{
     	UserResult result = new UserResult();
 
-    	DBObject query = new BasicDBObject("_id",userID);
-    	DBObject queryResult = UserColl.findOne(query);
+        DBObject user = User.getDBObject(userID);
 
-    	result.setUserID((String)queryResult.get("_id"));
-    	result.setName((String)queryResult.get("name"));
-    	result.setBonitos(((Double)queryResult.get("bonitos")).intValue());
+    	result.setUserID((String)user.get("_id"));
+    	result.setName((String)user.get("name"));
+    	result.setBonitos((Integer)user.get("bonitos"));
 
     	// TODO: 重複無しに変える処理が必要（アイテム実装後）
-    	BasicDBList list = (BasicDBList)queryResult.get("itemList");
+    	BasicDBList list = (BasicDBList)user.get("itemList");
     	List<String> itemList = new ArrayList<String>();
     	for(Object el: list) {
     	     itemList.add((String) el);
@@ -184,12 +183,11 @@ public class NorakoreController {
     	result.setItemIDList(itemList);
 
     	// nyavatarIDListを使ってiconIDListを作成
-    	BasicDBList nyavatarlist = (BasicDBList)queryResult.get("nyavatarList");
+    	BasicDBList nyavatarlist = User.getNyavatarList(user);
     	List<String> iconList = new ArrayList<String>();
     	for(Object el: nyavatarlist) {
-    		DBObject querynya = new BasicDBObject("_id",new ObjectId((String)el));
-    		DBObject querynyaResult = NyavatarColl.findOne(querynya);
-    		iconList.add((String)querynyaResult.get("iconID"));
+            DBObject nya = Nyavatar.getDBObject((String)el);
+    		iconList.add((String)nya.get("iconID"));
     	}
     	result.setIconIDList(iconList);
 
