@@ -50,7 +50,7 @@ public class JaxAdapter {
         NyavatarDetail result = controller.getNyavatarDetail(nyavatarID, userID);
 		return Response.status(200).entity(result).build();
 	}
-	
+
 	// にゃばたーに「いいね」を付加
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -108,8 +108,29 @@ public class JaxAdapter {
         //result.setBonitos(10); // TODO: 値をちゃんとやる
 		return Response.status(200).entity(result).build();
 	}
-	
-	
+
+	// スキャにゃー実行
+    // パラメータは{userID, lon, lat}が必須，itemIDはどっちでもよい
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/scanya")
+	public Response scanya(
+            @FormParam("userID") String userID,
+            @FormParam("lon") double lon,
+            @FormParam("lat") double lat,
+            @FormParam("itemID") String itemID){
+        //String nya_id;
+        RegisterResult result = new RegisterResult();
+        try {
+            result = controller.Scanya(userID, lon, lat, itemID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
+		return Response.status(200).entity(result).build();
+	}
+
 
     // 写真をアップロードする
     // アップロードするのみ．類似チェックなどは別APIで．
