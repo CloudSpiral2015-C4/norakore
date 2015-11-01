@@ -157,6 +157,8 @@ h3:before {
 	padding-top: 10px;
 	background-image: url('images/nyavatar-list-bg.jpg');
 }
+
+/* にゃばたーサムネイル */
 .nyavatar-thumbnail {
 	border: 2px solid #777;
 	background: #eee;
@@ -200,6 +202,58 @@ h3:before {
 }
 .nyavatar-footer {
 	text-align:right;
+}
+
+/* にゃばたー詳細 */
+.nyavatar-detail-area {
+	background-image: url('images/nyavatar-list-bg.jpg');
+	padding: 10px;
+	width: 100%;
+}
+.nyavatar-detail {
+	border: 2px solid #777;
+	background: #eee;
+	border-radius: 8px;
+	box-shadow: 0px 0px 1px 1px rgba(33,33,33,0.3) inset;
+	padding: 10px;
+	margin: 10px auto;
+	width: 300px;
+}
+.nyavatar-detail-heading {
+	border-bottom: 2px solid #777;	
+}
+.nyavatar-detail-heading img {
+	display: inline-block;
+	height: 30px;
+}
+.nyavatar-detail-heading h4 {
+	display: inline-block;
+	font-size: 100%;
+	margin: 0;
+	padding: 0;
+}
+.nyavatar-detail-body {}
+.nyavatar-detail-image {
+	float: left;
+	overflow: hidden;
+	margin: 5px;
+	margin-left: 0px;
+	margin-top: 10px;
+	width: 275px;
+	border: 5px solid #fff;
+	box-shadow: 0px 0px 0px 1px rgba(133,133,133,1.0)
+}
+.nyavatar-detail-status {
+	padding-top: 5px;
+}
+.nyavatar-detail-status li {
+	display: inline-block;
+	width: 80%;
+	padding: 2px;
+	border-bottom: 2px solid #777;
+}
+.nyavatar-detail-footer {
+	text-align: center;
 }
 
 /* アイテム */

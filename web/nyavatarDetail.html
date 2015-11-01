@@ -21,7 +21,7 @@
 
 	<!-- 以下のにゃばたーリストは自分が獲得したにゃばたーを表示する -->
 		<h2 class="text-center">にゃばたー詳細情報</h2>
-		<div class="nyavatar-list"></div>
+		<div class="nyavatar-detail-area"></div>
 
 		<script>
 
@@ -48,7 +48,7 @@
                     picture : '../api/picture/' + data.pictureID + '.jpg'
                 };
                 var nyavatarDetail = getNyavatarDetail(json);
-                jQuery('.nyavatar-list').append(nyavatarDetail);
+                jQuery('.nyavatar-detail-area').append(nyavatarDetail);
         	});
 		}
 		showNyavatarDetail();
