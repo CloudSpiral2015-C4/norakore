@@ -72,9 +72,8 @@
         							map:map
         						});
         						google.maps.event.addListener(marker, "click", function() {
-									var infowindow = new google.maps.InfoWindow({
-										content: nyavatarList[i].name
-									});
+									var infowindow = new google.maps.InfoWindow();
+									infowindow.setContent(nyavatarList[i].name);
 									infowindow.open(map, marker);
 								});
         						markerArray.push(marker);
@@ -138,9 +137,8 @@
         							map:map
         						});
         						google.maps.event.addListener(marker, "click", function() {
-									var infowindow = new google.maps.InfoWindow({
-										content: nyavatarList[i].name
-									});
+									var infowindow = new google.maps.InfoWindow();
+									infowindow.setContent(nyavatarList[i].name);
 									infowindow.open(map, marker);
 								});
         						markerArray.push(marker);
