@@ -50,6 +50,9 @@
                 };
                 var nyavatarDetail = getNyavatarDetail(json);
                 jQuery('.nyavatar-detail-area').append(nyavatarDetail);
+                if(query['new'] == null) {
+                    jQuery('.nyavatar-detail').append('<span class="new-icon"></span>');
+                }
                 jQuery('.nyavatar-detail-image').balloon({
                     css : {
                         opacity: "0.95",
