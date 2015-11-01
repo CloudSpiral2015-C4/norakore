@@ -37,20 +37,18 @@
             })
         	.done(function(data) {
                 console.log(data);
-                /*
-                for(var i = 0; i < nyavatarList.length; ++i) {
                 var json = {
-                    icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
-                    name : nyavatarList[i].name,
-                    date : nyavatarList[i].date.split('T')[0],
-                    like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+                    nyavatarID : data.nyavatarID
+                    icon : '../api/icon/' + data.iconID + '.png',
+                    name : data.name,
+                    date : data.date.split('T')[0],
+                    like : data.likeUserList == null ? 0 : data.likeUserList.length,
                     location : '日本',
-                    picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+                    say : data.say,
+                    picture : '../api/picture/' + data.pictureID + '.jpg'
                 };
-                var nyavatarThumbnail = getNyavatarThumbnail(json);
-            	    $('.nyavatar-list').append(nyavatarThumbnail);
-                }
-                */
+                var nyavatarDetail = getNyavatarDetail(json);
+                JQuery('.nyavatar-list').append(nyavatarDetail);
         	});
 		}
 		showNyavatarDetail();

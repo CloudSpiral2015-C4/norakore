@@ -80,22 +80,46 @@ function getNyavatarThumbnail(data) {
     return nyavatarThumbnail;
 }
 
+/* にゃばたー詳細を作成する関数
+ * 画面に出力する詳細情報を作成します．必要なデータはソースを参照して下さい．
+ * @param {nyavatarDetail} data 表示すべきにゃばたー詳細情報のデータが入ったJSON
+ */
+function getNyavatarDetail(data) {
+    var nyavatarThumbnail = "";
+    nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
+    nyavatarThumbnail += '    <div class="nyavatar-heading">';
+    nyavatarThumbnail += '        <img src="' + data.icon + '">';
+    nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="nyavatar-body">';
+    nyavatarThumbnail += '        <div class="pull-left">';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" class="nyavatar-image">';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '        <div class="nyavatar-status">';
+    nyavatarThumbnail += '            <ul>';
+    nyavatarThumbnail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
+    nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
+    nyavatarThumbnail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
+    nyavatarThumbnail += '            </ul>';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="clearfix"></div>';
+    nyavatarThumbnail += '    <div class="nyavatar-footer">';
+    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like(' + data.nyavatarID + ')">いいね</div>';
+    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '</div>';
+    return nyavatarThumbnail;
+}
+
+// いいね
+function like(nyavatarID) {
+    // 後で実装する
+}
+
 // にゃばたーの最終発見日時を変更する
 function findcheck() {
 	// 後で実装する
-}
-
-// GET値を取得する
-function getParam() {
-    var params   = location.href.split("?")[1].split("&");
-    var paramsArray = [];
-    for ( i = 0; i < params.length; i++ ) {
-        neet = params[i].split("=");
-        paramsArray.push(neet[0]);
-        paramsArray[neet[0]] = neet[1];
-    }
-    var categoryKey = paramsArray["key"];
-    return categoryKey;
 }
 
 // 参考： https://syncer.jp/javascript-reverse-reference/output-local-image
