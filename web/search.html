@@ -128,6 +128,7 @@
         				.done(function(data) {
             				nyavatarList = data.list;
                             console.log(data.list);
+                            $('.nyavatar-list').empty();
                             for(var i = 0; i < nyavatarList.length; ++i) {
                             	var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
