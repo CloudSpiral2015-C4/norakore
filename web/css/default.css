@@ -211,6 +211,7 @@ h3:before {
 	width: 100%;
 }
 .nyavatar-detail {
+	position: relative;
 	border: 2px solid #777;
 	background: #eee;
 	border-radius: 8px;
