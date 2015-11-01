@@ -93,7 +93,7 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="nyavatar-body pull-left">';
     nyavatarThumbnail += '        <div>';
-    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 280px; margin: 0 auto;">';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 270px; margin: 0 auto;">';
     nyavatarThumbnail += '        </div>';
     nyavatarThumbnail += '        <div class="nyavatar-status">';
     nyavatarThumbnail += '            <ul>';
@@ -104,7 +104,7 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '        </div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="clearfix"></div>';
-    nyavatarThumbnail += '    <div class="nyavatar-footer">';
+    nyavatarThumbnail += '    <div class="nyavatar-footer text-center">';
     nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like()">いいね</div>';
     nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
     nyavatarThumbnail += '    </div>';
