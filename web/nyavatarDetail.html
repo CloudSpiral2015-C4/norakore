@@ -24,9 +24,10 @@
 		<div class="nyavatar-list"></div>
 
 		<script>
+
 		function showNyavatarDetail() {
             var query = window.location.search.toQueryParams();
-		    $.ajax({
+		    jQuery.ajax({
     			type: 'GET',
         		url: '../api/nyavatardetail',
         		data: {
