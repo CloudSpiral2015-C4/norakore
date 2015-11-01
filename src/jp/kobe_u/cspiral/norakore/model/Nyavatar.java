@@ -67,7 +67,7 @@ public class Nyavatar {
     }
 
     // public static NyavatarDetail generateNyavatarDetail(DBObject dbo) {
-    //     NyavatarDetail nyavatar = new NyavatarDetail(); 
+    //     NyavatarDetail nyavatar = new NyavatarDetail();
     //     return nyavatar;
     // }
 
@@ -109,9 +109,6 @@ public class Nyavatar {
         this.like = 0;
         this.lostCatID = "nullID";
 	}
-
-    public Nyavatar(DBObject dbo) {
-    }
 
     // getter / setter ---------------------------------------------------------
 	@XmlElement(name="nyavatarID")

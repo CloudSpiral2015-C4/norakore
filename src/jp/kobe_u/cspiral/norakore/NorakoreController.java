@@ -43,7 +43,7 @@ public class NorakoreController {
         this.IconColl = DBUtils.getInstance().getDb().getCollection(IconColl_Name);
 	}
 
-    public NyavatarList searchNyavatar(double lon, double lat) {
+    public NyavatarList searchNyavatar(double lon, double lat) throws Exception{
         final double search_range = 0.01;
         NyavatarList result = new NyavatarList();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
@@ -53,7 +53,11 @@ public class NorakoreController {
         		append("location.lat", new BasicDBObject("$gt",lat-search_range).append("$lt", lat+search_range));
         DBCursor cursor = NyavatarColl.find(query);
         for (DBObject nya : cursor) {
-            list.add(new Nyavatar(nya));
+			try {
+				list.add(Nyavatar.generateNyavatar(nya));
+			} catch (Exception e) {
+				throw new Exception(MessageFormat.format("generateNyavatar ErrorMessage={0}", e.getMessage()));
+			}
         }
         result.setList(list);
         return result;

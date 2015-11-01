@@ -23,7 +23,13 @@ public class JaxAdapter {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/nyavatar")
 	public Response nyavatar(@QueryParam("lon") double lon, @QueryParam("lat") double lat) {
-        NyavatarList result = controller.searchNyavatar(lon, lat);
+        NyavatarList result = new NyavatarList();
+		try {
+			result = controller.searchNyavatar(lon, lat);
+		} catch (Exception e) {
+			ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+		}
 		return Response.status(200).entity(result).build();
 	}
 
@@ -79,7 +85,7 @@ public class JaxAdapter {
             ErrorResult err = new ErrorResult(e.getMessage());
             return Response.status(400).entity(err).build();
         }
-		
+
 		return Response.status(200).entity(result).build();
 	}
 
