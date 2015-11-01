@@ -72,7 +72,14 @@ public class JaxAdapter {
 	@Produces({MediaType.APPLICATION_JSON})
 	@Path("/user")
 	public Response user(@QueryParam("userID") String userID) {
-		UserResult result = controller.getUserInfo(userID);
+		UserResult result = new UserResult();
+		try {
+			result = controller.getUserInfo(userID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+		
 		return Response.status(200).entity(result).build();
 	}
 
