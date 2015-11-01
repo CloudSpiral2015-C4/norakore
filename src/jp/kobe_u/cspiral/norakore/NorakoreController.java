@@ -44,13 +44,15 @@ public class NorakoreController {
 	}
 
     public NyavatarList searchNyavatar(double lon, double lat) {
-        final double search_area = 10000;
+        final double search_renge = 0.01;
         NyavatarList result = new NyavatarList();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
 
-        DBCursor cursor = NyavatarColl.find();
+        // (lon-0.01 < location.lon < lon+0.01) and (lat-0.01 < location.lat < lat+0.01)
+        DBObject query = new BasicDBObject("location.lon", new BasicDBObject("$gt",lon-search_renge).append("$lt", lon+search_renge)).
+        		append("location.lat", new BasicDBObject("$gt",lat-search_renge).append("$lt", lat+search_renge));
+        DBCursor cursor = NyavatarColl.find(query);
         for (DBObject nya : cursor) {
-            // TODO: mongoのクエリ書く, 四角形範囲クエリにする
             list.add(new Nyavatar(nya));
         }
 
