@@ -173,8 +173,8 @@ public class NorakoreController {
 
     	result.setUserID((String)user.get("_id"));
     	result.setName((String)user.get("name"));
-    	double bonitos = (Double)user.get("bonitos");
-    	result.setBonitos((int)bonitos);
+    	Double bonitos = (Double)user.get("bonitos");
+    	result.setBonitos(bonitos.intValue());
 
     	// TODO: 重複無しに変える処理が必要（アイテム実装後）
     	BasicDBList list = (BasicDBList)user.get("itemList");
