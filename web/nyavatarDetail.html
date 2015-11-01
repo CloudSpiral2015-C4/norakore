@@ -9,6 +9,7 @@
 	<script type='text/javascript' src="js/bootstrap.js" ></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script type='text/javascript' src="js/common.js" ></script>
+    <script type='text/javascript' src="js/jquery.balloon.js" ></script>
     <script type='text/javascript' src="js/prototype.js" ></script>
 	<title>テスト</title>
 </head>
@@ -52,6 +53,10 @@
         	});
 		}
 		showNyavatarDetail();
+
+        jQuery(function() {
+            jQuery('.nyavatar-detail-image').balloon();
+        });
 		</script>
 
 	</div><!-- main -->
