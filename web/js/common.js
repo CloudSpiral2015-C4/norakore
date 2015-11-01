@@ -92,8 +92,8 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="nyavatar-body">';
-    nyavatarThumbnail += '        <div class="pull-left">';
-    nyavatarThumbnail += '            <img src="' + data.picture + '" class="nyavatar-image">';
+    nyavatarThumbnail += '        <div>';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" class="nyavatar-image" width="200px" height="200px">';
     nyavatarThumbnail += '        </div>';
     nyavatarThumbnail += '        <div class="nyavatar-status">';
     nyavatarThumbnail += '            <ul>';
@@ -105,7 +105,7 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="clearfix"></div>';
     nyavatarThumbnail += '    <div class="nyavatar-footer">';
-    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like(' + new String(data.nyavatarID).toString() + ')">いいね</div>';
+    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like()">いいね</div>';
     nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
@@ -113,7 +113,7 @@ function getNyavatarDetail(data) {
 }
 
 // いいね
-function like(nyavatarID) {
+function like() {
     // 後で実装する
 }
 
