@@ -36,6 +36,7 @@
 
 		<script>
 			var geocoder, map;
+			var markerArray = new google.maps.MVCArray();
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -70,6 +71,17 @@
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
+        						markerArray.push(marker);
+        						var json = {
+                                    icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
+                                    name : nyavatarList[i].name,
+                                    date : nyavatarList[i].date.split('T')[0],
+                                    like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+                                    location : '日本',
+                                    picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+                                };
+                                var nyavatarThumbnail = getNyavatarThumbnail(json);
+                                $('.nyavatar-list').append(nyavatarThumbnail);
         					}
         				});
        				},
@@ -100,7 +112,10 @@
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
 						map.setOptions(option);
-
+						//マーカーの削除
+						MarkerArray.forEach(function (marker, idx) { marker.setMap(null); });
+						//にゃばたーリストの削除
+                        $('.nyavatar-list').empty();
                         // 以下にゃばたーリストの取得
 		    			$.ajax({
     		    			type: 'GET',
@@ -114,6 +129,12 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             for(var i = 0; i < nyavatarList.length; ++i) {
+                            	var marker = new google.maps.Marker({
+        							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
+        							map:map
+        						});
+        						markerArray.push(marker);
+
                                 var json = {
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
                                     name : nyavatarList[i].name,
