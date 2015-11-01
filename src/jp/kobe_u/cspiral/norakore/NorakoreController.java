@@ -44,13 +44,13 @@ public class NorakoreController {
 	}
 
     public NyavatarList searchNyavatar(double lon, double lat) {
-        final double search_renge = 0.01;
+        final double search_range = 0.01;
         NyavatarList result = new NyavatarList();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
 
         // (lon-0.01 < location.lon < lon+0.01) and (lat-0.01 < location.lat < lat+0.01)
-        DBObject query = new BasicDBObject("location.lon", new BasicDBObject("$gt",lon-search_renge).append("$lt", lon+search_renge)).
-        		append("location.lat", new BasicDBObject("$gt",lat-search_renge).append("$lt", lat+search_renge));
+        DBObject query = new BasicDBObject("location.lon", new BasicDBObject("$gt",lon-search_range).append("$lt", lon+search_range)).
+        		append("location.lat", new BasicDBObject("$gt",lat-search_range).append("$lt", lat+search_range));
         DBCursor cursor = NyavatarColl.find(query);
         for (DBObject nya : cursor) {
             list.add(new Nyavatar(nya));
