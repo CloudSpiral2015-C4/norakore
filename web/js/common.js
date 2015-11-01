@@ -93,7 +93,7 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="nyavatar-body">';
     nyavatarThumbnail += '        <div>';
-    nyavatarThumbnail += '            <img src="' + data.picture + '">';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 200px; margin: 0 auto;">';
     nyavatarThumbnail += '        </div>';
     nyavatarThumbnail += '        <div class="nyavatar-status">';
     nyavatarThumbnail += '            <ul>';
