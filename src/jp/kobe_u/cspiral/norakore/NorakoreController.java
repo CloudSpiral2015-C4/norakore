@@ -90,7 +90,6 @@ public class NorakoreController {
     	DBObject query = new BasicDBObject("_id",new ObjectId(nyavatarID));
     	DBObject queryResult = NyavatarColl.findOne(query);
 
-    	// TODO: likeUsersの中にuserIDが含まれるかのチェック⇒ふくまれていいたら、isLiked=true
     	result.setNyavatarID(queryResult.get("_id").toString());
     	result.setName((String)queryResult.get("name"));
     	result.setType((String)queryResult.get("type"));
@@ -155,7 +154,39 @@ public class NorakoreController {
         nya.setIconID(iconid);
 
         nya.setLocation(new Location(lon, lat));
-        nya.setSay("お腹すいたにゃぁ～");
+        ran = rnd.nextInt(10);
+        String say = "お腹すいたにゃぁ～";
+        switch(ran){
+        case 0:
+        case 1:
+        	say = "お腹すいたにゃぁ～";
+        	break;
+        case 2:
+        	say = "ん？ 一緒に遊んでくれるのかにゃ？";
+        	break;
+        case 3:
+        	say = "うにー…  マタタビのせいで酔っちゃったにゃぁ～//";
+        	break;
+        case 4:
+        	say = "にゃっ！？  尻尾は触っちゃダメっ！";
+        	break;
+        case 5:
+        	say = "…にゃにか用？";
+        	break;
+        case 6:
+        	say = "ふにゃぁ～  な～んか暇だにゃぁ・・・";
+        	break;
+        case 7:
+        	say = "「好奇心は猫をも殺す」 \n イギリスのことわざらしいにゃん。 怖いことわざもあるもんだにゃぁ～";
+        	break;
+        case 8:
+        	say = "猫の血液型は9割以上がA型らしいにゃん。 \n 私？ もちろんA型にゃ！";
+        	break;
+        case 9:
+        	say = "世の中には「猫カフェ」にゃるものがあるらしいにゃ。 \n にゃにそれ、行きたい！";
+        	break;
+        }
+        nya.setSay(say);
 
         nya.determineParams(userID); // 欠落パラメータ補完
 
