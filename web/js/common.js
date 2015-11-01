@@ -73,7 +73,7 @@ function getNyavatarThumbnail(data) {
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="clearfix"></div>';
     nyavatarThumbnail += '    <div class="nyavatar-footer">';
-    nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'#\'">詳細</div>';
+    nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'nyavatarDetail.html?nyavatarID=' + data.nyavatarID +'\'">詳細</div>';
     nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
@@ -83,6 +83,19 @@ function getNyavatarThumbnail(data) {
 // にゃばたーの最終発見日時を変更する
 function findcheck() {
 	// 後で実装する
+}
+
+// GET値を取得する
+function getParam() {
+    var params   = location.href.split("?")[1].split("&");
+    var paramsArray = [];
+    for ( i = 0; i < params.length; i++ ) {
+        neet = params[i].split("=");
+        paramsArray.push(neet[0]);
+        paramsArray[neet[0]] = neet[1];
+    }
+    var categoryKey = paramsArray["key"];
+    return categoryKey;
 }
 
 // 参考： https://syncer.jp/javascript-reverse-reference/output-local-image
