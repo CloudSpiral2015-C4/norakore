@@ -211,8 +211,11 @@ public class NorakoreController {
     public String registerUser(String userID, String name, String pass, String verificationPass) throws Exception{
 
     	if(!pass.equals(verificationPass)) throw new Exception("verificationPass is not equals pass.");
+    	DBCursor cursor = UserColl.find();
+        for (DBObject user : cursor) {
+        	if(userID.equals((String)user.get("_id"))) throw new Exception(MessageFormat.format("This userID=\"{0}\" is already registered.", userID));
+        }
 
-    	//String resultUserID = "";
     	User user = new User();
     	user.setId(userID);
     	user.setName(name);
