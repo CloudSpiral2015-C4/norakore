@@ -55,7 +55,6 @@ public class NorakoreController {
         for (DBObject nya : cursor) {
             list.add(new Nyavatar(nya));
         }
-
         result.setList(list);
         return result;
     }
