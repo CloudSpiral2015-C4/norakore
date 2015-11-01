@@ -60,32 +60,23 @@ public class NorakoreController {
     }
 
     public NyavatarList getUsersNyavatar(String userID) throws Exception {
-        NyavatarList result = new NyavatarList();
-        try {
-            // retrieve the specified user's DBObject
-            // DBObject query = new BasicDBObject("_id", new ObjectId(userID));
-        	DBObject query = new BasicDBObject("_id", userID);
-            DBObject userdbo = UserColl.findOne(query);
-            if (userdbo == null) throw new Exception("Specified user is not found.");
+        // get user's nyavatar list
+        DBObject user = User.getDBObject(userID);
+        BasicDBList id_list = (BasicDBList)user.get("nyavatarList");
+        if (id_list == null) throw new Exception("user's nyavatarList is not found.");
 
-            // get user's nyavatar list
-            BasicDBList id_list = (BasicDBList)userdbo.get("nyavatarList");
-            if (id_list == null) throw new Exception("user's nyavatarList is not found.");
-
-            // generate nyavatar list from id list
-            List<Nyavatar> ny_list = new ArrayList<Nyavatar>();
-            for(Object id: id_list) {
-                ObjectId oid = new ObjectId((String)id);
-                DBObject ny_dbo = NyavatarColl.findOne(new BasicDBObject("_id", oid));
-                if (ny_dbo == null) throw new Exception("There is lost-nyavatar on db.");
-                ny_list.add(new Nyavatar(ny_dbo));
+        // generate nyavatar list from id list
+        List<Nyavatar> ny_list = new ArrayList<Nyavatar>();
+        for(Object id: id_list) {
+            try {
+                ny_list.add(Nyavatar.generateNyavatar((String)id));
+            } catch(Exception e) {
+                throw new Exception(MessageFormat.format("User has lost nyavatar. id={0}", (String)id));
             }
-
-            // generate result object
-            result.setList(ny_list);
-        } catch (IllegalArgumentException e) {
-            throw new Exception(MessageFormat.format("Invalid userID, userID={0}", userID));
         }
+
+        NyavatarList result = new NyavatarList();
+        result.setList(ny_list);
         return result;
     }
 
@@ -117,20 +108,17 @@ public class NorakoreController {
     }
 
     public int likeNyavatar(String nyavatarID, String userID) throws Exception{
-        DBObject query = new BasicDBObject("_id", new ObjectId(nyavatarID));
-        DBObject userdbo = NyavatarColl.findOne(query);
-        if (userdbo == null) throw new Exception(MessageFormat.format(
-                "Specified nyavatar is not found. id={0}", nyavatarID));
+        DBObject nya = Nyavatar.getDBObject(nyavatarID);
 
         // get nyavatar's likeUser list
-        BasicDBList like_list = (BasicDBList)userdbo.get("likeUserList");
+        BasicDBList like_list = (BasicDBList)nya.get("likeUserList");
         if (like_list == null) throw new Exception("The nyavatar has no likeUserList.");
 
         // add user to the list
         if (like_list.contains(userID)) throw new Exception("user already like the nyavatar.");
         like_list.add(userID);
-        userdbo.put("likeUserList", like_list);
-        NyavatarColl.update(query, userdbo);
+        nya.put("likeUserList", like_list);
+        Nyavatar.updateNyavatar(nya);
 
     	return like_list.size();
     }
@@ -162,10 +150,7 @@ public class NorakoreController {
         }
         nya.setIconID(iconid);
 
-        Location loc = new Location();
-        loc.setLon(lon);
-        loc.setLat(lat);
-        nya.setLocation(loc);
+        nya.setLocation(new Location(lon, lat));
         nya.setSay("お腹すいたにゃぁ～");
 
         nya.determineParams(userID); // 欠落パラメータ補完
@@ -175,41 +160,31 @@ public class NorakoreController {
         NyavatarColl.insert(dbo);
         String nya_id = dbo.get("_id").toString();
 
-        // 登録するユーザを取得
-        //DBObject query = new BasicDBObject("_id", new ObjectId(userID));
-        DBObject query = new BasicDBObject("_id", userID);
-        DBObject userdbo = UserColl.findOne(query);
-        if (userdbo == null) throw new Exception("Specified user is not found.");
-        // ユーザのにゃばたーリストに登録したにゃばたーを追加する
-        BasicDBList list = (BasicDBList)userdbo.get("nyavatarList");
-        if (list == null) throw new Exception("user's nyavatarList is not found.");
-        list.add(nya_id);
-        // 更新したにゃばたーリストをユーザに適応する
-        userdbo.put("nyavatarList", list);
-        // 所持かつお数を追加（今は固定10かつお）
-        Double bonitos = (Double)userdbo.get("bonitos") + 10;
-        userdbo.put("bonitos", bonitos);
-        UserColl.update(query, userdbo);
+        // 登録するユーザににゃばたーとかつおを付与
+        DBObject user = User.getDBObject(userID);
+        BasicDBList list = User.addNyavatar(user, nya_id);
+        int bonitos = User.addBonitos(user, 10);
+        User.updateUser(user);
 
         RegisterResult result = new RegisterResult();
         result.setNyavatarID(nya_id);
-        result.setBonitos(bonitos.intValue());
+        result.setBonitos(bonitos);
 
         return result;
     }
 
-    public UserResult getUserInfo(String userID){
+    public UserResult getUserInfo(String userID) throws Exception{
     	UserResult result = new UserResult();
 
-    	DBObject query = new BasicDBObject("_id",userID);
-    	DBObject queryResult = UserColl.findOne(query);
+        DBObject user = User.getDBObject(userID);
 
-    	result.setUserID((String)queryResult.get("_id"));
-    	result.setName((String)queryResult.get("name"));
-    	result.setBonitos(((Double)queryResult.get("bonitos")).intValue());
+    	result.setUserID((String)user.get("_id"));
+    	result.setName((String)user.get("name"));
+    	Double bonitos = (Double)user.get("bonitos");
+    	result.setBonitos(bonitos.intValue());
 
     	// TODO: 重複無しに変える処理が必要（アイテム実装後）
-    	BasicDBList list = (BasicDBList)queryResult.get("itemList");
+    	BasicDBList list = (BasicDBList)user.get("itemList");
     	List<String> itemList = new ArrayList<String>();
     	for(Object el: list) {
     	     itemList.add((String) el);
@@ -217,12 +192,11 @@ public class NorakoreController {
     	result.setItemIDList(itemList);
 
     	// nyavatarIDListを使ってiconIDListを作成
-    	BasicDBList nyavatarlist = (BasicDBList)queryResult.get("nyavatarList");
+    	BasicDBList nyavatarlist = User.getNyavatarList(user);
     	List<String> iconList = new ArrayList<String>();
     	for(Object el: nyavatarlist) {
-    		DBObject querynya = new BasicDBObject("_id",new ObjectId((String)el));
-    		DBObject querynyaResult = NyavatarColl.findOne(querynya);
-    		iconList.add((String)querynyaResult.get("iconID"));
+            DBObject nya = Nyavatar.getDBObject((String)el);
+    		iconList.add((String)nya.get("iconID"));
     	}
     	result.setIconIDList(iconList);
 
