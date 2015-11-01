@@ -44,16 +44,17 @@ public class NorakoreController {
 	}
 
     public NyavatarList searchNyavatar(double lon, double lat) {
-        final double search_area = 10000;
+        final double search_range = 0.01;
         NyavatarList result = new NyavatarList();
         List<Nyavatar> list = new ArrayList<Nyavatar>();
 
-        DBCursor cursor = NyavatarColl.find();
+        // (lon-0.01 < location.lon < lon+0.01) and (lat-0.01 < location.lat < lat+0.01)
+        DBObject query = new BasicDBObject("location.lon", new BasicDBObject("$gt",lon-search_range).append("$lt", lon+search_range)).
+        		append("location.lat", new BasicDBObject("$gt",lat-search_range).append("$lt", lat+search_range));
+        DBCursor cursor = NyavatarColl.find(query);
         for (DBObject nya : cursor) {
-            // TODO: mongoのクエリ書く, 四角形範囲クエリにする
             list.add(new Nyavatar(nya));
         }
-
         result.setList(list);
         return result;
     }
@@ -192,6 +193,56 @@ public class NorakoreController {
     	result.setIconIDList(iconList);
 
     	return result;
+    }
+
+    public RegisterResult Scanya(String userID, double lon, double lat, String itemID) throws Exception {
+
+    	// 対象となるにゃばたーリストを取得（api/nyavatarと同じ）
+    	final double search_range = 0.01;
+        DBObject queryNya = new BasicDBObject("location.lon", new BasicDBObject("$gt",lon-search_range).append("$lt", lon+search_range)).
+        		append("location.lat", new BasicDBObject("$gt",lat-search_range).append("$lt", lat+search_range));
+        DBCursor cursorNya = NyavatarColl.find(queryNya);
+        if (cursorNya == null) throw new Exception("user's nyavatarList is not found.");
+
+        // 対象となるユーザを取得
+        DBObject queryUser = new BasicDBObject("_id",userID);
+        DBObject objectUser = UserColl.findOne(queryUser);
+        if (objectUser == null) throw new Exception("Specified user is not found.");
+        BasicDBList nyavatarIDList = (BasicDBList)objectUser.get("nyavatarList");
+
+        // 対象となるにゃばたーのうち、ユーザの持つにゃばたー以外をnyavatarListにadd
+        List<String> nyavatarList = new ArrayList<String>();
+        for (DBObject nya : cursorNya) {
+        	if(!nyavatarIDList.contains(nya.get("_id").toString())){
+        		nyavatarList.add(nya.get("_id").toString());
+        	}
+        }
+
+        String getNyavatarID = "nullID";
+        Double bonitos = 0.0;
+
+        if(nyavatarList.size() > 0){
+        	// nyavatarListのうちどれかをランダムに１つ選出し、ユーザの持つにゃばたーリストに追加
+            // TODO: デモのために確実に１つ手に入るようにしてるが、本来はにゃばたー自体に確率を持たせるべき
+        	Random rnd = new Random();
+        	int ran = rnd.nextInt(nyavatarList.size()+1);
+        	if(ran == 0) ran=1;
+        	getNyavatarID = nyavatarList.get(ran-1);
+        	nyavatarIDList.add(getNyavatarID);
+
+        	// 更新したにゃばたーリストをユーザに適応する
+            objectUser.put("nyavatarList", nyavatarIDList);
+            // 所持かつお数を追加（今は固定10かつお）
+            bonitos = (Double)objectUser.get("bonitos") + 10;
+            objectUser.put("bonitos", bonitos);
+            UserColl.update(queryUser, objectUser);
+        }
+
+        RegisterResult result = new RegisterResult();
+        result.setNyavatarID(getNyavatarID);
+        result.setBonitos(bonitos.intValue());
+
+        return result;
     }
 
 	public String saveImage(String data, String res) {
