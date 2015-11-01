@@ -64,7 +64,7 @@ public class User {
     private String password;
     private List<String> nyavatarList;
     private List<String> itemList;
-    private Integer bonitos;
+    private int bonitos;
     private String userType;
 
 	// default constructor for jaxb
@@ -80,8 +80,13 @@ public class User {
 
     public DBObject toDBObject() {
         DBObject dbo = new BasicDBObject();
+        dbo.put("_id", this.id);
         dbo.put("name", this.name);
         dbo.put("password", this.password);
+        dbo.put("nyavatarList", this.nyavatarList);
+        dbo.put("itemList", this.itemList);
+        dbo.put("bonitos", this.bonitos);
+        dbo.put("userType", this.userType);
 
         return dbo;
     }

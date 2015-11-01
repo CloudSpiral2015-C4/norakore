@@ -208,6 +208,23 @@ public class NorakoreController {
         return result;
     }
 
+    public String registerUser(String userID, String name, String pass, String verificationPass) throws Exception{
+
+    	if(!pass.equals(verificationPass)) throw new Exception("verificationPass is not equals pass.");
+
+    	//String resultUserID = "";
+    	User user = new User();
+    	user.setId(userID);
+    	user.setName(name);
+    	user.setPassword(pass);
+
+    	DBObject dbo = user.toDBObject();
+        UserColl.insert(dbo);
+        String resultUserID  = (String)dbo.get("_id");
+
+    	return resultUserID;
+    }
+
     public UserResult getUserInfo(String userID) throws Exception{
     	UserResult result = new UserResult();
 

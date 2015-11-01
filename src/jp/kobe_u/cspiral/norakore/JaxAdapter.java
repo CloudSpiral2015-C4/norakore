@@ -137,6 +137,37 @@ public class JaxAdapter {
 		return Response.status(200).entity(result).build();
 	}
 
+	// スキャにゃー実行
+    // パラメータは{userID, lon, lat}が必須，itemIDはどっちでもよい
+	@POST
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/registeruser")
+	public Response registeruser(
+            @FormParam("userID") String userID,
+            @FormParam("name") String name,
+            @FormParam("pass") String pass,
+            @FormParam("verificationPass") String verificationPass){
+
+        UserResult result = new UserResult();
+        String resultID = "";
+        try {
+            resultID = controller.registerUser(userID, name, pass, verificationPass);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
+        // api/user と同じ
+        try {
+			result = controller.getUserInfo(resultID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+
+		return Response.status(200).entity(result).build();
+	}
+
 
     // 写真をアップロードする
     // アップロードするのみ．類似チェックなどは別APIで．
