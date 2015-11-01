@@ -258,8 +258,8 @@ h3:before {
 }
 .new-icon {
 	position: absolute;  
-    left: -5px;
-    top: -15px;
+    left: -10px;
+    top: -35px;
     padding-top: 52px;
     width: 59px;
     height: 0;
