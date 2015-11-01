@@ -105,7 +105,7 @@ function getNyavatarDetail(data) {
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="clearfix"></div>';
     nyavatarThumbnail += '    <div class="nyavatar-footer">';
-    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like("' + data.nyavatarID + '")">いいね</div>';
+    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like("' + new String(data.nyavatarID).toString() + '")">いいね</div>';
     nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
