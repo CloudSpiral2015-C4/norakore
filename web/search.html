@@ -71,6 +71,12 @@
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
+        						google.maps.event.addListener(marker, "click", function() {
+									var infowindow = new google.maps.InfoWindow({
+										content: nyavatarList[i].name
+									});
+									infowindow.open(map, marker);
+								});
         						markerArray.push(marker);
         						var json = {
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
@@ -112,10 +118,6 @@
 							mapTypeId : google.maps.MapTypeId.ROADMAP
 						};
 						map.setOptions(option);
-						//マーカーの削除
-						MarkerArray.forEach(function (marker, idx) { marker.setMap(null); });
-						//にゃばたーリストの削除
-                        $('.nyavatar-list').empty();
                         // 以下にゃばたーリストの取得
 		    			$.ajax({
     		    			type: 'GET',
@@ -129,11 +131,18 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             $('.nyavatar-list').empty();
+							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
                             for(var i = 0; i < nyavatarList.length; ++i) {
                             	var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
+        						google.maps.event.addListener(marker, "click", function() {
+									var infowindow = new google.maps.InfoWindow({
+										content: nyavatarList[i].name
+									});
+									infowindow.open(map, marker);
+								});
         						markerArray.push(marker);
 
                                 var json = {
