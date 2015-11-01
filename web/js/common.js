@@ -73,11 +73,48 @@ function getNyavatarThumbnail(data) {
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '    <div class="clearfix"></div>';
     nyavatarThumbnail += '    <div class="nyavatar-footer">';
-    nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'#\'">詳細</div>';
+    nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'nyavatarDetail.html?nyavatarID=' + data.nyavatarID +'\'">詳細</div>';
     nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
     return nyavatarThumbnail;
+}
+
+/* にゃばたー詳細を作成する関数
+ * 画面に出力する詳細情報を作成します．必要なデータはソースを参照して下さい．
+ * @param {nyavatarDetail} data 表示すべきにゃばたー詳細情報のデータが入ったJSON
+ */
+function getNyavatarDetail(data) {
+    var nyavatarThumbnail = "";
+    nyavatarThumbnail += '<div class="nyavatar-thumbnail">';
+    nyavatarThumbnail += '    <div class="nyavatar-heading">';
+    nyavatarThumbnail += '        <img src="' + data.icon + '">';
+    nyavatarThumbnail += '        <h4>' + data.name + '</h4>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="nyavatar-body pull-left">';
+    nyavatarThumbnail += '        <div>';
+    nyavatarThumbnail += '            <img src="' + data.picture + '" style="width: 270px; margin: 0 auto;">';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '        <div class="nyavatar-status">';
+    nyavatarThumbnail += '            <ul>';
+    nyavatarThumbnail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
+    nyavatarThumbnail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
+    nyavatarThumbnail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
+    nyavatarThumbnail += '            </ul>';
+    nyavatarThumbnail += '        </div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '    <div class="clearfix"></div>';
+    nyavatarThumbnail += '    <div class="nyavatar-footer text-center">';
+    nyavatarThumbnail += '        <div class="btn btn-warning" onclick="like()">いいね</div>';
+    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    nyavatarThumbnail += '    </div>';
+    nyavatarThumbnail += '</div>';
+    return nyavatarThumbnail;
+}
+
+// いいね
+function like() {
+    // 後で実装する
 }
 
 // にゃばたーの最終発見日時を変更する
@@ -163,7 +200,7 @@ function Base64_From_StringOfBinaryData(binary){
 console.log('common.js : 基本UIの書き出し終了');
 var initialize = function() 
 {
-    $.ajax({
+    jQuery.ajax({
         type: 'GET',
         url: '../api/user',
         data: {
