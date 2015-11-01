@@ -5,11 +5,7 @@ import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
-import com.mongodb.BasicDBList;
+import com.mongodb.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
