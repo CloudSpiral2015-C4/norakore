@@ -50,13 +50,10 @@
                 };
                 var nyavatarDetail = getNyavatarDetail(json);
                 jQuery('.nyavatar-detail-area').append(nyavatarDetail);
+                jQuery('.nyavatar-detail-image').balloon();
         	});
 		}
 		showNyavatarDetail();
-
-        jQuery(function() {
-            jQuery('.nyavatar-detail-image').balloon();
-        });
 		</script>
 
 	</div><!-- main -->
