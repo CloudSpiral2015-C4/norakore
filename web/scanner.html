@@ -1,80 +1,111 @@
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="css/default.css">
-	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
-	<script type='text/javascript' src="js/bootstrap.js" ></script>
-	<script type='text/javascript' src="js/common.js" ></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<title>テスト</title>
-</head>
-<body>
-	<div id="iphone-wrapper">
-	<div id="wrapper">
-	<div id="user-info-header"></div>
-	<div id="main">	
-	<h1 class="text-center">スキャにゃー</h1>
-	<h2 class="text-center">近くのにゃばたー情報</h2>
-	<!-- 以下のにゃばたーリストは現在位置からnメートル以内のにゃばたーを表示する -->
-	<div class="nyavatar-list" style="height:200px;"></div><!-- nyavatar-list -->
-	
-	<p class="text-center">↓すきゃにゃーボタン↓</p>
-	<div class="row text-center">	
-		<div class="col-xs-12">
-			<div class="btn btn-custom text-left" data-color="pink" data-type="img-btn-200x200" onclick="location.href='result.html'"><img src="images/scanya.png"></div>
-		</div>	
-	</div>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/default.css">
+		<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+		<script type='text/javascript' src="js/bootstrap.js" ></script>
+		<script type='text/javascript' src="js/common.js" ></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<title>テスト</title>
+	</head>
+	<body>
+		<div id="iphone-wrapper">
+			<div id="wrapper">
+				<div id="user-info-header"></div>
+				<div id="main">
+					<h1 class="text-center">スキャにゃー</h1>
+					<h2 class="text-center">近くのにゃばたー情報</h2>
+					<!-- 以下のにゃばたーリストは現在位置からnメートル以内のにゃばたーを表示する -->
+					<div class="nyavatar-list" style="height:200px;"></div><!-- nyavatar-list -->
 
-  <script>
-  function showNyavatarList() {
-    geocoder = new google.maps.Geocoder();
-    var lat = "";
-    var lon = "";
-    var center;
-    navigator.geolocation.getCurrentPosition(function(pos) {
-      lat = pos.coords.latitude;
-      lon = pos.coords.longitude;
-        $.ajax({
-          type: 'GET',
-          url: '../api/nyavatar',
-          data: {
-            lat: lat,
-            lon: lon
-          }
-        })
-        .done(function(data) {
-          $('.nyavatar-list').empty();
-          var nyavatarList = data.list;
-          for(var i = 0; i < nyavatarList.length; ++i) {
-            var json = {
-              icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
-              name : nyavatarList[i].name,
-              date : nyavatarList[i].date.split('T')[0],
-              like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
-              location : '日本',
-              picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
-            };
-            var nyavatarThumbnail = getNyavatarThumbnail(json);
-            $('.nyavatar-list').append(nyavatarThumbnail);
-          }
-        });
-      },
-        function(e){
-          console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
-        }
-      );
-    }
-  showNyavatarList();
-  </script>
-	
-	</div><!-- main -->
+					<p class="text-center">
+						↓すきゃにゃーボタン↓
+					</p>
+					<div class="row text-center">
+						<div class="col-xs-12">
+							<div class="btn btn-custom text-left" data-color="pink" data-type="img-btn-200x200" onclick="scanya()"><img src="images/scanya.png">
+							</div>
+						</div>
+					</div>
 
-	<div id="menu-button-footer"></div>
-	
-	</div>
-	</div>
-</body>
+					<div class="form-group">
+						<input type="hidden" class="form-control" id="userID" name="userID" value="testUser">
+					</div>
+
+					<script>
+						var flag_postScanya = false;
+						var lat = "";
+						var lon = "";
+						function showNyavatarList() {
+							geocoder = new google.maps.Geocoder();
+							var center;
+							navigator.geolocation.getCurrentPosition(function(pos) {
+								flag_postScanya = true;
+								lat = pos.coords.latitude;
+								lon = pos.coords.longitude;
+								$.ajax({
+									type : 'GET',
+									url : '../api/nyavatar',
+									data : {
+										lat : lat,
+										lon : lon
+									}
+								}).done(function(data) {
+									$('.nyavatar-list').empty();
+									var nyavatarList = data.list;
+									for (var i = 0; i < nyavatarList.length; ++i) {
+										var json = {
+											icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
+											name : nyavatarList[i].name,
+											date : nyavatarList[i].date.split('T')[0],
+											like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+											location : '日本',
+											picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+										};
+										var nyavatarThumbnail = getNyavatarThumbnail(json);
+										$('.nyavatar-list').append(nyavatarThumbnail);
+									}
+								});
+							}, function(e) {
+								console.log("ERROR: navigator.geolocation.getCurrentPosition()" + e);
+							});
+						}
+
+						showNyavatarList();
+
+						function scanya() {
+							console.log("MarimoCheck");
+							if (flag_postScanya) {
+								var userID = $('#userID').val();
+								var itemID = "nullID";
+								$.ajax({
+									type : 'POST',
+									url : '../api/scanya',
+									data : {
+										userID : userID,
+										lat : lat,
+										lon : lon,
+										itemID : itemID
+									},
+									success : function(xml) {
+										console.log(xml);
+										if (xml.nyavatarID != "nullID") {
+											document.location.href = "nyavatarDetail.html?nyavatarID=" + xml.nyavatarID + "&new=1";
+										}
+									}
+								});
+							}
+						}
+					</script>
+
+				</div><!-- main -->
+
+				<div id="menu-button-footer"></div>
+
+			</div>
+		</div>
+	</body>
 </html>
