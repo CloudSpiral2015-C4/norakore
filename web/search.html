@@ -133,13 +133,12 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             $('.nyavatar-list').empty();
+							nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
                             if(nyavatarList.length < 1) {
                                 $('.nyavatar-list').append('<div class="text-center"><img src="images/unnyown.png" class="unnyown"></div>');
                                 return;
                             }
-                            for(var i = 0; i < nyavatarList.length; ++i) {
 							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
-							nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
                             for(var i = 0; i < nyavatarList.length; i++) {
                             	var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
