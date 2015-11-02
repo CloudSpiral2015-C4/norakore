@@ -133,13 +133,11 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             $('.nyavatar-list').empty();
-<<<<<<< HEAD
                             if(nyavatarList.length < 1) {
                                 $('.nyavatar-list').append('<div class="text-center"><img src="images/unnyown.png" class="unnyown"></div>');
                                 return;
                             }
                             for(var i = 0; i < nyavatarList.length; ++i) {
-=======
 							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
 							nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
                             for(var i = 0; i < nyavatarList.length; i++) {
@@ -154,8 +152,6 @@
 									infowindow.open(map, marker);
 								});
         						markerArray.push(marker);
-
->>>>>>> refs/remotes/origin/develop
                                 var json = {
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
                                     name : nyavatarList[i].name,
