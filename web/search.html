@@ -66,16 +66,16 @@
         				.done(function(data) {
                             var nyavatarList = data.list;
                             console.log(data.list);
-                            console.log(nyavatarList.length);
+                            nyavatarList = (nyavatarlist instanceof Array) ? nyavatarList : [nysvatarList];
         					for(var i = 0; i < nyavatarList.length;i++) {
                                 //地図上にマーカーを落とす
         						var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
+								var name=nyavatarList[i].name;
         						google.maps.event.addListener(marker, "click", function() {
 									var infowindow = new google.maps.InfoWindow();
-									var name=nyavatarList[i].name;
 									infowindow.setContent(name);
 									infowindow.open(map, marker);
 								});
@@ -132,17 +132,17 @@
         				.done(function(data) {
             				nyavatarList = data.list;
                             console.log(data.list);
-                            console.log(nyavatarList.length);
                             $('.nyavatar-list').empty();
 							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
+							nyavatarList = (nyavatarlist instanceof Array) ? nyavatarList : [nysvatarList];
                             for(var i = 0; i < nyavatarList.length; i++) {
                             	var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
+        						var name=nyavatarList[i].name;
         						google.maps.event.addListener(marker, "click", function() {
 									var infowindow = new google.maps.InfoWindow();
-									var name=nyavatarList[i].name;
 									infowindow.setContent(name);
 									infowindow.open(map, marker);
 								});
