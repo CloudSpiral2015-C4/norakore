@@ -45,10 +45,10 @@ public class User {
     public static int addBonitos(DBObject user, int new_bonitos) throws Exception {
         Object bo = user.get("bonitos");
         if (bo == null) throw new Exception("user's bonitos doesn't exist on DB.");
-        //Double bonitos_d = (Double)bo;
-        int bonitos_d = (int)bo;
-        int bonitos = bonitos_d + new_bonitos;
-        user.put("bonitos", bonitos);
+        // TODO: int - double
+        Double bonitos_d = (Double)bo;
+        int bonitos = bonitos_d.intValue() + new_bonitos;
+        user.put("bonitos", (double)bonitos);
         return bonitos;
     }
 
@@ -64,7 +64,8 @@ public class User {
     private String password;
     private List<String> nyavatarList;
     private List<String> itemList;
-    private int bonitos;
+        // TODO: int - double
+    private Integer bonitos;
     private String userType;
 
 	// default constructor for jaxb

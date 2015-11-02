@@ -90,6 +90,7 @@ public class NorakoreController {
     	DBObject query = new BasicDBObject("_id",new ObjectId(nyavatarID));
     	DBObject queryResult = NyavatarColl.findOne(query);
 
+    	// TODO: likeUsersの中にuserIDが含まれるかのチェック⇒ふくまれていいたら、isLiked=true
     	result.setNyavatarID(queryResult.get("_id").toString());
     	result.setName((String)queryResult.get("name"));
     	result.setType((String)queryResult.get("type"));
@@ -208,6 +209,7 @@ public class NorakoreController {
         return result;
     }
 
+
     public String registerUser(String userID, String name, String pass, String verificationPass) throws Exception{
 
     	if(!pass.equals(verificationPass)) throw new Exception("verificationPass is not equals pass.");
@@ -228,6 +230,7 @@ public class NorakoreController {
     	return resultUserID;
     }
 
+
     public UserResult getUserInfo(String userID) throws Exception{
     	UserResult result = new UserResult();
 
@@ -235,6 +238,7 @@ public class NorakoreController {
 
     	result.setUserID((String)user.get("_id"));
     	result.setName((String)user.get("name"));
+        // TODO: int - doubleの件
     	//Double bonitos = (Double)user.get("bonitos");
     	int bonitos = (int)user.get("bonitos");
     	//result.setBonitos(bonitos.intValue());
@@ -284,7 +288,8 @@ public class NorakoreController {
         }
 
         String getNyavatarID = "nullID";
-        int bonitos = 0;
+        // TODO: int - double
+        Double bonitos = 0.0;
 
         if(nyavatarList.size() > 0){
         	// nyavatarListのうちどれかをランダムに１つ選出し、ユーザの持つにゃばたーリストに追加
@@ -297,16 +302,15 @@ public class NorakoreController {
 
         	// 更新したにゃばたーリストをユーザに適応する
             objectUser.put("nyavatarList", nyavatarIDList);
+            // TODO: int - double
             // 所持かつお数を追加（今は固定10かつお）
             bonitos = User.addBonitos(objectUser, 10);
             User.updateUser(objectUser);
-            //bonitos = (int)objectUser.get("bonitos") + 10;
-            //objectUser.put("bonitos", bonitos);
-            //UserColl.update(queryUser, objectUser);
         }
 
         RegisterResult result = new RegisterResult();
         result.setNyavatarID(getNyavatarID);
+            // TODO: int - double
         result.setBonitos(bonitos);
 
         return result;

@@ -204,6 +204,7 @@ h3:before {
 	text-align:right;
 }
 
+
 /* にゃばたー詳細 */
 .nyavatar-detail-area {
 	background-image: url('images/nyavatar-list-bg.jpg');
@@ -271,6 +272,7 @@ h3:before {
 	border: 1px solid #333;
 	border-radius: 30px;
 }
+
 
 /* アイテム */
 .item-list {
