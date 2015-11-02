@@ -36,16 +36,18 @@
             	nyavatarList = data.list;
                 console.log(data.list);
                 for(var i = 0; i < nyavatarList.length; ++i) {
-                var json = {
-                    nyavatarID : nyavatarList[i].nyavatarID,
-                    icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
-                    name : nyavatarList[i].name,
-                    date : nyavatarList[i].date.split('T')[0],
-                    like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
-                    location : '日本',
-                    picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
-                };
-                var nyavatarThumbnail = getNyavatarThumbnail(json);
+                    console.log(i);
+                    var json = {
+                        nyavatarID : nyavatarList[i].nyavatarID,
+                        icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
+                        name : nyavatarList[i].name,
+                        date : nyavatarList[i].date.split('T')[0],
+                        like : nyavatarList[i].likeUserList == null ? 0 : nyavatarList[i].likeUserList.length,
+                        location : '日本',
+                        picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
+                    };
+                    console.log(json);
+                    var nyavatarThumbnail = getNyavatarThumbnail(json);
             	    $('.nyavatar-list').append(nyavatarThumbnail);
                 }
         	});
