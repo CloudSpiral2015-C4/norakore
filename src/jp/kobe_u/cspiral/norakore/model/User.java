@@ -47,7 +47,7 @@ public class User {
         if (bo == null) throw new Exception("user's bonitos doesn't exist on DB.");
         Double bonitos_d = (Double)bo;
         int bonitos = bonitos_d.intValue() + new_bonitos;
-        user.put("bonitos", bonitos);
+        user.put("bonitos", (double)bonitos);
         return bonitos;
     }
 
