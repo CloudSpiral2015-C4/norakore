@@ -11,7 +11,7 @@ public class UserResult {
 
 	private String userID;
     private String name;
-    private int bonitos;
+    private double bonitos;
     private List<String> iconidList;
     private List<String> itemidList;
 
@@ -19,7 +19,7 @@ public class UserResult {
 	public UserResult() {
         this.userID = "nullID";
         this.name = "nullName";
-        this.bonitos = 0;
+        this.bonitos = 0.0;
         this.iconidList = new ArrayList<String>();
         this.itemidList = new ArrayList<String>();
 	}
@@ -33,7 +33,7 @@ public class UserResult {
 		return name;
 	}
 	@XmlElement(name="bonitos")
-	public int getBonitos() {
+	public double getBonitos() {
 		return bonitos;
 	}
 	@XmlElement(name="iconidList")
@@ -51,7 +51,7 @@ public class UserResult {
 	public void setName(String value) {
         this.name = value != null ? value : "nullName";
 	}
-	public void setBonitos(int value) {
+	public void setBonitos(double value) {
         this.bonitos = value;
 	}
 	public void setIconIDList(List<String> value){

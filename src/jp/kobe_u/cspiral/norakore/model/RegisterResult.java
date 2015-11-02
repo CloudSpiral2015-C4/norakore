@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="RegisterResult")
 public class RegisterResult {
     private String nyavatarID;
-    private int bonitos;
+    private double bonitos;
 
 	// default constructor for jaxb
 	public RegisterResult() {
@@ -23,14 +23,14 @@ public class RegisterResult {
 		return nyavatarID;
 	}
 	@XmlElement(name="bonitos")
-	public int getBonitos() {
+	public double getBonitos() {
 		return bonitos;
 	}
 
 	public void setNyavatarID(String value) {
         this.nyavatarID = value != null ? value : "nullID";
 	}
-	public void setBonitos(int value) {
+	public void setBonitos(double value) {
         this.bonitos = value;
 	}
 }
