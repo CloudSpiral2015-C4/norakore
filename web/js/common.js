@@ -10,13 +10,14 @@
 function getUserInfoHeader(username, bonitos) {
 	var header = document.getElementById('user-info-header');
 	var headerHTML = '';
+	var bonitosInt = Math.floor(bonitos);
 	headerHTML += '<div class="row text-center">';
 	headerHTML += '    <div class="col-xs-3">';
 	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="1.0" onclick="location.href=\'index.html\'"><p>トップ</p></div>';
 	headerHTML += '    </div>';
 	headerHTML += '    <div class="col-xs-6">';
 	headerHTML += '        <p id="username">' + username + '</p>';
-    headerHTML += '        <p id="bonitos">かつお' + bonitos + '個</p>';
+    headerHTML += '        <p id="bonitos">かつお' + bonitosInt + '匹</p>';
 	headerHTML += '    </div>';
 	headerHTML += '    <div class="col-xs-3">';
 	headerHTML += '        <div class="btn btn-custom" data-color="blue" font-size="0.6" onclick="location.href=\'#\'"><p>ログアウト</p></div>';
@@ -196,7 +197,7 @@ function Base64_From_StringOfBinaryData(binary){
 }
 
 console.log('common.js : 基本UIの書き出し終了');
-var initialize = function() 
+var initialize = function()
 {
     jQuery.ajax({
         type: 'GET',
