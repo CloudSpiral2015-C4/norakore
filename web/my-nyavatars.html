@@ -23,7 +23,6 @@
 		<div class="nyavatar-list"></div>
 
 		<script>
-        var g;
 		function showMyNyavatarList() {
 		    $.ajax({
     			type: 'GET',
@@ -35,10 +34,8 @@
         	.done(function(data) {
                 $('.nyavatar-list').empty();
             	nyavatarList = data.list;
-                console.log(data.list);
-                g = data;
+                nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
                 for(var i = 0; i < nyavatarList.length; ++i) {
-                    console.log(i);
                     var json = {
                         nyavatarID : nyavatarList[i].nyavatarID,
                         icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
@@ -48,7 +45,6 @@
                         location : '日本',
                         picture : '../api/picture/' + nyavatarList[i].pictureID + '.jpg'
                     };
-                    console.log(json);
                     var nyavatarThumbnail = getNyavatarThumbnail(json);
             	    $('.nyavatar-list').append(nyavatarThumbnail);
                 }
