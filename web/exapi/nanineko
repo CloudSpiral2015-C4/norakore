@@ -8,9 +8,14 @@ echo ""
 # また、相対パスを使うとインターネット経由でアクセスしてしまうので通信がアレかも。
 inner_ep="http://localhost/norakore/api/picture"
 
-auth="-u user:pass"
+# 該当ファイルにユーザ名とパスワードを
+# user
+# pass
+# みたいに書く。パラメータ名みたいなのは不要
+config=($(cat /etc/norakore/nanineko_user))
+auth="-u ${config[0]}:${config[1]}"
+
 pic_id=$(echo $QUERY_STRING | sed "s/^pictureID=//")
-pic_url="${inner_ep}/${pic_id}.jpg"
 result=$(curl -s "${inner_ep}/${pic_id}.jpg" | curl $auth -F "image=@-" http://whatcat.ap.mextractr.net/api_query)
 
 echo $result
