@@ -45,7 +45,6 @@ public class User {
     public static double addBonitos(DBObject user, double new_bonitos) throws Exception {
         Object bo = user.get("bonitos");
         if (bo == null) throw new Exception("user's bonitos doesn't exist on DB.");
-        // TODO: int - double
         double bonitos = (Double)bo;
         bonitos += new_bonitos;
         user.put("bonitos", bonitos);
