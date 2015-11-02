@@ -42,12 +42,11 @@ public class User {
         return list;
     }
 
-    public static int addBonitos(DBObject user, int new_bonitos) throws Exception {
+    public static double addBonitos(DBObject user, double new_bonitos) throws Exception {
         Object bo = user.get("bonitos");
         if (bo == null) throw new Exception("user's bonitos doesn't exist on DB.");
-        //Double bonitos_d = (Double)bo;
-        int bonitos_d = (int)bo;
-        int bonitos = bonitos_d + new_bonitos;
+        double bonitos = (Double)bo;
+        bonitos += new_bonitos;
         user.put("bonitos", bonitos);
         return bonitos;
     }
@@ -64,7 +63,7 @@ public class User {
     private String password;
     private List<String> nyavatarList;
     private List<String> itemList;
-    private int bonitos;
+    private Double bonitos;
     private String userType;
 
 	// default constructor for jaxb
@@ -74,7 +73,7 @@ public class User {
         this.password = "";
         this.nyavatarList = new ArrayList<String>();
         this.itemList = new ArrayList<String>();
-        this.bonitos = 0;
+        this.bonitos = 0.0;
         this.userType = "user";
 	}
 
@@ -109,7 +108,7 @@ public class User {
 	public List<String> getItemList(){
 		return itemList;
 	}
-	public Integer getBonitos(){
+	public Double getBonitos(){
 		return bonitos;
 	}
 	public String getUserType() {
@@ -131,7 +130,7 @@ public class User {
     public void setitemList(List<String> value){
 		this.itemList = value;
 	}
-	public void setBonitos(Integer value){
+	public void setBonitos(Double value){
 		this.bonitos = value;
 	}
 	public void setUserType(String value) {

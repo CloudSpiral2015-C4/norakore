@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Content-type: application/json"
+echo ""
+
+# cgiの中からはURLの相対パスは使えないので直リンク指定する。
+# この場合、他ブランチのデプロイ先からでもmasterが呼ばれるがとりあえずは良いだろう。
+# また、相対パスを使うとインターネット経由でアクセスしてしまうので通信がアレかも。
+inner_ep="http://localhost/norakore/api/picture"
+
+# 該当ファイルにユーザ名とパスワードを
+# user
+# pass
+# みたいに書く。パラメータ名みたいなのは不要
+config=($(cat /etc/norakore/nanineko_user))
+auth="-u ${config[0]}:${config[1]}"
+
+pic_id=$(echo $QUERY_STRING | sed "s/^pictureID=//")
+result=$(curl -s "${inner_ep}/${pic_id}.jpg" | curl $auth -F "image=@-" http://whatcat.ap.mextractr.net/api_query)
+
+echo $result

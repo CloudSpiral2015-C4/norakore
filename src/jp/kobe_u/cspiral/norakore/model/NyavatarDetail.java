@@ -1,14 +1,21 @@
 package jp.kobe_u.cspiral.norakore.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
 
 import com.mongodb.*;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 @XmlRootElement(name="NyavatarDetail")
 public class NyavatarDetail {
@@ -51,9 +58,22 @@ public class NyavatarDetail {
             this.name = "猫";
         }
 
-        if (this.type.equals("")) {
-            // TODO: pictureから何猫で決定
-            this.type = "type";
+        if (this.type.equals("不明")) {
+            // TODO: apiブランチのアドレスになってるのを修正
+            String nanineko_proxy = "http://localhost/norakore-api/exapi/nanineko";
+            // String nanineko_proxy = "http://localhost/cgi-bin/nanineko"; // ローカルテスト用
+            Client client = new Client();
+            WebResource resource = client.resource(nanineko_proxy).
+                    queryParam("pictureID", this.pictureID);
+            String response = resource.get(String.class);
+
+			try {
+                ObjectMapper mapper = new ObjectMapper();
+                List<List<String>> mapped = mapper.readValue(response, List.class);
+                this.type = mapped.get(0).get(0);
+			} catch (Exception e) {
+                this.type = "不明";
+            }
         }
 
         if (this.iconID.equals("")) {

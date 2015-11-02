@@ -90,6 +90,7 @@ public class NorakoreController {
     	DBObject query = new BasicDBObject("_id",new ObjectId(nyavatarID));
     	DBObject queryResult = NyavatarColl.findOne(query);
 
+    	// TODO: likeUsersの中にuserIDが含まれるかのチェック⇒ふくまれていいたら、isLiked=true
     	result.setNyavatarID(queryResult.get("_id").toString());
     	result.setName((String)queryResult.get("name"));
     	result.setType((String)queryResult.get("type"));
@@ -198,7 +199,7 @@ public class NorakoreController {
         // 登録するユーザににゃばたーとかつおを付与
         DBObject user = User.getDBObject(userID);
         BasicDBList list = User.addNyavatar(user, nya_id);
-        int bonitos = User.addBonitos(user, 10);
+        double bonitos = User.addBonitos(user, 10);
         User.updateUser(user);
 
         RegisterResult result = new RegisterResult();
@@ -207,6 +208,7 @@ public class NorakoreController {
 
         return result;
     }
+
 
     public String registerUser(String userID, String name, String pass, String verificationPass) throws Exception{
 
@@ -228,6 +230,7 @@ public class NorakoreController {
     	return resultUserID;
     }
 
+
     public UserResult getUserInfo(String userID) throws Exception{
     	UserResult result = new UserResult();
 
@@ -235,9 +238,7 @@ public class NorakoreController {
 
     	result.setUserID((String)user.get("_id"));
     	result.setName((String)user.get("name"));
-    	//Double bonitos = (Double)user.get("bonitos");
-    	int bonitos = (int)user.get("bonitos");
-    	//result.setBonitos(bonitos.intValue());
+    	double bonitos = (Double)user.get("bonitos");
     	result.setBonitos(bonitos);
 
     	// TODO: 重複無しに変える処理が必要（アイテム実装後）
@@ -284,7 +285,7 @@ public class NorakoreController {
         }
 
         String getNyavatarID = "nullID";
-        int bonitos = 0;
+        double bonitos = 0.0;
 
         if(nyavatarList.size() > 0){
         	// nyavatarListのうちどれかをランダムに１つ選出し、ユーザの持つにゃばたーリストに追加
@@ -298,11 +299,8 @@ public class NorakoreController {
         	// 更新したにゃばたーリストをユーザに適応する
             objectUser.put("nyavatarList", nyavatarIDList);
             // 所持かつお数を追加（今は固定10かつお）
-            bonitos = User.addBonitos(objectUser, 10);
+            bonitos = User.addBonitos(objectUser, 10.0);
             User.updateUser(objectUser);
-            //bonitos = (int)objectUser.get("bonitos") + 10;
-            //objectUser.put("bonitos", bonitos);
-            //UserColl.update(queryUser, objectUser);
         }
 
         RegisterResult result = new RegisterResult();
