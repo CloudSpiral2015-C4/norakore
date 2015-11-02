@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# cgiの中からはURLの相対パスは使えないので直リンク指定する。
+# この場合、他ブランチのデプロイ先からでもmasterが呼ばれるがとりあえずは良いだろう。
+# また、相対パスを使うとインターネット経由でアクセスしてしまうので通信がアレかも。
+inner_ep="http://localhost/norakore/api/picture"
+# inner_ep="http://ec2-52-192-35-206.ap-northeast-1.compute.amazonaws.com/norakore/api/picture"
+
+auth="-u user:pass"
+pic_id=$(echo $QUERY_STRING | sed "s/^pictureID=//")
+pic_url="${inner_ep}/${pic_id}.jpg"
+result=$(curl "${inner_ep}/${pic_id}.jpg" | curl $(auth) -F "image=@-" http://whatcat.ap.mextractr.net/api_query)
+
+echo $result
