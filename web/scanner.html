@@ -56,6 +56,7 @@
 								}).done(function(data) {
 									$('.nyavatar-list').empty();
 									var nyavatarList = data.list;
+									nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
 									for (var i = 0; i < nyavatarList.length; ++i) {
 										var json = {
 											icon : '../api/icon/' + nyavatarList[i].iconID + '.png',

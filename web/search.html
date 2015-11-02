@@ -139,6 +139,7 @@
                                 $('.nyavatar-list').append('<div class="text-center"><img src="images/unnyown.png" class="unnyown"></div>');
                                 return;
                             }
+                            nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
 							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
                             for(var i = 0; i < nyavatarList.length; i++) {
                             	var marker = new google.maps.Marker({
