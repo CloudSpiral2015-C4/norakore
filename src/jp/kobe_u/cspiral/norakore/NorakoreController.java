@@ -284,7 +284,7 @@ public class NorakoreController {
         }
 
         String getNyavatarID = "nullID";
-        Double bonitos = 0.0;
+        int bonitos = 0;
 
         if(nyavatarList.size() > 0){
         	// nyavatarListのうちどれかをランダムに１つ選出し、ユーザの持つにゃばたーリストに追加
@@ -298,14 +298,16 @@ public class NorakoreController {
         	// 更新したにゃばたーリストをユーザに適応する
             objectUser.put("nyavatarList", nyavatarIDList);
             // 所持かつお数を追加（今は固定10かつお）
-            bonitos = (Double)objectUser.get("bonitos") + 10;
-            objectUser.put("bonitos", bonitos);
-            UserColl.update(queryUser, objectUser);
+            bonitos = User.addBonitos(objectUser, 10);
+            User.updateUser(objectUser);
+            //bonitos = (int)objectUser.get("bonitos") + 10;
+            //objectUser.put("bonitos", bonitos);
+            //UserColl.update(queryUser, objectUser);
         }
 
         RegisterResult result = new RegisterResult();
         result.setNyavatarID(getNyavatarID);
-        result.setBonitos(bonitos.intValue());
+        result.setBonitos(bonitos);
 
         return result;
     }
