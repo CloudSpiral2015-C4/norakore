@@ -66,6 +66,7 @@
 						var flag_EncodeFinished = false;
 
 						document.getElementById("picture").onchange = function() {
+							flag_EncodeFinished = false;
 							var fileList, file, fr, result;
 							fileList = this.files;
 							for (var i = 0, l = fileList.length; l > i; i++) {
