@@ -97,6 +97,7 @@ function getNyavatarDetail(data) {
     nyavatarDetail += '        <div class="nyavatar-detail-status">';
     nyavatarDetail += '            <ul>';
     nyavatarDetail += '                <li>主な生息地: <span class="location">' + data.location + '</span></li>';
+    nyavatarDetail += '                <li>種類: <span class="date">' + data.type + '</span></li>';
     nyavatarDetail += '                <li>最終発見報告: <span class="date">' + data.date + '</span></li>';
     nyavatarDetail += '                <li>いいね: <span class="like">' + data.like + '回</span></li>';
     nyavatarDetail += '            </ul>';
