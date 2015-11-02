@@ -65,7 +65,7 @@
             			})
         				.done(function(data) {
                             var nyavatarList = data.list;
-        					for(var i = 0; i < nyavatarList.length; ++i) {
+        					for(var i = 0; i < nyavatarList.length;i++) {
                                 //地図上にマーカーを落とす
         						var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
@@ -131,7 +131,7 @@
                             console.log(data.list);
                             $('.nyavatar-list').empty();
 							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
-                            for(var i = 0; i < nyavatarList.length; ++i) {
+                            for(var i = 0; i < nyavatarList.length; i++) {
                             	var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
