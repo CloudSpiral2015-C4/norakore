@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "Content-type: application/json"
+echo ""
+
 # cgiの中からはURLの相対パスは使えないので直リンク指定する。
 # この場合、他ブランチのデプロイ先からでもmasterが呼ばれるがとりあえずは良いだろう。
 # また、相対パスを使うとインターネット経由でアクセスしてしまうので通信がアレかも。
@@ -9,6 +12,6 @@ inner_ep="http://localhost/norakore/api/picture"
 auth="-u user:pass"
 pic_id=$(echo $QUERY_STRING | sed "s/^pictureID=//")
 pic_url="${inner_ep}/${pic_id}.jpg"
-result=$(curl "${inner_ep}/${pic_id}.jpg" | curl $(auth) -F "image=@-" http://whatcat.ap.mextractr.net/api_query)
+result=$(curl -s "${inner_ep}/${pic_id}.jpg" | curl $(auth) -F -s "image=@-" http://whatcat.ap.mextractr.net/api_query)
 
 echo $result
