@@ -18,6 +18,19 @@ public class JaxAdapter {
 
 	private final NorakoreController controller = new NorakoreController();
 
+    // TODO: テスト用なので不要になったら消す
+	// ユーザの保有するにゃばたー（簡易）のリストの取得
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/apitest/nanineko")
+	public Response nanineko(@QueryParam("pictureID") String pic) {
+		ByteArrayOutputStream baos = controller.getImage(pic, "picture");
+		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        String result = OuterAPI.getNanineko(bais);
+		return Response.status(200).entity(result).build();
+	}
+
+
 	// にゃばたー（簡易）のリストを取得
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
