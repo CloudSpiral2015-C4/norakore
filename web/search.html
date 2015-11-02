@@ -133,8 +133,8 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             $('.nyavatar-list').empty();
-							nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
-                            if(nyavatarList.length < 1) {
+							// nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
+                            if(nyavatarList.length == null) {
                                 $('.nyavatar-list').append('<div class="text-center"><img src="images/unnyown.png" class="unnyown"></div>');
                                 return;
                             }
