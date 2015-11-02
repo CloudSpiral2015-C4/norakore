@@ -66,7 +66,7 @@
         				.done(function(data) {
                             var nyavatarList = data.list;
                             console.log(data.list);
-                            nyavatarList = (nyavatarlist instanceof Array) ? nyavatarList : [nysvatarList];
+                            nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nysvatarList];
         					for(var i = 0; i < nyavatarList.length;i++) {
                                 //地図上にマーカーを落とす
         						var marker = new google.maps.Marker({
@@ -134,7 +134,7 @@
                             console.log(data.list);
                             $('.nyavatar-list').empty();
 							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
-							nyavatarList = (nyavatarlist instanceof Array) ? nyavatarList : [nysvatarList];
+							nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nysvatarList];
                             for(var i = 0; i < nyavatarList.length; i++) {
                             	var marker = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
