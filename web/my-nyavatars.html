@@ -23,6 +23,7 @@
 		<div class="nyavatar-list"></div>
 
 		<script>
+        var g;
 		function showMyNyavatarList() {
 		    $.ajax({
     			type: 'GET',
@@ -35,6 +36,7 @@
                 $('.nyavatar-list').empty();
             	nyavatarList = data.list;
                 console.log(data.list);
+                g = data;
                 for(var i = 0; i < nyavatarList.length; ++i) {
                     console.log(i);
                     var json = {
