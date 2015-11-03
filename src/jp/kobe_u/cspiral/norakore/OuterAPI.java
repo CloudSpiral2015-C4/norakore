@@ -32,6 +32,7 @@ import jp.kobe_u.cspiral.norakore.util.DBUtils;
 
 import org.apache.commons.io.IOUtils;
 import org.bson.types.ObjectId;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -41,42 +42,21 @@ import com.mongodb.DBObject;
 import com.sun.jersey.core.util.Base64;
 
 public class OuterAPI {
-    private static final String Nanineko_URL = "http://whatcat.ap.mextractr.net/api_query";
-    private static final String Nanineko_user = "user";
-    private static final String Nanineko_pass = "pass";
 
-    public static String getNanineko(ByteArrayInputStream picture) {
-        String auth = "-u " + Nanineko_user + ":" + Nanineko_user;
-        ProcessBuilder pb = new ProcessBuilder("curl", auth, "-F image=@-", Nanineko_URL);
-        pb.redirectErrorStream(true);
-        String result;
+    public static String getNanineko(String pictureID) {
+        // 何猫APIをプロキシする内部APIを呼ぶ
+        String url = "http://localhost/norakore/exapi/nanineko";
+
+        Client client = new Client();
+        WebResource resource = client.resource(url).queryParam("pictureID", pictureID);
+        String response = resource.get(String.class);
+
         try {
-            Process process = pb.start();
-
-            // input picture to curl
-            OutputStream stdin = process.getOutputStream();
-            IOUtils.copy(picture, stdin);
-
-            // read curl result
-            InputStream stdout = process.getInputStream();
-            result = IOUtils.toString(stdout, Charset.defaultCharset());
-        } catch (IOException e) {
-            result = "failed.";
+            ObjectMapper mapper = new ObjectMapper();
+            List<List<String>> mapped = mapper.readValue(response, List.class);
+            return mapped.get(0).get(0);
+        } catch (Exception e) {
+            return "不明";
         }
-
-        // MultiPart multiPart = new MultiPart();
-        // ClientConfig config = new DefaultClientConfig();
-        // Client client = Client.create(config);
-        // client.addFilter(new HTTPBasicAuthFilter("medalhkr", "chorich"));
-        // client.addFilter(new LoggingFilter(System.out));
-        // WebResource service = client.resource(UriBuilder.fromUri(url).build());
-
-        // multiPart.bodyPart(new BodyPart(picture, MediaType.APPLICATION_OCTET_STREAM_TYPE));
-
-        // WebResource.Builder builder = service.type(MediaType.MULTIPART_FORM_DATA).
-        //     accept(MediaType.APPLICATION_JSON);
-        // String res = builder.post(String.class, multiPart);
-
-        return result;
     }
 }

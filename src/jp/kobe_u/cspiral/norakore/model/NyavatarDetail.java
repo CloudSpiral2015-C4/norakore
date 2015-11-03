@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
 
+import jp.kobe_u.cspiral.norakore.OuterAPI;
+
 import com.mongodb.*;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
@@ -59,21 +61,7 @@ public class NyavatarDetail {
         }
 
         if (this.type.equals("不明")) {
-            // TODO: apiブランチのアドレスになってるのを修正
-            String nanineko_proxy = "http://localhost/norakore-api/exapi/nanineko";
-            // String nanineko_proxy = "http://localhost/cgi-bin/nanineko"; // ローカルテスト用
-            Client client = new Client();
-            WebResource resource = client.resource(nanineko_proxy).
-                    queryParam("pictureID", this.pictureID);
-            String response = resource.get(String.class);
-
-			try {
-                ObjectMapper mapper = new ObjectMapper();
-                List<List<String>> mapped = mapper.readValue(response, List.class);
-                this.type = mapped.get(0).get(0);
-			} catch (Exception e) {
-                this.type = "不明";
-            }
+            this.type = OuterAPI.getNanineko(this.pictureID);
         }
 
         if (this.iconID.equals("")) {
