@@ -157,6 +157,7 @@ h3:before {
 	margin: 0 auto;
 	padding-top: 10px;
 	background-image: url('images/nyavatar-list-bg.jpg');
+	background-size: cover;
 }
 
 /* にゃばたーサムネイル */
@@ -210,6 +211,7 @@ h3:before {
 .nyavatar-detail-area {
 	border: 5px solid #333;
 	background-image: url('images/nyavatar-list-bg.jpg');
+	background-size: cover;
 	padding: 10px;
 	width: 100%;
 }
