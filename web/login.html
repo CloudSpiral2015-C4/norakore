@@ -37,6 +37,7 @@
 				</div>
 			</div>
 		</form>
+		<div id="error-message"></div>
 		<hr>
 		<p class="text-center">↓ 新規登録がまだの方はこちら ↓</p>
 		<div class="btn btn-custom" data-color="pink" data-height="20" onclick="location.href='signup.html'"><p>新規登録</p></div>
@@ -50,13 +51,12 @@
 					}
 				})
 				.done(function(data) {
-					console.log(data);
-					if (data['message'] != undefined) {
-						console.log('認証失敗');
-						return;
-					}
 					$.cookie('userID', data.userID);
 					location.href = 'index.html';
+				})
+				.fail(function(error) {
+					$('#error-message').val('ログインに失敗しました．');
+					console.log(error);
 				});
 			}
 		</script>
