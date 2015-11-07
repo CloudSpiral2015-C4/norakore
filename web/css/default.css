@@ -317,6 +317,73 @@ h3:before {
 	-o-transform: scale(1.05);
 }
 
+/* ショップ　*/
+.shop-list {
+	position: relative;
+	overflow-y: scroll;
+	width: 330px;
+	height: 400px;	
+	border: 5px solid #333;
+	margin: 0 auto;
+	padding: 10px;
+	background-image: url('images/nyavatar-list-bg.jpg');
+}
+.shop-thumbnail {
+	position: relative;
+	-webkit-text-stroke: 1px #000;
+	width: 100%;
+	height: 80px;
+	margin: 0 auto;
+	margin-top: 10px;
+	padding: 0px;
+	border: 3px solid #FFF;
+	border-radius: 15px;
+	box-shadow: 0px 0px 0px 3px rgba(84,62,11,0.9), 0px 0px 3px 3px rgba(33,33,33,0.7); 
+	background-color: #e2e2e2;
+}
+.shop-image {
+	position: relative;
+	float: left;
+	-webkit-text-stroke: 1px #000;
+	width: 65px;
+	height: 65px;
+	margin: 5px;
+	padding: 0px;
+	border: 3px solid #333;
+	border-radius: 15px;
+	background-color: #e2e2e2;
+}
+.shop-info {
+	position: relative;
+	float: left;
+	width: 143px;
+	margin-top: 5px;
+}
+.shop-info ul {
+	margin: 0;
+	padding: 0;
+	font-size: 0.8em;
+	list-style: none;
+}
+.shop-button {
+	position: relative;
+	float: left;
+	-webkit-text-stroke: 1px #000;
+	width: 65px;
+	height: 65px;
+	margin: 5px;
+	padding: 0px;
+	border: 3px solid #333;
+	border-radius: 15px;
+	background-color: #90ee90;
+}
+.shop-button:hover {
+	background-color: #8fbc8f;
+}
+.shop-button p {
+	margin: 18px 15px;
+}
+
 
 /* フッター */
 #menu-button-footer {
