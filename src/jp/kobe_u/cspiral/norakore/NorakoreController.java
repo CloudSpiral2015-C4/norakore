@@ -127,6 +127,26 @@ public class NorakoreController {
     	return like_list.size();
     }
 
+    public RegisterResult findCat(String nyavatarID, String userID) throws Exception{
+        DBObject nya = Nyavatar.getDBObject(nyavatarID);
+
+        // にゃばたーの時刻を更新
+        nya.put("date", new Date());
+        Nyavatar.updateNyavatar(nya);
+
+        // 登録するユーザににゃばたーとかつおを付与
+        DBObject user = User.getDBObject(userID);
+        BasicDBList list = User.addNyavatar(user, nyavatarID);
+        double bonitos = User.addBonitos(user, 5);
+        User.updateUser(user);
+
+        RegisterResult result = new RegisterResult();
+        result.setNyavatarID(nyavatarID);
+        result.setBonitos(bonitos);
+
+        return result;
+    }
+
     public RegisterResult registerNyavatar(String userID, String name, String type,
             String picture, double lon, double lat) throws Exception {
         NyavatarDetail nya = new NyavatarDetail();

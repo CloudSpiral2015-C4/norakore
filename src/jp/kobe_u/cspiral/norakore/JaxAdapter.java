@@ -73,6 +73,21 @@ public class JaxAdapter {
 		return Response.status(200).entity(res_json).build();
 	}
 
+	// にゃばたーに「いいね」を付加
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/find")
+	public Response findCat(@QueryParam("nyavatarID") String nyavatarID, @QueryParam("userID") String userID) {
+        RegisterResult result = new RegisterResult();
+        try {
+            result = controller.findCat(nyavatarID, userID);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+		return Response.status(200).entity(result).build();
+	}
+
 	// ユーザ情報取得
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
@@ -147,12 +162,23 @@ public class JaxAdapter {
             @FormParam("pass") String pass,
             @FormParam("verificationPass") String verificationPass){
 
+        ErrorResult err = null;
+        if (verificationPass == null || verificationPass.equals(""))
+                err = new ErrorResult("verify pass is empty");
+        if (pass == null || pass.equals(""))
+                err = new ErrorResult("pass is empty");
+        if (userID == null || userID.equals(""))
+                err = new ErrorResult("userID is empty");
+        if (name== null || name.equals(""))
+                err = new ErrorResult("name is empty");
+        if (err != null) return Response.status(400).entity(err).build();
+
         UserResult result = new UserResult();
         String resultID = "";
         try {
             resultID = controller.registerUser(userID, name, pass, verificationPass);
         } catch (Exception e) {
-            ErrorResult err = new ErrorResult(e.getMessage());
+            err = new ErrorResult(e.getMessage());
             return Response.status(400).entity(err).build();
         }
 
@@ -160,7 +186,7 @@ public class JaxAdapter {
         try {
 			result = controller.getUserInfo(resultID);
         } catch (Exception e) {
-            ErrorResult err = new ErrorResult(e.getMessage());
+            err = new ErrorResult(e.getMessage());
             return Response.status(400).entity(err).build();
         }
 
