@@ -208,6 +208,7 @@ h3:before {
 
 /* にゃばたー詳細 */
 .nyavatar-detail-area {
+	border: 5px solid #333;
 	background-image: url('images/nyavatar-list-bg.jpg');
 	padding: 10px;
 	width: 100%;
