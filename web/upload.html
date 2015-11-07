@@ -6,9 +6,10 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="css/default.css">
 		<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+		<script type='text/javascript' src="js/jquery.cookie.js"></script>
 		<script type='text/javascript' src="js/bootstrap.js" ></script>
 		<script type='text/javascript' src="js/common.js" ></script>
-		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 		<title>アップロードページ</title>
 	</head>
 	<body>
@@ -48,9 +49,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<input type="hidden" class="form-control" id="userID" name="userID" value="testUser">
-						</div>
-						<div class="form-group">
 							<div class="col-xs-offset-2 col-xs-10">
 								<button type="submit" id="submit" class="btn btn-custom" data-color="pink" data-width="30">
 									<p>
@@ -86,7 +84,7 @@
 							if (flag_EncodeFinished) {
 								var name = $('#name').val();
 								var type = $('#type').val();
-								var userID = $('#userID').val();
+								var userID = $.cookie('userID');
 
 								navigator.geolocation.getCurrentPosition(function(pos) {
 									//lat = pos.coords.latitude;

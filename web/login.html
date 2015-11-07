@@ -6,40 +6,65 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/jquery.cookie.js"></script>
 	<script type='text/javascript' src="js/bootstrap.js" ></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script type='text/javascript' src="js/common.js" ></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	<title>テスト</title>
 </head>
 <body>
 	<div id="iphone-wrapper">
 	<div id="wrapper">
 	<div id="main">
-		<h1 class="text-center">野良猫これくしょん</h1>
-		<center><img src="images/no-image.png" width="70%"></center>
+		<center><img src="images/norakore-logo.png" width="70%"></center>
 		<hr>
-		<form class="form-horizontal form-custom">
+		<form class="form-horizontal form-custom white-bg" onsubmit="return false;">
 			<div class="form-group">
-				<label class="col-xs-12">ユーザID</label>
+				<label class="col-xs-12" for="userID">ユーザID</label>
 				<div class="col-xs-12">
-					<input type="text" class="form-control" placeholder="userID">
+					<input type="text" class="form-control" placeholder="userID" id="userID">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-12">パスワード</label>
+				<label class="col-xs-12" for="pass">パスワード</label>
 				<div class="col-xs-12">
-					<input type="password" class="form-control" placeholder="パスワード">
+					<input type="password" class="form-control" placeholder="パスワード" id="pass">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-xs-offset-2 col-xs-10">
-					<button type="submit" class="btn btn-custom" data-width="50"><p>ログイン</p></button>
+					<button type="submit" class="btn btn-custom" data-width="50" onclick="login()"><p>ログイン</p></button>
 				</div>
 			</div>
 		</form>
 		<hr>
+		<div id="error-message"></div>
+		<hr>
 		<p class="text-center">↓ 新規登録がまだの方はこちら ↓</p>
-		<div class="btn btn-custom" data-color="pink" data-height="20" onclick="location.href='signup.html'"><p>新規登録</p></div>
+		<div class="text-center">
+		<div class="btn btn-custom" data-color="pink" data-height="20" data-width="60" onclick="location.href='signup.html'"><p>新規登録</p></div>
+		<div class="btn btn-custom" data-height="20" data-width="60" onclick="location.href='contact.html'"><p>お問い合わせ</p></div>
+		</div>
+		<hr>
+		<script>
+			function login() {
+				$.ajax({
+					type : 'GET',
+					url : '../api/user',
+					data : {
+						userID : $('#userID').val()
+					}
+				})
+				.done(function(data) {
+					$.cookie('userID', data.userID);
+					location.href = 'index.html';
+				})
+				.fail(function(error) {
+					$('#error-message').html('<div class="alert alert-danger">ログインに失敗しました．</div>');
+					console.log(error);
+				});
+			}
+		</script>
+
 	</div><!-- main -->
 </body>
 </html>
