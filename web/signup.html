@@ -6,10 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/default.css">
 	<script type='text/javascript' src="js/jquery-1.11.3.min.js"></script>
+	<script type='text/javascript' src="js/jquery.cookie.js"></script>
 	<script type='text/javascript' src="js/bootstrap.js" ></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script type='text/javascript' src="js/common.js" ></script>
-	<title>テスト</title>
+	<title>ユーザ登録</title>
 </head>
 <body>
 	<div id="iphone-wrapper">
@@ -17,33 +17,59 @@
 	<div id="main">
 		<h1 class="text-center">野良猫これくしょん</h1>
 				<h2 class="text-center">ユーザ登録</h2>
-		<form class="form-horizontal form-custom">
+		<form class="form-horizontal form-custom" onsubmit="return false;">
 			<div class="form-group">
-				<label class="col-xs-12">ニックネーム</label>
+				<label class="col-xs-12" for="name">ニックネーム</label>
 				<div class="col-xs-12">
-					<input type="text" class="form-control" placeholder="ねこ">
+					<input type="text" class="form-control" placeholder="ねこ" id="name">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-12">ユーザID</label>
+				<label class="col-xs-12" for="userID">ユーザID</label>
 				<div class="col-xs-12">
-					<input type="text" class="form-control" placeholder="ねこ">
+					<input type="text" class="form-control" placeholder="ねこ" id="userID">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-xs-12">パスワード</label>
+				<label class="col-xs-12" for="pass">パスワード</label>
 				<div class="col-xs-12">
-					<input type="password" class="form-control" placeholder="パスワード">
+					<input type="password" class="form-control" placeholder="パスワード" id="pass">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12" for="verificationPass">確認用パスワード</label>
+				<div class="col-xs-12">
+					<input type="password" class="form-control" placeholder="パスワード" id="varificationPass">
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="col-xs-offset-2 col-xs-10">
-					<button type="submit" class="btn btn-custom" data-width="30"><p>送信</p></button>
+					<button type="submit" class="btn btn-custom" data-width="30" onclick="registerUser()"><p>送信</p></button>
 				</div>
 			</div>
 		</form>
 		<br>
 		<p class="text-center"><a href="contact.html"> ＞＞広告主はこちら＜＜ </a></p>
+
+		<script>
+			function registerUser() {
+				$.ajax({
+					type : 'POST',
+					url : '../api/registeruser',
+					data : {
+						name : $('#name').val(),
+						userID : $('#userID').val(),
+						pass : $('#pass').val(),
+						varificationPass : $('#varificationPass').val()
+					}
+				})
+				.done(function(data) {
+					console.log(data);
+					$.cookie('userID', data.userID);
+					location.href = 'index.html';
+				});
+			}
+		</script>
 
 	</div><!-- main -->
 </body>

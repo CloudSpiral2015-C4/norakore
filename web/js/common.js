@@ -200,11 +200,15 @@ function Base64_From_StringOfBinaryData(binary){
 console.log('common.js : 基本UIの書き出し終了');
 var initialize = function()
 {
+    var userID = jQuery.cookie('userID');
+    if(userID == null) {
+        location.href = 'login.html';
+    }
     jQuery.ajax({
         type: 'GET',
         url: '../api/user',
         data: {
-            userID : 'testUser',
+            userID : userID,
         }
     })
     .done(function(data) {
