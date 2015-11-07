@@ -17,7 +17,7 @@
 	<div id="main">
 		<center><img src="images/norakore-logo.png" width="70%"></center>
 		<hr>
-		<form class="form-horizontal form-custom" onsubmit="return false;">
+		<form class="form-horizontal form-custom white-bg" onsubmit="return false;">
 			<div class="form-group">
 				<label class="col-xs-12" for="userID">ユーザID</label>
 				<div class="col-xs-12">
@@ -40,7 +40,11 @@
 		<div id="error-message"></div>
 		<hr>
 		<p class="text-center">↓ 新規登録がまだの方はこちら ↓</p>
-		<div class="btn btn-custom" data-color="pink" data-height="20" onclick="location.href='signup.html'"><p>新規登録</p></div>
+		<div class="text-center">
+		<div class="btn btn-custom" data-color="pink" data-height="20" data-width="60" onclick="location.href='signup.html'"><p>新規登録</p></div>
+		<div class="btn btn-custom" data-height="20" data-width="60" onclick="location.href='contact.html'"><p>お問い合わせ</p></div>
+		</div>
+		<hr>
 		<script>
 			function login() {
 				$.ajax({
