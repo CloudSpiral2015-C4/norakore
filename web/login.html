@@ -48,7 +48,8 @@
 					type : 'GET',
 					url : '../api/user',
 					data : {
-						userID : $('#userID').val()
+						userID : $('#userID').val(),
+						pass : $('#pass').val()
 					}
 				})
 				.done(function(data) {
