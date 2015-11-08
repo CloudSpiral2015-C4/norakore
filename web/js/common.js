@@ -105,20 +105,34 @@ function getNyavatarDetail(data) {
     nyavatarDetail += '    </div>';
     nyavatarDetail += '    <div class="clearfix"></div>';
     nyavatarDetail += '    <div class="nyavatar-detail-footer text-center">';
-    nyavatarDetail += '        <div class="btn btn-warning" onclick="like()">いいね</div>';
-    nyavatarDetail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    if (!data.isLiked) { 
+        nyavatarDetail += '        <div class="btn btn-warning" onclick="like(' + data.nyavatarID + ')">いいね</div>';
+    }
+    nyavatarDetail += '        <div class="btn btn-primary" onclick="find()">発見</div>';
     nyavatarDetail += '    </div>';
     nyavatarDetail += '</div>';
     return nyavatarDetail;
 }
 
 // いいね
-function like() {
+function like(nyavatarID) {
     // 後で実装する
+    $.ajax({
+        type ; 'GET',
+        url : '../api/like',
+        data : {
+            nyavatarID : nyavatarID,
+            userID : $.cookie('userID')
+        }
+    })
+    .done(function(data) {
+        console.log(data.like);
+        location.reload();
+    });
 }
 
 // にゃばたーの最終発見日時を変更する
-function findcheck() {
+function find() {
 	// 後で実装する
 }
 

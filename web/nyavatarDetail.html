@@ -48,7 +48,8 @@
                     location : '日本',
                     type : data.type,
                     say : data.say,
-                    picture : '../api/picture/' + data.pictureID + '.jpg'
+                    picture : '../api/picture/' + data.pictureID + '.jpg',
+                    isLiked : data.isLiked
                 };
                 var nyavatarDetail = getNyavatarDetail(json);
                 jQuery('.nyavatar-detail-area').append(nyavatarDetail);
