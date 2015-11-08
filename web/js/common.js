@@ -122,7 +122,7 @@ function like(nyavatarID) {
         url : '../api/like',
         data : {
             nyavatarID : nyavatarID,
-            userID : $.cookie('userID')
+            userID : jQuery.cookie('userID')
         }
     })
     .done(function(data) {
