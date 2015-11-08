@@ -53,6 +53,7 @@
 					}
 				})
 				.done(function(data) {
+					console.log(data);
 					if(data.result == "true") {
 						$.cookie('userID', data.userID);
 						location.href = 'index.html';
