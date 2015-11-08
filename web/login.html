@@ -41,7 +41,6 @@
 			<div class="btn btn-custom" data-color="pink" data-height="20" data-width="60" onclick="location.href='signup.html'"><p>新規登録</p></div>
 			<div class="btn btn-custom" data-height="20" data-width="60" onclick="location.href='contact.html'"><p>お問い合わせ</p></div>
 		</div>
-		<hr>
 		<script>
 			function login() {
 				$.ajax({
@@ -55,7 +54,7 @@
 				.done(function(data) {
 					console.log(data);
 					if(data.result == "true") {
-						$.cookie('userID', data.userID);
+						$.cookie('userID', data.userId);
 						location.href = 'index.html';
 					} else {
 						$('#error-message').html('<div class="alert alert-danger">' + data.message + '</div>');

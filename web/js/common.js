@@ -75,7 +75,7 @@ function getNyavatarThumbnail(data) {
     nyavatarThumbnail += '    <div class="clearfix"></div>';
     nyavatarThumbnail += '    <div class="nyavatar-footer">';
     nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'nyavatarDetail.html?nyavatarID=' + data.nyavatarID +'\'">詳細</div>';
-    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="findcheck()">発見</div>';
+    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="find()">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
     return nyavatarThumbnail;
