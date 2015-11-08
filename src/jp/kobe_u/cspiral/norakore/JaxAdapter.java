@@ -103,6 +103,21 @@ public class JaxAdapter {
 		return Response.status(200).entity(result).build();
 	}
 
+	// ユーザログイン
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/login")
+	public Response login(@QueryParam("userID") String userID, @QueryParam("pass") String pass) {
+		VerifyResult result = new VerifyResult();
+		try {
+			result = controller.loginUser(userID, pass);
+        } catch (Exception e) {
+            ErrorResult err = new ErrorResult(e.getMessage());
+            return Response.status(400).entity(err).build();
+        }
+		return Response.status(200).entity(result).build();
+	}
+
     // にゃばたー登録
     // パラメータは{name, picture, location}が必須，typeはどっちでもよい
 	@POST

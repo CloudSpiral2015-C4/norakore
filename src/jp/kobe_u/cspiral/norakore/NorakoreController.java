@@ -281,6 +281,19 @@ public class NorakoreController {
     	return result;
     }
 
+    public VerifyResult loginUser(String userID, String pass) throws Exception{
+        // check userID
+        DBObject query = new BasicDBObject("_id", userID);
+        DBObject userdbo = UserColl.findOne(query);
+        if (userdbo == null) return VerifyResult.UserNotFound(userID);
+
+        // check password
+        String actual_pass = User.getPassword(userdbo);
+        if (pass.equals(actual_pass) == false) return VerifyResult.InvalidPass(userID);
+
+        return VerifyResult.ok(userID);
+    }
+
     public RegisterResult Scanya(String userID, double lon, double lat, String itemID) throws Exception {
 
     	// 対象となるにゃばたーリストを取得（api/nyavatarと同じ）

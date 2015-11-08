@@ -36,6 +36,12 @@ public class User {
         return list;
     }
 
+    public static String getPassword(DBObject user) throws Exception {
+        String pass = (String)user.get("password");
+        if (pass == null) throw new Exception("user's password is not found on DB.");
+        return pass;
+    }
+
     public static BasicDBList addNyavatar(DBObject user, String nyavatarID) throws Exception {
         BasicDBList list = User.getNyavatarList(user);
         list.add(nyavatarID);
