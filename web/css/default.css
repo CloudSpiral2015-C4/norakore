@@ -590,7 +590,7 @@ h3:before {
 /* フォーム部品 */
 .form-custom {
 	position: relative;
-	margin: 0 auto;
+	margin: 15px auto;
 	padding: 10px;
 	width: 90%;
 	border: 3px solid #333;
@@ -612,6 +612,9 @@ h3:before {
 	background-color: white;
 }
 
+#error-message {
+	margin: 15px auto;
+}
 
 /* その他 */
 .text-small {
