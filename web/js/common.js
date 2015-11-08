@@ -117,7 +117,7 @@ function getNyavatarDetail(data) {
 // いいね
 function like(nyavatarID) {
     // 後で実装する
-    $.ajax({
+    jQuery.ajax({
         type : 'GET',
         url : '../api/like',
         data : {
