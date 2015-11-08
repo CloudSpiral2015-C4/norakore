@@ -104,7 +104,7 @@ public class Nyavatar {
         this.name = "nullName";
         this.pictureID = "nullID";
         this.iconID = "nullID";
-        this.date = new Date();
+        this.date = new Date(0); // 1970年1月1日 00:00:00 GMT
         this.location = new Location();
         this.like = 0;
         this.lostCatID = "nullID";

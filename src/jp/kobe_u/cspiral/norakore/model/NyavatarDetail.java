@@ -36,6 +36,7 @@ public class NyavatarDetail {
 
 	// default constructor for jaxb
 	public NyavatarDetail() {
+        // APIでの初期化漏れを分かりやすくするため，明らかにinvalidな値で初期化
         this.nyavatarID = "nullID";
         this.name = "nullName";
         this.pictureID = "nullID";
@@ -44,7 +45,7 @@ public class NyavatarDetail {
         this.location = new Location();
         this.advertisingID = "nullID";
         this.lostCatID = "nullID";
-        this.date = new Date();
+        this.date = new Date(0); // 1970年1月1日 00:00:00 GMT
         this.likeUserList = new ArrayList<String>();
         this.say = "nullSay";
         this.isLiked = false;
@@ -52,9 +53,6 @@ public class NyavatarDetail {
 
     // アップロード時など，欠落しているパラメータを決定する
     public void determineParams(String UserID) {
-        Calendar cal = Calendar.getInstance();
-        this.date = cal.getTime();
-
         if (this.name.equals("")) {
             // ランダム？
             this.name = "猫";
