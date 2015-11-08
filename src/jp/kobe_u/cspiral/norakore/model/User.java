@@ -44,6 +44,7 @@ public class User {
 
     public static BasicDBList addNyavatar(DBObject user, String nyavatarID) throws Exception {
         BasicDBList list = User.getNyavatarList(user);
+        if (list.contains(nyavatarID)) throw new Exception("user already has the nyavatar.");
         list.add(nyavatarID);
         return list;
     }
