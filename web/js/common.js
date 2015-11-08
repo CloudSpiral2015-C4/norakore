@@ -48,8 +48,8 @@ function getMenuButtonFooter(message) {
 	footer.innerHTML = footerHTML;
 	return;
 }
-
-/* にゃばたーサムネイルを作成する関数
+/**
+ * にゃばたーサムネイルを作成する関数
  * 画面に出力するサムネイルを作成します．必要なデータはソースを参照して下さい．
  * @param {nyavatar} data 表示すべきにゃばたーのデータが入ったJSON
  */
@@ -75,13 +75,14 @@ function getNyavatarThumbnail(data) {
     nyavatarThumbnail += '    <div class="clearfix"></div>';
     nyavatarThumbnail += '    <div class="nyavatar-footer">';
     nyavatarThumbnail += '        <div class="btn btn-default" onclick="location.href=\'nyavatarDetail.html?nyavatarID=' + data.nyavatarID +'\'">詳細</div>';
-    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="find()">発見</div>';
+    nyavatarThumbnail += '        <div class="btn btn-primary" onclick="find(\'' + data.nyavatarID + '\')">発見</div>';
     nyavatarThumbnail += '    </div>';
     nyavatarThumbnail += '</div>';
     return nyavatarThumbnail;
 }
 
-/* にゃばたー詳細を作成する関数
+/**
+ * にゃばたー詳細を作成する関数
  * 画面に出力する詳細情報を作成します．必要なデータはソースを参照して下さい．
  * @param {nyavatarDetail} data 表示すべきにゃばたー詳細情報のデータが入ったJSON
  */
@@ -108,15 +109,17 @@ function getNyavatarDetail(data) {
     if (data.isLiked == "false") { 
         nyavatarDetail += '        <div class="btn btn-warning" onclick="like(\'' + data.nyavatarID + '\')">いいね</div>';
     }
-    nyavatarDetail += '        <div class="btn btn-primary" onclick="find()">発見</div>';
+    nyavatarDetail += '        <div class="btn btn-primary" onclick="find(\'' + data.nyavatarID + '\')">発見</div>';
     nyavatarDetail += '    </div>';
     nyavatarDetail += '</div>';
     return nyavatarDetail;
 }
-
-// いいね
+/**
+ * にゃばたーに対して「いいね」をする関数
+ * like APIの詳細はwikiページのAPIを参照して下さい．
+ * @param {string} nyavatarID 「いいね」をするにゃばたーのにゃばたーID
+ */
 function like(nyavatarID) {
-    // 後で実装する
     jQuery.ajax({
         type : 'GET',
         url : '../api/like',
@@ -127,13 +130,30 @@ function like(nyavatarID) {
     })
     .done(function(data) {
         console.log(data.like);
+        console.log("common.js::like() 「いいね」をしました．");
         location.reload();
     });
 }
 
-// にゃばたーの最終発見日時を変更する
-function find() {
-	// 後で実装する
+/**
+ * にゃばたーの最終発見日時を変更する関数
+ * find APIの詳細はwikiページのAPIを参照して下さい．
+ * @param {string} nyavatarID 最終発見日時を変更するにゃばたーのにゃばたーID
+ */
+function find(nyavatarID) {
+	jQuery.ajax({
+        type : 'GET',
+        url : '../api/find',
+        data : {
+            nyavatarID : nyavatarID,
+            userID : jQuery.cookie('userID')
+        }
+    })
+    .done(function(data) {
+        console.log(data);
+        console.log("common.js::find() 最終発見日時を変更しました．");
+        location.reload();
+    });
 }
 
 // ログアウトの処理
