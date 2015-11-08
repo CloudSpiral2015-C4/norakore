@@ -53,7 +53,7 @@
 					}
 				})
 				.done(function(data) {
-					if(data.result == true) {
+					if(data.result == "true") {
 						$.cookie('userID', data.userID);
 						location.href = 'index.html';
 					} else {
