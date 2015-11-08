@@ -152,7 +152,7 @@ function find(nyavatarID) {
     .done(function(data) {
         console.log(data);
         console.log("common.js::find() 最終発見日時を変更しました．");
-        location.reload();
+        location.href = 'nyavatarDetail.html?nyavatarID=' + data.nyavatarID + '&new=1';
     });
 }
 
