@@ -106,7 +106,7 @@ function getNyavatarDetail(data) {
     nyavatarDetail += '    <div class="clearfix"></div>';
     nyavatarDetail += '    <div class="nyavatar-detail-footer text-center">';
     if (data.isLiked == "false") { 
-        nyavatarDetail += '        <div class="btn btn-warning" onclick="like(\"' + data.nyavatarID + '\")">いいね</div>';
+        nyavatarDetail += '        <div class="btn btn-warning" onclick="like(\'' + data.nyavatarID + '\')">いいね</div>';
     }
     nyavatarDetail += '        <div class="btn btn-primary" onclick="find()">発見</div>';
     nyavatarDetail += '    </div>';
