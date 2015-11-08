@@ -152,6 +152,7 @@ public class NorakoreController {
         NyavatarDetail nya = new NyavatarDetail();
         nya.setName(name);
         nya.setType(type);
+        nya.setDate(new Date());
 
         if (picture == null || picture.length() == 0) throw new Exception(
                 "Param:picture is not specified.");
