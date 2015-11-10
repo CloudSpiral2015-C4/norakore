@@ -163,6 +163,7 @@ h3:before {
 
 /* にゃばたーサムネイル */
 .nyavatar-thumbnail {
+	position: relative;
 	border: 2px solid #777;
 	background: #eee;
 	border-radius: 8px;
