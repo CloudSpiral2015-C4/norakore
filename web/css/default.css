@@ -276,7 +276,7 @@ h3:before {
 .lostCat-icon {
 	position: absolute;  
     right: -10px;
-    top: -25px;
+    top: 30px;
     padding-top: 60px;
     width: 59px;
     height: 0;
