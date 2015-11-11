@@ -18,6 +18,14 @@ public class JaxAdapter {
 
 	private final NorakoreController controller = new NorakoreController();
 
+	@GET
+	@Produces({MediaType.APPLICATION_JSON})
+	@Path("/test/nekosearch")
+	public Response nekosearch() {
+        String result = OuterAPI.nekoSearch("京都府");
+		return Response.status(200).entity(result).build();
+	}
+
 	// にゃばたー（簡易）のリストを取得
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})

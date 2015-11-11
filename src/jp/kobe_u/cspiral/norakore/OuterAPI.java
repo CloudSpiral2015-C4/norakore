@@ -59,4 +59,15 @@ public class OuterAPI {
             return "不明";
         }
     }
+
+    public static String nekoSearch(String area) {
+        String url = "http://api.neko-search.com/v1/";
+
+        Client client = new Client();
+        client.addFilter(new LoggingFilter(System.out));
+        WebResource resource = client.resource(url).queryParam("area", area).queryParam("type", "search");
+        String response = resource.get(String.class);
+
+        return response;
+    }
 }
