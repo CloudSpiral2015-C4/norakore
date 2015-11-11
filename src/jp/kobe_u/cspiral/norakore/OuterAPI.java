@@ -56,6 +56,7 @@ public class OuterAPI {
             List<List<String>> mapped = mapper.readValue(response, List.class);
             return mapped.get(0).get(0);
         } catch (Exception e) {
+            System.out.println("exapi/nanineko failed: " + response);
             return "不明";
         }
     }

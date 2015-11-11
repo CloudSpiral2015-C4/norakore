@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Date;
 import java.util.Calendar;
 import java.text.MessageFormat;
+import java.util.Random;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -78,6 +79,36 @@ public class Nyavatar {
         if (nya == null) throw new Exception(MessageFormat.format(
                 "Specified nyavatar is not found. id={0}", id));
         return nya;
+    }
+
+    // ランダムにセリフを生成
+    private static String[] SayList = {
+        	"お腹すいたにゃぁ～",
+        	"ん？ 一緒に遊んでくれるのかにゃ？",
+        	"うにー…  マタタビのせいで酔っちゃったにゃぁ～//",
+        	"にゃっ！？  尻尾は触っちゃダメっ！",
+        	"…にゃにか用？",
+        	"ふにゃぁ～  な～んか暇だにゃぁ・・・",
+        	"「好奇心は猫をも殺す」 \n イギリスのことわざらしいにゃん。 怖いことわざもあるもんだにゃぁ～",
+        	"猫の血液型は9割以上がA型らしいにゃん。 \n 私？ もちろんA型にゃ！",
+        	"世の中には「猫カフェ」にゃるものがあるらしいにゃ。 \n にゃにそれ、行きたい！"
+            };
+    public static String generateSay() {
+        Random rnd = new Random();
+        int index = rnd.nextInt(SayList.length);
+        return SayList[index];
+    }
+
+    // 猫種類からアイコンを決定
+    private static String[] IconList = {
+        	"563374c731b1b0e407093a9f",
+        	"563374d831b1b0e408093a9f"
+            };
+    public static String determineIcon(String type) {
+        // TODO: typeとの対応付けを適応する
+        Random rnd = new Random();
+        int index = rnd.nextInt(IconList.length);
+        return IconList[index];
     }
 
     // にゃばたーを更新

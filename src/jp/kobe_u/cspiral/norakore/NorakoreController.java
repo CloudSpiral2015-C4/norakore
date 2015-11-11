@@ -90,7 +90,6 @@ public class NorakoreController {
     	DBObject query = new BasicDBObject("_id",new ObjectId(nyavatarID));
     	DBObject queryResult = NyavatarColl.findOne(query);
 
-    	// TODO: likeUsersの中にuserIDが含まれるかのチェック⇒ふくまれていいたら、isLiked=true
     	result.setNyavatarID(queryResult.get("_id").toString());
     	result.setName((String)queryResult.get("name"));
     	result.setType((String)queryResult.get("type"));
@@ -99,14 +98,12 @@ public class NorakoreController {
     	result.setDate((Date)queryResult.get("date"));
     	result.setLocation(new Location((DBObject)queryResult.get("location")));
     	// TODO: LostCatIDにネコサーチAPIを投げて類似猫があれば、LostCatsこれくしょんに追加してそのIDを追加
-    	// TODO: 広告文章をsayに追加する話は無視
     	result.setSay((String)queryResult.get("say"));
     	BasicDBList likeUserList = (BasicDBList)queryResult.get("likeUserList");
     	for (Object likeUserID: likeUserList){
     		result.addLikeUser((String)likeUserID);
     	}
-
-    	result.determineParams(userID); // 欠落パラメータ補完
+        result.setIsLiked(userID);
 
     	return result;
     }
@@ -150,9 +147,6 @@ public class NorakoreController {
     public RegisterResult registerNyavatar(String userID, String name, String type,
             String picture, double lon, double lat) throws Exception {
         NyavatarDetail nya = new NyavatarDetail();
-        nya.setName(name);
-        nya.setType(type);
-        nya.setDate(new Date());
 
         if (picture == null || picture.length() == 0) throw new Exception(
                 "Param:picture is not specified.");
@@ -160,59 +154,14 @@ public class NorakoreController {
         if (picid == "") throw new Exception("saveImage failed.");
         nya.setPictureID(picid);
 
-        // iconIDを２つのうちどちらかランダムに。アイコン画像が増えたら、適宜対応
-        String iconid = "nullID";
-        Random rnd = new Random();
-        int ran = rnd.nextInt(3);
-        switch(ran){
-        case 0:
-        case 1:
-        	iconid = "563374c731b1b0e407093a9f";
-        	break;
-        case 2:
-        	iconid = "563374d831b1b0e408093a9f";
-        	break;
-        }
-        nya.setIconID(iconid);
-
+        nya.setName(name);
+        nya.setDate(new Date());
         nya.setLocation(new Location(lon, lat));
-        ran = rnd.nextInt(10);
-        String say = "お腹すいたにゃぁ～";
-        switch(ran){
-        case 0:
-        case 1:
-        	say = "お腹すいたにゃぁ～";
-        	break;
-        case 2:
-        	say = "ん？ 一緒に遊んでくれるのかにゃ？";
-        	break;
-        case 3:
-        	say = "うにー…  マタタビのせいで酔っちゃったにゃぁ～//";
-        	break;
-        case 4:
-        	say = "にゃっ！？  尻尾は触っちゃダメっ！";
-        	break;
-        case 5:
-        	say = "…にゃにか用？";
-        	break;
-        case 6:
-        	say = "ふにゃぁ～  な～んか暇だにゃぁ・・・";
-        	break;
-        case 7:
-        	say = "「好奇心は猫をも殺す」 \n イギリスのことわざらしいにゃん。 怖いことわざもあるもんだにゃぁ～";
-        	break;
-        case 8:
-        	say = "猫の血液型は9割以上がA型らしいにゃん。 \n 私？ もちろんA型にゃ！";
-        	break;
-        case 9:
-        	say = "世の中には「猫カフェ」にゃるものがあるらしいにゃ。 \n にゃにそれ、行きたい！";
-        	break;
-        }
+        nya.setType(type.equals("不明") ? OuterAPI.getNanineko(picid) : type);
+        nya.setIconID(Nyavatar.determineIcon(type));
+        String say = Nyavatar.generateSay();
         nya.setSay(say);
 
-        nya.determineParams(userID); // 欠落パラメータ補完
-
-        // TODO: 重複チェック；名前はともかく、pictureぐらいはチェック必要だろう
         DBObject dbo = nya.toDBObject();
         NyavatarColl.insert(dbo);
         String nya_id = dbo.get("_id").toString();

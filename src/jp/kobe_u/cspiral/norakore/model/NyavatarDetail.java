@@ -51,30 +51,14 @@ public class NyavatarDetail {
         this.isLiked = false;
 	}
 
-    // アップロード時など，欠落しているパラメータを決定する
-    public void determineParams(String UserID) {
-        if (this.name.equals("")) {
-            // ランダム？
-            this.name = "猫";
-        }
-
-        if (this.type.equals("不明")) {
-            this.type = OuterAPI.getNanineko(this.pictureID);
-        }
-
-        if (this.iconID.equals("")) {
-            // TODO: typeから決定するかpictureから類似度するかで決定
-            this.iconID = "icon_id";
-        }
-
-        // TODO: useridからisLikeをセット
+    public void setIsLiked(String userID) {
         this.isLiked = false;
         for (String user: this.likeUserList) {
-            if(user.equals(UserID)){
+            if(user.equals(userID)){
             	this.isLiked = true;
+                return;
             }
         }
-
     }
 
     public DBObject toDBObject() {
@@ -147,7 +131,7 @@ public class NyavatarDetail {
         this.nyavatarID = value != null ? value : "";
     }
     public void setName(String value) {
-        this.name = value != null ? value : "";
+        this.name = value != null ? value : "猫";
     }
     public void setPictureID(String value) {
         this.pictureID = value != null ? value : "";
