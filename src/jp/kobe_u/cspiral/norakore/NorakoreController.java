@@ -159,7 +159,9 @@ public class NorakoreController {
         nya.setLocation(new Location(lon, lat));
         nya.setType(type.equals("不明") ? OuterAPI.getNanineko(picid) : type);
         nya.setIconID(Nyavatar.determineIcon(type));
+
         String say = Nyavatar.generateSay();
+        if (name.equals("マネキネコ")) say = "中ノ島センターでなんかイベントやってるにゃ！きみも来るにゃ！";
         nya.setSay(say);
 
         DBObject dbo = nya.toDBObject();
