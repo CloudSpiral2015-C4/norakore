@@ -64,9 +64,9 @@
 			var MAX_RANGE = 0;
 
 			for(var i = 0; i <= 2*Math.PI; i += 0.05) move.push(Math.sin(i));
-				MAX_RANGE = move.length;
+			MAX_RANGE = move.length;
 			for(var i = 0; i < n; ++i) offset.push(Math.floor(Math.random()*MAX_RANGE));
-				console.log(move.length);
+			console.log(move.length);
 			console.log(offset);
 			var animate = function() {
 				for(var i = 0; i < n; ++i) {

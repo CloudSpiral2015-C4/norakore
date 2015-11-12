@@ -610,6 +610,14 @@ h3:before {
 	height: 33px;
 }
 
+#upper-header {
+	position: absolute;	
+	top: 100px;
+}
+#pixi {
+	border: 1px solid #333;
+}
+
 
 /* フォーム部品 */
 .form-custom {
