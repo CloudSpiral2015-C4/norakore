@@ -333,4 +333,42 @@ public class NorakoreController {
 		}
 		 return null;
 	}
+
+	public String removeNyavatar(String nyavatarID) throws Exception{
+		String result = "";
+
+		DBObject query = new BasicDBObject("_id",new ObjectId(nyavatarID));
+    	DBObject queryResult = NyavatarColl.findOne(query);
+    	if (queryResult == null) throw new Exception("The nyavatar is not found.");
+
+    	// 全てのユーザの中から、指定したnyavatarIDを持っているユーザを探し、Myにゃばたーリストから削除
+    	DBCursor cursor = UserColl.find();
+        for (DBObject user : cursor) {
+        	BasicDBList list = User.getNyavatarList(user);
+        	for (Object nya_id : list){
+        		if(nyavatarID.equals((String)nya_id)){
+        			removeMyNyavatar(nyavatarID, (String)user.get("_id"));
+        		}
+        	}
+        }
+
+        // nyavatar削除
+    	NyavatarColl.remove(queryResult);
+
+		result = "success";
+
+		return result;
+	}
+
+	public String removeMyNyavatar(String nyavatarID, String userID) throws Exception {
+		String result = "";
+
+		DBObject user = User.getDBObject(userID);
+		BasicDBList list = User.removeNyavatar(user, nyavatarID);
+        User.updateUser(user);
+
+        result = "success";
+
+		return result;
+	}
 }
