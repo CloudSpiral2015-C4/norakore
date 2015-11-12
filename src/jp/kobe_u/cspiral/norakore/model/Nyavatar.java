@@ -214,6 +214,9 @@ public class Nyavatar {
     	map.put("Tonkinese", 4);
     	map.put("Turkish_Angora", 4);
     	map.put("Turkish_Van", 4);
+    	map.put("三毛猫", 3);
+    	map.put("黒猫", 1);
+    	map.put("白猫", 4);
 
     	Random rnd = new Random();
         int index = rnd.nextInt(IconList.length);
