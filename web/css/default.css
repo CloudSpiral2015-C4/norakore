@@ -178,6 +178,8 @@ h3:before {
 .nyavatar-heading img {
 	display: inline-block;
 	height: 30px;
+	border: 1px solid #333;
+	background-color: #2c6a68;
 }
 .nyavatar-heading h4 {
 	display: inline-block;
@@ -232,6 +234,8 @@ h3:before {
 .nyavatar-detail-heading img {
 	display: inline-block;
 	height: 30px;
+	border: 1px solid #333;
+	background-color: #2c6a68;
 }
 .nyavatar-detail-heading h4 {
 	display: inline-block;
