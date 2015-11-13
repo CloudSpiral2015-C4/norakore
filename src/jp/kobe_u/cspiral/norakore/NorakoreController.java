@@ -133,7 +133,11 @@ public class NorakoreController {
 
         // 登録するユーザににゃばたーとかつおを付与
         DBObject user = User.getDBObject(userID);
-        BasicDBList list = User.addNyavatar(user, nyavatarID);
+        try {
+            User.addNyavatar(user, nyavatarID);
+        } catch(Exception e) {
+            // ユーザがにゃばたーを既に所有していてもスルー
+        }
         double bonitos = User.addBonitos(user, 5);
         User.updateUser(user);
 
