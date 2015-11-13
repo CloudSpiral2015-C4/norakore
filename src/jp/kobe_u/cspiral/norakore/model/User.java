@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mongodb.*;
+
 import org.bson.types.ObjectId;
 
 import jp.kobe_u.cspiral.norakore.util.DBUtils;
@@ -47,6 +48,14 @@ public class User {
         if (list.contains(nyavatarID)) throw new Exception("user already has the nyavatar.");
         list.add(nyavatarID);
         return list;
+    }
+
+    public static BasicDBList removeNyavatar(DBObject user, String nyavatarID) throws Exception {
+    	BasicDBList list = User.getNyavatarList(user);
+    	int index = list.indexOf(nyavatarID);
+    	if(index == -1) throw new Exception("user has not the nyavatar.");
+    	list.remove(index);
+    	return list;
     }
 
     public static double addBonitos(DBObject user, double new_bonitos) throws Exception {

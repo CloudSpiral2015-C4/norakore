@@ -271,4 +271,26 @@ public class JaxAdapter {
 		return Response.seeOther(uri).build();
 	}
 
+	// にゃばたーを削除（userIDがnullじゃなければ、指定ユーザのMyにゃばたーからのみ削除）
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("/removenyavatar")
+	public Response removenyavatar(
+			@QueryParam("nyavatarID") String nyavatarID,
+			@QueryParam("userID") String userID) {
+
+		String result = "";
+		try {
+			if(userID == null){
+				result = controller.removeNyavatar(nyavatarID);
+			}else{
+				result = controller.removeMyNyavatar(nyavatarID,userID);
+			}
+		} catch (Exception e) {
+			ErrorResult err = new ErrorResult(e.getMessage());
+			return Response.status(400).entity(err).build();
+		}
+		return Response.status(200).entity(result).build();
+	}
+
 }
