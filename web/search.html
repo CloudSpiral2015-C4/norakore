@@ -44,7 +44,7 @@
 					if(currentWindow){
 						currentWindow.close();
 					}
-					currentWindow = new google.maps.InfoWindow().setContent(name).opem(marker.getMap(),marker);
+					currentWindow = new google.maps.InfoWindow().setContent(name).open(marker.getMap(),marker);
     			});
   			}
 			function mapInit() {
