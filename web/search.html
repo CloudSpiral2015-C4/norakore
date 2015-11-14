@@ -37,7 +37,8 @@
 
 		<script>
 			var geocoder, map;
-			var markerArray = new google.maps.MVCArray();
+			var currentWindow = null;
+			var marks=[],infowindow=[];
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -70,17 +71,20 @@
                             nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
         					for(var i = 0; i < nyavatarList.length;i++) {
                                 //地図上にマーカーを落とす
-        						var marker = new google.maps.Marker({
+        						marker[i] = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
 								var name=nyavatarList[i].name;
-        						google.maps.event.addListener(marker, "click", function() {
-									var infowindow = new google.maps.InfoWindow();
-									infowindow.setContent(name);
-									infowindow.open(map, marker);
+        						google.maps.event.addListener(marker[i], "click", function() {
+									infowindow[i] = new google.maps.InfoWindow();
+									if(currentWindow){
+										currentWindow.close();
+									}
+									infowindow[i].setContent(name);
+									infowindow[i].open(map, marker[i]);
+									currentWindow = infowindow[i];
 								});
-        						markerArray.push(marker);
         						var json = {
                                     nyavatarID : nyavatarList[i].nyavatarID,
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
@@ -137,25 +141,29 @@
             				nyavatarList = data.list;
                             console.log(data.list);
                             $('.nyavatar-list').empty();
-							// nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
                             if(nyavatarList == null) {
                                 $('.nyavatar-list').append('<div class="text-center"><img src="images/unnyown.png"></div>');
                                 return;
                             }
                             nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
-							markerArray.forEach(function (marker, idx) { marker.setMap(null); });
+                            for(var num in markers){
+                            	marker[num].setMap(null);
+                            }
                             for(var i = 0; i < nyavatarList.length; i++) {
-                            	var marker = new google.maps.Marker({
+                            	marker[i] = new google.maps.Marker({
         							position : new google.maps.LatLng(nyavatarList[i].location.lat,nyavatarList[i].location.lon),
         							map:map
         						});
         						var name=nyavatarList[i].name;
-        						google.maps.event.addListener(marker, "click", function() {
-									var infowindow = new google.maps.InfoWindow();
-									infowindow.setContent(name);
-									infowindow.open(map, marker);
+        						google.maps.event.addListener(marker[i], "click", function() {
+									infowindow[i] = new google.maps.InfoWindow();
+									if(currentWindow){
+										currentWindow.close();
+									}
+									infowindow[i].setContent(name);
+									infowindow[i].open(map, marker);
+									currentWindow = infowindow[i];
 								});
-        						markerArray.push(marker);
                                 var json = {
                                     nyavatarID : nyavatarList[i].nyavatarID,
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
