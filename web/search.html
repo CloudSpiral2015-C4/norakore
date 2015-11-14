@@ -38,7 +38,7 @@
 		<script>
 			var geocoder, map;
 			var currentWindow = null;
-			var marker=[],infowindow=[];
+			var marker=new Array(),infowindow=new Array();
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -146,7 +146,7 @@
                                 return;
                             }
                             nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
-                            for(var num in markers){
+                            for(var num in marker){
                             	marker[num].setMap(null);
                             }
                             for(var i = 0; i < nyavatarList.length; i++) {
