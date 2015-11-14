@@ -37,7 +37,9 @@
 			background.position.x = 0;
 			background.position.y = 0;
 			stage.addChild(background);
-			data.list = (data.list instanceof Array) ? data.list : [data.list];
+			if(data.list == null) {
+                return;
+            }
 			var n = data.list.length;
 
 			var chooseImage = function(n) {
