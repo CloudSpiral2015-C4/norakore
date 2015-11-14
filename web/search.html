@@ -38,7 +38,17 @@
 		<script>
 			var geocoder, map;
 			var currentWindow = null;
-			var marks=[],infowindow=[];
+			var marker=new Array();
+			function attachMessage(mark, name) {
+				google.maps.event.addListener(mark, "click", function(event) {
+					if(currentWindow){
+						currentWindow.close();
+					}
+					currentWindow = new google.maps.InfoWindow();
+					currentWindow.setContent(name);
+					currentWindow.open(mark.getMap(),mark);
+    			});
+  			}
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -76,15 +86,7 @@
         							map:map
         						});
 								var name=nyavatarList[i].name;
-        						google.maps.event.addListener(marker[i], "click", function() {
-									infowindow[i] = new google.maps.InfoWindow();
-									if(currentWindow){
-										currentWindow.close();
-									}
-									infowindow[i].setContent(name);
-									infowindow[i].open(map, marker[i]);
-									currentWindow = infowindow[i];
-								});
+								attachMessage(marker[i], name);
         						var json = {
                                     nyavatarID : nyavatarList[i].nyavatarID,
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
@@ -146,7 +148,7 @@
                                 return;
                             }
                             nyavatarList = (nyavatarList instanceof Array) ? nyavatarList : [nyavatarList];
-                            for(var num in markers){
+                            for(var num in marker){
                             	marker[num].setMap(null);
                             }
                             for(var i = 0; i < nyavatarList.length; i++) {
@@ -155,15 +157,7 @@
         							map:map
         						});
         						var name=nyavatarList[i].name;
-        						google.maps.event.addListener(marker[i], "click", function() {
-									infowindow[i] = new google.maps.InfoWindow();
-									if(currentWindow){
-										currentWindow.close();
-									}
-									infowindow[i].setContent(name);
-									infowindow[i].open(map, marker);
-									currentWindow = infowindow[i];
-								});
+								attachMessage(marker[i], name);
                                 var json = {
                                     nyavatarID : nyavatarList[i].nyavatarID,
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
