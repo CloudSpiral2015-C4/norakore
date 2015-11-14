@@ -30,13 +30,14 @@
 			}
 		})
 		.done(function(data) {
-			var stage = new PIXI.Container(); 
+			var stage = new PIXI.Container();
 			var renderer = PIXI.autoDetectRenderer(300, 300);
 			var texture = PIXI.Texture.fromImage('images/home-provisional.png');
 			var background = new PIXI.Sprite(texture);
 			background.position.x = 0;
 			background.position.y = 0;
 			stage.addChild(background);
+			data.list = (data.list instanceof Array) ? data.list : [datalist];
 			var n = data.list.length;
 
 			var chooseImage = function(n) {
@@ -44,7 +45,7 @@
 				var i = Math.floor(Math.random()*n);
 				var j = Math.floor(Math.random()*n) + 1;
 				var img_url = "images/icon/" + type[i] + "_00" + j + ".png"
-				return img_url; 
+				return img_url;
 			};
 
 			var nyavatars = [];
