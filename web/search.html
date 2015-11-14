@@ -39,6 +39,14 @@
 			var geocoder, map;
 			var currentWindow = null;
 			var marker=new Array(),infowindow=new Array();
+			function attachMessage(marker, name) {
+				google.maps.event.addListener(marker, "click", function(event) {
+					if(currentWindow){
+						currentWindow.close();
+					}
+					currentWindow = new google.maps.InfoWindow().setContent(name).opem(marker.getMap(),marker);
+    			});
+  			}
 			function mapInit() {
 				geocoder = new google.maps.Geocoder();
 				var lat = "";
@@ -76,15 +84,7 @@
         							map:map
         						});
 								var name=nyavatarList[i].name;
-        						google.maps.event.addListener(marker[i], "click", function() {
-									infowindow[i] = new google.maps.InfoWindow();
-									if(currentWindow){
-										currentWindow.close();
-									}
-									infowindow[i].setContent(name);
-									infowindow[i].open(map, marker[i]);
-									currentWindow = infowindow[i];
-								});
+								attachMessage(marker[i], name);
         						var json = {
                                     nyavatarID : nyavatarList[i].nyavatarID,
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
@@ -155,15 +155,7 @@
         							map:map
         						});
         						var name=nyavatarList[i].name;
-        						google.maps.event.addListener(marker[i], "click", function() {
-									infowindow[i] = new google.maps.InfoWindow();
-									if(currentWindow){
-										currentWindow.close();
-									}
-									infowindow[i].setContent(name);
-									infowindow[i].open(map, marker);
-									currentWindow = infowindow[i];
-								});
+								attachMessage(marker[i], name);
                                 var json = {
                                     nyavatarID : nyavatarList[i].nyavatarID,
                                     icon : '../api/icon/' + nyavatarList[i].iconID + '.png',
