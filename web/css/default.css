@@ -357,7 +357,7 @@ h3:before {
 .shop-thumbnail {
 	position: relative;
 	-webkit-text-stroke: 1px #000;
-	width: 100%;
+	width: 325px;
 	height: 80px;
 	margin: 0 auto;
 	margin-top: 10px;
