@@ -38,10 +38,11 @@
 			background.position.x = 0;
 			background.position.y = 0;
 			stage.addChild(background);
-			if(data.list == null) {
-                return;
-            }
-			var n = data.list.length;
+
+            var n = 0;
+            if( data.list == null ) n = 0;
+            else if( !$.isArray(data.list) ) n = 1;
+            else n = data.list.length;
 
 			var chooseImage = function(n) {
 				var type = ['gure', 'kuro', 'siro', 'sirogure', 'sirokuro', 'tyasiro'];
