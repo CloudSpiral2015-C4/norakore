@@ -139,6 +139,7 @@ public class JaxAdapter {
             @FormParam("lon") double lon,
             @FormParam("lat") double lat) {
         //String nya_id;
+        name = htmlspecialchars(name);
         RegisterResult result = new RegisterResult();
         try {
             result = controller.registerNyavatar(userID, name, type, picture, lon, lat);
@@ -195,6 +196,8 @@ public class JaxAdapter {
         if (name== null || name.equals(""))
                 err = new ErrorResult("name is empty");
         if (err != null) return Response.status(400).entity(err).build();
+
+        name = htmlspecialchars(name);
 
         UserResult result = new UserResult();
         String resultID = "";
@@ -293,4 +296,14 @@ public class JaxAdapter {
 		return Response.status(200).entity(result).build();
 	}
 
+    // サニタイズ
+    // from http://qiita.com/yoh-nak/items/96d2d996acdc3a28f222
+    private String htmlspecialchars(String input){
+        // return input; // サニタイズOFF
+        return input.replace("&", "&amp;")
+                    .replace("<", "&lt;")
+                    .replace(">", "&gt;")
+                    .replace("\"", "&quot;")
+                    .replace("'", "&#39;");
+    }
 }
